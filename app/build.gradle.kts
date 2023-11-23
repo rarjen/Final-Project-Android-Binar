@@ -3,18 +3,18 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+//    id("com.google.gms.google-services")
+//    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace = "com.example.finalprojectbinar"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.finalprojectbinar"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -81,11 +81,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     //Firebase
-    implementation("com.google.firebase:firebase-analytics:21.5.0")
-    implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
-
-    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
-    implementation("com.google.firebase:firebase-firestore:24.9.1")
+//    implementation("com.google.firebase:firebase-analytics:21.5.0")
+//    implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
+//
+//    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+//    implementation("com.google.firebase:firebase-firestore:24.9.1")
 
     // Koin
     implementation ("io.insert-koin:koin-core:3.5.0")
