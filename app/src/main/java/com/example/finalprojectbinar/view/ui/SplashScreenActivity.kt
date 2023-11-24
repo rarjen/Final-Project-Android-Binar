@@ -2,10 +2,8 @@ package com.example.finalprojectbinar.view.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -14,8 +12,8 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
-import com.example.finalprojectbinar.view.SplashScreen
-import com.example.finalprojectbinar.view.SplashScreenAdapter
+import com.example.finalprojectbinar.view.model.SplashScreen
+import com.example.finalprojectbinar.view.adapter.SplashScreenAdapter
 
 class SplashScreenActivity : AppCompatActivity() {
     private val list =  ArrayList<SplashScreen>()

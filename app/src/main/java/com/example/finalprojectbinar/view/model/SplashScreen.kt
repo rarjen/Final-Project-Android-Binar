@@ -1,4 +1,4 @@
-package com.example.finalprojectbinar.view
+package com.example.finalprojectbinar.view.model
 
 data class SplashScreen (
     val desk: String,
