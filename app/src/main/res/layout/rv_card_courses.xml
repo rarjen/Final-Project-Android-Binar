@@ -54,7 +54,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toStartOf="@id/tvCardRate"
-                    app:layout_constraintTop_toTopOf=""
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/baseline_star_rate_24"/>
 
