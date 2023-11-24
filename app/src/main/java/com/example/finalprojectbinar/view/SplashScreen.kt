@@ -1,4 +1,7 @@
 package com.example.finalprojectbinar.view
 
-class SplashScreen {
-}
+data class SplashScreen (
+    val desk: String,
+    val image: Int
+)
+
