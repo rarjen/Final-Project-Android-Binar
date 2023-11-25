@@ -5,4 +5,14 @@
     <string name="akun">Akun</string>
     <string name="ubah_password">Ubah Password</string>
     <string name="riwayat_pembayaran">Riwayat Pembayaran</string>
+    <string name="hint_search_textbox">Cari Kursus Terbaik..</string>
+    <string name="kategori">Kategori</string>
+    <string name="lihat_semua">Lihat Semua</string>
+    <string name="ui_ux_design">UI/UX Design</string>
+    <string name="kursus_populer">Kursus Populer</string>
+    <string name="all">All</string>
+    <string name="data_science">Data Science</string>
+    <string name="course_cover">Course Cover</string>
+    <string name="modul">Modul</string>
+    <string name="intermediate_level">Intermediate Level</string>
 </resources>
