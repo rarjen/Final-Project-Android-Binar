@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FinalProjectBinar"
         tools:targetApi="31">
         <activity
+            android:name=".view.ui.BerandaActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ui.MainActivity"
             android:exported="true">
             <intent-filter>
