@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF4081"/> <!-- Warna latar belakang tombol saat ditekan -->
+            <corners android:radius="65dp"/> <!--ntuk border radius ketika di klik-->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF4081"/> <!-- Warna latar belakang tombol dalam keadaan normal -->
+            <corners android:radius="65dp"/> <!--ntuk border radius -->
+        </shape>
+    </item>
+</selector>

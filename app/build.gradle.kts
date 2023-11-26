@@ -105,6 +105,9 @@ dependencies {
     testImplementation("org.mockito:mockito-junit-jupiter:5.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
 
+    //Material Design
+    implementation ("com.google.android.material:material:1.5.0")
+
     // Circle Image View
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
