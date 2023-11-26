@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/berandaFragment">
-
+    app:startDestination="@id/kursusFragment">
     <fragment
-        android:id="@+id/berandaFragment"
-        android:name="com.example.finalprojectbinar.view.fragments.BerandaFragment"
-        android:label="fragment_beranda"
-        tools:layout="@layout/fragment_beranda" />
+        android:id="@+id/kursusFragment"
+        android:name="com.example.finalprojectbinar.view.fragments.KursusFragment"
+        android:label="fragment_kursus"
+        tools:layout="@layout/fragment_kursus" />
 </navigation>

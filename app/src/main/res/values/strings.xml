@@ -30,5 +30,65 @@
     <string name="course_cover">Course Cover</string>
     <string name="modul">Modul</string>
     <string name="intermediate_level">Intermediate Level</string>
+    <string name="topik_kelas">Topik Kelas</string>
+    <string name="filter">Filter</string>
+    <string name="premium">Premium</string>
+    <string name="gratis">Gratis</string>
 
+<!--Hanya Data Dummy Hapus Jika Tidak Digunakan-->
+    <string-array name="nama">
+        <item>Belajar Membuat UI/UX dengan Figma</item>
+        <item>Pengenalan Android Development</item>
+        <item>Membuat API dan Membuat Dokumentasinya </item>
+        <item>Pengenalan Design Pattern </item>
+    </string-array>
+    <string-array name="image">
+        <item>https://i.imgur.com/uEdY1r2.jpeg</item>
+        <item>https://i.imgur.com/B8ta5Aa.jpeg</item>
+        <item>https://i.imgur.com/XtntIZE.jpeg</item>
+        <item>https://i.imgur.com/XtntIZE.jpeg</item>
+    </string-array>
+    <string-array name="author">
+        <item>Napoleon</item>
+        <item>Uzumaki Naruto</item>
+        <item>Soeharto</item>
+        <item>Puan Maharani</item>
+    </string-array>
+    <string-array name="level">
+        <item>Intermidate</item>
+        <item>Beginner</item>
+        <item>Beginner</item>
+        <item>Intermidate</item>
+    </string-array>
+    <string-array name="rating">
+        <item>4.9</item>
+        <item>3.8</item>
+        <item>4.0</item>
+        <item>5.0</item>
+    </string-array>
+    <string-array name="totalModul">
+        <item>10</item>
+        <item>8</item>
+        <item>14</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="totalMenit">
+        <item>80</item>
+        <item>100</item>
+        <item>60</item>
+        <item>90</item>
+    </string-array>
+    <string-array name="premium">
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="category">
+        <item>UI/UX</item>
+        <item>Android Engineering</item>
+        <item>FullStack Website</item>
+        <item>UI/UX</item>
+    </string-array>
+    <!--Hanya Data Dummy Hapus Jika Tidak Digunakan-->
 </resources>

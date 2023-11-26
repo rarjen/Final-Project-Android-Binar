@@ -48,8 +48,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvsplash_desk" />
 
-    <ImageView
-        android:layout_width="98dp"
-        android:layout_height="16dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
