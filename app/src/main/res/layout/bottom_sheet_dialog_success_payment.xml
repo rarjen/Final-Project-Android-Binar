@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <androidx.cardview.widget.CardView
+       app:cardCornerRadius="30dp"
+       android:layout_marginBottom="-30dp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:padding="18dp"
+           android:layout_height="wrap_content" >
+           <ImageView
+               android:id="@+id/imageClose"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/baseline_close_24"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <TextView
+               android:id="@+id/tvSelamat"
+               app:layout_constraintTop_toBottomOf="@id/imageClose"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="40sp"
+               android:fontFamily="@font/montserrat_bold"
+               android:textColor="#6148FF"
+               android:layout_marginTop="40dp"
+               android:text="@string/selamat"/>
+
+           <ImageView
+               android:id="@+id/ivCart"
+               android:layout_marginTop="20dp"
+               app:layout_constraintTop_toBottomOf="@id/tvSelamat"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:src="@drawable/illustration__cart_shopping_list" />
+
+           <TextView
+               android:id="@+id/tvTransaksi"
+               android:layout_marginTop="20dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/transaksi_pembayaran_kelas_premium_berhasil"
+               app:layout_constraintTop_toBottomOf="@id/ivCart"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:fontFamily="@font/montserrat_bold"
+               android:textColor="@color/black"
+               android:textSize="12sp" />
+
+           <TextView
+               android:id="@+id/tvReceipt"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/e_receipt_telah_dikiriimkan_ke_email"
+               app:layout_constraintTop_toBottomOf="@id/tvTransaksi"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:fontFamily="@font/montserrat_regular"
+               android:textColor="@color/black"
+               android:textSize="12sp" />
+
+           <Button
+               android:id="@+id/buttonMulaiBelajar"
+               android:layout_marginTop="40dp"
+               app:layout_constraintTop_toBottomOf="@id/tvReceipt"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_marginHorizontal="30dp"
+               android:paddingVertical="10dp"
+               android:layout_width="275dp"
+               android:layout_height="wrap_content"
+               android:backgroundTint="#6148FF"
+               android:layout_marginBottom="18dp"
+               android:text="@string/mulai_belajar" />
+
+
+           <TextView
+               android:id="@+id/tvKembaliBeranda"
+               android:layout_marginTop="18dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="@string/kembali_ke_beranda"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/buttonMulaiBelajar"
+               android:layout_marginBottom="50dp"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:fontFamily="@font/montserrat_bold"
+               android:textColor="#489CFF"
+               android:textSize="16sp" />
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+   </androidx.cardview.widget.CardView>
+
+</LinearLayout>
