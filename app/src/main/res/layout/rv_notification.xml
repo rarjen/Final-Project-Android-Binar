@@ -1,96 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="18dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:padding="18dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/iconNotification"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="3dp"
-            android:background="@drawable/circle_background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_background"
+            android:padding="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/notifications_fill1_wght400_grad0_opsz24" />
+                android:src="@drawable/notifications_fill1_wght400_grad0_opsz24"
+                android:contentDescription="@string/todo" />
         </LinearLayout>
+
         <TextView
             android:id="@+id/rvNotifcationTitle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iconNotification"
-            android:text="Promosi"
-            android:fontFamily="@font/montserrat_semi_bold"
-            android:textColor="#6148FF"
-            android:layout_marginStart="16dp"
-            android:textSize="12sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/promosi"
+            android:textColor="#6148FF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/iconNotification"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/rvNotificationSubTitle"
-            app:layout_constraintTop_toBottomOf="@id/rvNotifcationTitle"
-            app:layout_constraintStart_toEndOf="@id/iconNotification"
-            android:text="Dapatkan Potongan 50% selama Bulan Maret!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
+            android:text="@string/dapatkan_potongan_50_selama_bulan_maret"
             android:textColor="@color/black"
             android:textSize="10sp"
-            android:layout_marginStart="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintStart_toEndOf="@id/iconNotification"
+            app:layout_constraintTop_toBottomOf="@id/rvNotifcationTitle"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/rvNotificationContent"
-            app:layout_constraintTop_toBottomOf="@id/rvNotificationSubTitle"
-            app:layout_constraintStart_toEndOf="@id/iconNotification"
-            android:text="Syarat dan Ketentuan berlaku!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_regular"
+            android:text="@string/syarat_dan_ketentuan_berlaku"
             android:textColor="#8A8A8A"
             android:textSize="10sp"
-            android:layout_marginStart="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            tools:ignore="SmallSp"
+            app:layout_constraintStart_toEndOf="@id/iconNotification"
+            app:layout_constraintTop_toBottomOf="@id/rvNotificationSubTitle" />
 
         <LinearLayout
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_height="wrap_content" >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/rvNotificationTime"
-                android:text="2 Maret, 12:00"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="#8A8A8A"
-                android:textSize="10sp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="16dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="@string/_2_maret_12_00"
+                android:textColor="#8A8A8A"
+                tools:ignore="SmallSp"
+                android:textSize="10sp" />
+
             <LinearLayout
                 android:id="@+id/notificationElips"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:orientation="horizontal"
-                android:background="@drawable/circle_background" >
+                android:background="@drawable/circle_background"
+                android:orientation="horizontal">
+
             </LinearLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.divider.MaterialDivider
-        android:layout_marginVertical="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp" />
 
 </LinearLayout>

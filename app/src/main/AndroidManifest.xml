@@ -13,11 +13,14 @@
         android:theme="@style/Theme.FinalProjectBinar"
         tools:targetApi="31">
         <activity
+            android:name=".view.ui.PaymentActivity"
+            android:exported="false"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/Theme.FinalProjectBinar" />
+        <activity
             android:name=".view.ui.BerandaActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ui.MainActivity"
-            android:exported="true">
             android:name=".view.ui.SplashScreenActivity"
             android:exported="true" >
             <intent-filter>
@@ -28,7 +31,6 @@
         <activity
             android:name=".view.ui.MainActivity"
             android:exported="false">
-
         </activity>
     </application>
 
