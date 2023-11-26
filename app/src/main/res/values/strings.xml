@@ -15,4 +15,19 @@
     <string name="course_cover">Course Cover</string>
     <string name="modul">Modul</string>
     <string name="intermediate_level">Intermediate Level</string>
+    <string name="belajar">Belajar</string>
+    <string name="sudah_punya_akun">Sudah Punya akun?</string>
+    <string name="masuk_di_sini">Masuk Di Sini</string>
+
+    <string-array name="splash_desk">
+        <item>dari Pengalaman terbaik</item>
+        <item>dari Praktisi Terbaik</item>
+        <item>darimana saja</item>
+    </string-array>
+
+    <string-array name="splash_img">
+        <item>@drawable/project_planning</item>
+        <item>@drawable/analytics</item>
+        <item>@drawable/share_location</item>
+    </string-array>
 </resources>
