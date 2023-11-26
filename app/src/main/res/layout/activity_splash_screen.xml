@@ -53,6 +53,7 @@
             android:textAppearance="@style/sudah_punya"
             />
         <TextView
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/masuk_di_sini"

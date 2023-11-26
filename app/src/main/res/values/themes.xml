@@ -6,7 +6,7 @@
     </style>
 
     <style name="Theme.FinalProjectBinar" parent="Base.Theme.FinalProjectBinar" />
-    
+
     <style name="Belajar_title">
         <item name="android:fontFamily">@font/montserrat_bold</item>
         <item name="android:textSize">36sp</item>
