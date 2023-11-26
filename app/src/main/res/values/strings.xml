@@ -85,5 +85,14 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="card_number">Card Number</string>
+    <string name="transaksi_pembayaran_kelas_premium_berhasil">Transaksi pembayaran kelas premium berhasil!</string>
+    <string name="e_receipt_telah_dikiriimkan_ke_email">E-receipt telah dikirimkan ke email.</string>
+    <string name="requirement">Mempunyai akun Figma atau Install Adobe XD Menggunakan internet minimal kecepatan 2Mbps Belajar di tempat yang nyaman</string>
+    <string name="ikuti_kelas">Ikuti Kelas</string>
+    <string name="persiapkan_hal_berikut_untuk_belajar_yang_maksimal">Persiapkan hal berikut untuk belajar yang maksimal:</string>
+    <string name="onboarding">Onboarding...</string>
+    <string name="kembali_ke_beranda">Kembali ke Beranda</string>
+    <string name="mulai_belajar">Mulai Belajar</string>
+    <string name="selamat">Selamat!</string>
 
 </resources>
