@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragments.BerandaFragment"
+    android:background="@color/light_blue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_searchbox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxStrokeWidth="0dp"
+            app:boxBackgroundColor="@color/white"
+            android:elevation="120dp"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/baseline_search_24"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_search_textbox" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_kategori"
+        app:layout_constraintTop_toBottomOf="@id/container_searchbox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/kategori"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/lihat_semua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/lihat_semua"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <GridView
+        android:id="@+id/gridview_kategori"
+        app:layout_constraintTop_toBottomOf="@id/cl_kategori"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/kategori" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_Kursus_populer"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/gridview_kategori"
+        android:layout_height="40dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/kursus_populer"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/lihat_semua_kursus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:text="@string/lihat_semua"
+            android:textColor="@color/dark_blue"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_Kursus_populer_list_btn"
+
+        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/all_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/light_blue"
+            android:text="@string/all"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/second_populer_course_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/all_btn"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/dark_blue"
+            android:text="@string/data_science"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/third_populer_course_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/second_populer_course_btn"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/light_blue"
+            android:text="@string/ui_ux_design"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/card_rectangle_course"
+        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer_list_btn"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
