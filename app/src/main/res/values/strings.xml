@@ -94,5 +94,10 @@
     <string name="kembali_ke_beranda">Kembali ke Beranda</string>
     <string name="mulai_belajar">Mulai Belajar</string>
     <string name="selamat">Selamat!</string>
+    <string name="beranda">Beranda</string>
+    <string name="notifikasi">Notifikasi</string>
+    <string name="kelas">Kelas</string>
+    <string name="kursus">Kursus</string>
+    <string name="version_1_1_0">Version 1.1.0</string>
 
 </resources>

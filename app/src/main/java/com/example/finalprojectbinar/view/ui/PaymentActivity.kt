@@ -35,15 +35,12 @@ class PaymentActivity : AppCompatActivity() {
                    0 -> { tab.text = "Credit Card" }
                    1 -> { tab.text = "Bank Transfer" }
                 }
-
             }.attach()
 
             buttonCheckout.setOnClickListener{
                 showButtomSheetSuccessPayment()
             }
         }
-
-
     }
 
     @SuppressLint("InflateParams")
