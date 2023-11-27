@@ -6,26 +6,26 @@
         android:id="@+id/berandaFragment"
         android:enabled="true"
         android:icon="@drawable/home_fill0_wght400_grad0_opsz24"
-        android:title="Beranda" />
+        android:title="@string/beranda" />
     <item
-        android:id="@+id/notificationFragment"
+        android:id="@+id/notificationFragment3"
         android:enabled="true"
         android:icon="@drawable/notifications_fill0_wght400_grad0_opsz24"
-        android:title="Notifikasi" />
+        android:title="@string/notifikasi" />
     <item
         android:id="@+id/kelasFragment"
         android:enabled="true"
         android:icon="@drawable/play_circle_fill0_wght400_grad0_opsz24"
-        android:title="Kelas" />
+        android:title="@string/kelas" />
     <item
         android:id="@+id/kursusFragment"
         android:enabled="true"
         android:icon="@drawable/list_fill0_wght400_grad0_opsz24"
-        android:title="Kursus" />
+        android:title="@string/kursus" />
     <item
-        android:id="@+id/akunFragment"
+        android:id="@+id/settingFragment"
         android:enabled="true"
         android:icon="@drawable/person_fill0_wght400_grad0_opsz24"
-        android:title="Akun" />
+        android:title="@string/akun" />
 
 </menu>
