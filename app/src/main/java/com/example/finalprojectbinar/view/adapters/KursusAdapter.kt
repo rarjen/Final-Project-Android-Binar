@@ -2,6 +2,7 @@ package com.example.finalprojectbinar.view.adapters
 
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -18,13 +19,11 @@ class KursusAdapter(val dataKelas: ArrayList<DataKelas>):  RecyclerView.Adapter<
         val binding = RvCardCoursesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CoursesHolder(binding)
     }
-
     override fun getItemCount(): Int = dataKelas.size
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val linearHolder = holder as CoursesHolder
-
         linearHolder.onBind(dataKelas[position])
+
     }
 
     class CoursesHolder(val binding: RvCardCoursesBinding): RecyclerView.ViewHolder(binding.root){
@@ -38,7 +37,7 @@ class KursusAdapter(val dataKelas: ArrayList<DataKelas>):  RecyclerView.Adapter<
             binding.tvCardTotalModul.text = totalmodul.toString()
             binding.tvCardTotalTime.text = totalmenit.toString()
             binding.tvCardCategory.text = category
-            if (ispremiun == true){
+            if (ispremiun){
                 binding.statusLayout.background = ContextCompat.getDrawable(binding.root.context,  R.drawable.rounded_background)
                 binding.tvStatus.text = "Paid"
             }else{

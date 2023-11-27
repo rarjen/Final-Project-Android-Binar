@@ -32,9 +32,6 @@
         <activity
             android:name=".view.ui.MainActivity"
             android:exported="true">
-
         </activity>
-
     </application>
-
 </manifest>

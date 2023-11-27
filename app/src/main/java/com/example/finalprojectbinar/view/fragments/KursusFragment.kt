@@ -12,9 +12,6 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
 import com.example.finalprojectbinar.view.model.DataKelas
-import com.example.finalprojectbinar.view.model.SplashScreen
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +30,7 @@ class KursusFragment : Fragment() {
     private lateinit var _binding: FragmentKursusBinding
     private val binding get() = _binding
     private val list =  ArrayList<DataKelas>()
+    private var status = 3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +47,44 @@ class KursusFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentKursusBinding.inflate(inflater, container, false)
-        setUPRecycleView()
-
+        binding.rbAll.isChecked = true
+        list.addAll(getAllCourses())
+        setUPRecycleView(status)
+        changeStatus()
         return binding.root
     }
 
-    private fun setUPRecycleView() {
+    private fun setUPRecycleView(status: Int) {
         val rvCourses: RecyclerView = binding.rvKelas
         rvCourses.layoutManager = LinearLayoutManager(context)
         val kursusAdapter= KursusAdapter(list)
         rvCourses.adapter = kursusAdapter
-        list.addAll(getAllCourses())
+
+    }
+
+    private fun changeStatus(){
+        binding.rbPremium.setOnClickListener {
+            status = 2
+            list.clear()
+            setUPRecycleView(status)
+            list.addAll(getAllPremiumCourses())
+        }
+        binding.rbAll.setOnClickListener {
+            status = 3
+            list.clear()
+            setUPRecycleView(status)
+            list.addAll(getAllCourses())
+        }
+        binding.rbGratis.setOnClickListener {
+            status = 1
+            list.clear()
+            setUPRecycleView(status)
+            list.addAll(getAllFreeCourses())
+        }
     }
 
     //Fungsi Untuk Mengambil data dummy dari string array
-    private fun getAllCourses(): ArrayList<DataKelas> {
+    private fun getAllCourses(): ArrayList<DataKelas>{
         val nama = resources.getStringArray(R.array.nama)
         val author = resources.getStringArray(R.array.author)
         val image = resources.getStringArray(R.array.image)
@@ -87,6 +108,50 @@ class KursusFragment : Fragment() {
         }
         return listKelas
     }
+    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil
+    private fun getAllPremiumCourses(): ArrayList<DataKelas>{
+        val nama = resources.getStringArray(R.array.nama)
+        val author = resources.getStringArray(R.array.author)
+        val image = resources.getStringArray(R.array.image)
+        val level = resources.getStringArray(R.array.level)
+        val rating = resources.getStringArray(R.array.rating)
+        val modul = resources.getStringArray(R.array.totalModul)
+        val menit = resources.getStringArray(R.array.totalMenit)
+        val premium = resources.getStringArray(R.array.premium)
+        val category = resources.getStringArray(R.array.category)
+        val listKelas = ArrayList<DataKelas>()
+        for(i in nama.indices){
+            var isPremium = true
+            if(premium[i] == "1"){
+                isPremium = true
+                val data = DataKelas(nama[i], image[i], author[i], 1000,level[i],rating[i].toDouble(),modul[i].toInt(),menit[i].toInt(), isPremium, "",category[i],"")
+                listKelas.add(data)
+            }
+        }
+        return listKelas
+    }
+    private fun getAllFreeCourses(): ArrayList<DataKelas>{
+        val nama = resources.getStringArray(R.array.nama)
+        val author = resources.getStringArray(R.array.author)
+        val image = resources.getStringArray(R.array.image)
+        val level = resources.getStringArray(R.array.level)
+        val rating = resources.getStringArray(R.array.rating)
+        val modul = resources.getStringArray(R.array.totalModul)
+        val menit = resources.getStringArray(R.array.totalMenit)
+        val premium = resources.getStringArray(R.array.premium)
+        val category = resources.getStringArray(R.array.category)
+        val listKelas = ArrayList<DataKelas>()
+        for(i in nama.indices){
+            var isPremium = true
+            if(premium[i] == "0"){
+                isPremium = false
+                val data = DataKelas(nama[i], image[i], author[i], 1000,level[i],rating[i].toDouble(),modul[i].toInt(),menit[i].toInt(), isPremium, "",category[i],"")
+                listKelas.add(data)
+            }
+        }
+        return listKelas
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Nama Fragment", "Fragment Kursus")

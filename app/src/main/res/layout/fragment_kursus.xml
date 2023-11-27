@@ -85,6 +85,7 @@
         app:layout_constraintTop_toBottomOf="@id/cl_kursus">
 
         <RadioButton
+            android:id="@+id/rbAll"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -96,6 +97,7 @@
             android:textColor="@drawable/text_selector" />
 
         <RadioButton
+            android:id="@+id/rbPremium"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -107,6 +109,7 @@
             android:textColor="@drawable/text_selector" />
 
         <RadioButton
+            android:id="@+id/rbGratis"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
