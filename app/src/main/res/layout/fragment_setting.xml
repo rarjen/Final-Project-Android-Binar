@@ -51,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:textColor="@color/black"
                     android:text="Profil Saya" />
             </LinearLayout>
 
@@ -79,7 +80,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:textColor="@color/black"
                     android:text="Ubah Password" />
             </LinearLayout>
 
@@ -107,7 +109,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:textColor="@color/black"
                     android:text="Riwayat Pembayaran" />
             </LinearLayout>
 
@@ -135,7 +138,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/montserrat_regular"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:textColor="@color/black"
                     android:text="Keluar" />
             </LinearLayout>
 
@@ -158,8 +162,8 @@
         app:layout_constraintTop_toBottomOf="@id/card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version 1.1.0"
-        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/version_1_1_0"
+        android:fontFamily="@font/montserrat_semi_bold"
         android:textSize="12sp"
         android:textColor="#8A8A8A" />
 
