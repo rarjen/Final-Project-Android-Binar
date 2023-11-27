@@ -8,6 +8,8 @@
     <string name="belajar">Belajar</string>
     <string name="sudah_punya_akun">Sudah Punya akun?</string>
     <string name="masuk_di_sini">Masuk Di Sini</string>
+    <string name="daftar">Daftar</string>
+
 
     <string-array name="splash_desk">
         <item>dari Pengalaman terbaik</item>
