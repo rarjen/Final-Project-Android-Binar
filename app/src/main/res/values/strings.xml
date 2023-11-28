@@ -99,5 +99,13 @@
     <string name="kelas">Kelas</string>
     <string name="kursus">Kursus</string>
     <string name="version_1_1_0">Version 1.1.0</string>
+    <string name="rp_387_390">Rp 387,390</string>
+    <string name="belajar_web_designer_dengan_figma">Belajar Web Designer dengan Figma</string>
+    <string name="angela_doe">Angela Doe</string>
+    <string name="ppn_11">PPN 11%</string>
+    <string name="total_bayar">Total Bayar</string>
+    <string name="rp_38_390">Rp 38,390</string>
+    <string name="rp_349_000">Rp 349,000</string>
+    <string name="harga">Harga</string>
 
 </resources>
