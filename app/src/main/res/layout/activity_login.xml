@@ -14,12 +14,13 @@
         android:layout_marginTop="100dp"
         android:fontFamily="@font/montserrat_bold"
         android:lineHeight="36dp"
-        android:text="Masuk"
+        android:text="@string/Masuk"
         android:textColor="@color/purple"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -80,14 +81,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:padding="15dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#6148FF"
+        android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="Masuk"
-        android:backgroundTint="#6148FF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
+        tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize,DuplicateSpeakableTextCheck" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -119,5 +120,6 @@
         android:textColor="#489CFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView3" />
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView3"
+        tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

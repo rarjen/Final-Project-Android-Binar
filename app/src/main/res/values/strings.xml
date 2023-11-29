@@ -114,4 +114,22 @@
     <string name="lupa_kata_sandi">Lupa Kata Sandi</string>
     <string name="buat_password">Buat Password</string>
 
+
+
+    <string name="back">Back</string>
+    <string name="masukkan_otp">Masukkan OTP</string>
+    <string name="desc_otp">Ketik 6 digit kode yang dikirimkan</string>
+    <string name="ke">ke</string>
+    <string name="contohEmail">contohEmail@gmail.com</string>
+    <string name="kirim_ulang_otp">kirim ulang OTP dalam </string>
+    <string name="durasi"> 59 </string>
+    <string name="detik"> detik </string>
+    <string name="minta_otp_baru"> Minta kode baru via email </string>
+    <string name="Masuk"> Masuk </string>
+    <string name="masuk_disini"> Masuk disini </string>
+    <string name="regis_berhasil"> Registrasi \n Berhasil!  </string>
+    <string name="succes"> Succes </string>
+
+
+
 </resources>
