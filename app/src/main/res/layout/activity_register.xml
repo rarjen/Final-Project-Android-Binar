@@ -111,7 +111,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:hint="Buat Password"
+        android:hint="@string/buat_password"
         app:endIconMode="password_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_inputNotelp">
@@ -145,7 +145,7 @@
         android:text="Sudah punya akun?"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@id/buttonRegister"
         tools:ignore="SmallSp" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -159,7 +159,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/not_have"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegister"
         tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
