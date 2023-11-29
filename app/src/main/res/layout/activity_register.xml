@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_back_24"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/back" />
 
     <TextView
         android:id="@+id/tvUbahPassword"
@@ -32,7 +32,8 @@
         android:textColor="@color/purple"
         android:textSize="24sp"
         android:lineHeight="36dp"
-        android:text="@string/daftar" />
+        android:text="@string/daftar"
+        tools:ignore="UnusedAttribute" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_inputNama"
@@ -119,7 +120,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="VisualLintTextFieldSize" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -129,12 +131,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
         android:backgroundTint="#6148FF"
         android:paddingVertical="15dp"
-        android:text="Daftar "
+        android:text="@string/daftar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/repeatPassword"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/not_have"
@@ -142,7 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:layout_marginTop="80dp"
-        android:text="Sudah punya akun?"
+        android:text="@string/sudah_punya_akun"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonRegister"
@@ -154,7 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="80dp"
-        android:text="Masuk disini"
+        android:text="@string/masuk_di_sini"
         android:textColor="@color/purple"
         android:textSize="12sp"
         android:textStyle="bold"
