@@ -14,7 +14,8 @@
       android:layout_marginTop="18dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:src="@drawable/arrow_back_24"/>
+      android:src="@drawable/arrow_back_24"
+      android:contentDescription="TODO" />
 
   <TextView
       android:id="@+id/tvUbahPassword"
@@ -108,7 +109,7 @@
       app:layout_constraintTop_toBottomOf="@+id/otp_text_view" />
 
   <TextView
-      android:id="@+id/textView6"
+      android:id="@+id/tvTimer"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
@@ -127,7 +128,7 @@
       android:layout_marginTop="8dp"
       android:textSize="14sp"
       android:text="detik"
-      app:layout_constraintStart_toEndOf="@+id/textView6"
+      app:layout_constraintStart_toEndOf="@+id/tvTimer"
       app:layout_constraintTop_toBottomOf="@+id/otp_text_view" />
 
 
