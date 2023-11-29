@@ -115,4 +115,9 @@ dependencies {
     implementation("androidx.viewpager:viewpager:1.0.0")
     implementation("me.relex:circleindicator:1.2.2")
 
+    //otp view
+    implementation ("io.github.chaosleung:pinview:1.4.4")
+
+    // lotie
+    implementation ("com.airbnb.android:lottie:5.0.3")
 }

@@ -18,13 +18,14 @@
     <string name="belajar">Belajar</string>
     <string name="sudah_punya_akun">Sudah Punya akun?</string>
     <string name="masuk_di_sini">Masuk Di Sini</string>
+    <string name="daftar">Daftar</string>
     <string name="dapatkan_potongan_50_selama_bulan_maret">Dapatkan Potongan 50% selama Bulan Maret!</string>
     <string name="syarat_dan_ketentuan_berlaku">Syarat dan Ketentuan berlaku!</string>
     <string name="_2_maret_12_00">2 Maret, 12:00</string>
     <string name="promosi">Promosi</string>
     <string name="todo">TODO</string>
     <string name="bayar_dan_ikuti_kelas_selamanya">Bayar dan Ikuti Kelas Selamanya</string>
-
+  
     <string-array name="splash_desk">
         <item>dari Pengalaman terbaik</item>
         <item>dari Praktisi Terbaik</item>
