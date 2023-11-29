@@ -1,10 +1,10 @@
-package com.example.finalprojectbinar.view.adapter
+package com.example.finalprojectbinar.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.databinding.SplashItemBinding
-import com.example.finalprojectbinar.view.model.SplashScreen
+import com.example.finalprojectbinar.model.SplashScreen
 
 class SplashScreenAdapter(private val splashScreen: List<SplashScreen>):
     RecyclerView.Adapter<SplashScreenAdapter.SplashScreenHolder>(){

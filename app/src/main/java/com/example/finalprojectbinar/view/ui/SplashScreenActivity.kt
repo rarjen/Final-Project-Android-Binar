@@ -12,9 +12,10 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
-import com.example.finalprojectbinar.view.model.SplashScreen
-import com.example.finalprojectbinar.view.adapter.SplashScreenAdapter
+import com.example.finalprojectbinar.model.SplashScreen
+import com.example.finalprojectbinar.view.adapters.SplashScreenAdapter
 import com.example.finalprojectbinar.view.ui.login.LoginActivity
+
 
 class SplashScreenActivity : AppCompatActivity() {
     private val list =  ArrayList<SplashScreen>()
@@ -40,7 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
             if(splashScreenSlider.currentItem + 1 < splashScreenAdapter.itemCount){
                 splashScreenSlider.currentItem += 1
             }else{
-                Intent(applicationContext, MainActivity::class.java).also {
+                Intent(applicationContext, BerandaActivity::class.java).also {
                     startActivity(it)
                     finish()
                 }
