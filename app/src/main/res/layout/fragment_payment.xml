@@ -16,7 +16,8 @@
         android:layout_marginTop="18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/arrow_back_24"/>
+        android:src="@drawable/arrow_back_24"
+        android:contentDescription="TODO" />
 
     <LinearLayout
         android:id="@+id/cardView"
@@ -66,7 +67,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="UI/UX Design"
+                            android:text="@string/ui_ux_design"
                             android:gravity="center"
                             android:height="24dp"
                             android:textSize="10sp"
@@ -89,7 +90,7 @@
                         android:fontFamily="@font/montserrat_bold"
                         android:textColor="@color/black"
                         android:textSize="10sp"
-                        android:text="Belajar Web Designer dengan Figma" />
+                        android:text="@string/belajar_web_designer_dengan_figma" />
 
                     <TextView
                         android:id="@+id/tvCardAuthorCourse"
@@ -101,7 +102,7 @@
                         android:textStyle="bold"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Angela Doe" />
+                        android:text="@string/angela_doe" />
                 </LinearLayout>
 
                 <com.google.android.material.divider.MaterialDivider
@@ -129,7 +130,7 @@
                             android:fontFamily="@font/montserrat_bold"
                             android:textSize="12sp"
                             android:textColor="@color/black"
-                            android:text="Harga" />
+                            android:text="@string/harga" />
 
 
                         <TextView
@@ -138,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="Rp 349,000"
+                            android:text="@string/rp_349_000"
                             android:textColor="@color/black"
                             android:fontFamily="@font/montserrat_regular"/>
 
@@ -160,7 +161,7 @@
                             android:fontFamily="@font/montserrat_bold"
                             android:textSize="12sp"
                             android:textColor="@color/black"
-                            android:text="PPN 11%" />
+                            android:text="@string/ppn_11" />
 
 
                         <TextView
@@ -169,7 +170,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="Rp 38,390"
+                            android:text="@string/rp_38_390"
                             android:textColor="@color/black"
                             android:fontFamily="@font/montserrat_regular"/>
                     </LinearLayout>
@@ -189,7 +190,7 @@
                             android:fontFamily="@font/montserrat_bold"
                             android:textSize="12sp"
                             android:textColor="@color/black"
-                            android:text="Total Bayar" />
+                            android:text="@string/total_bayar" />
 
 
                         <TextView
@@ -198,7 +199,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
-                            android:text="Rp 387,390"
+                            android:text="@string/rp_387_390"
                             android:textColor="#6148FF"
                             android:fontFamily="@font/montserrat_bold"/>
 
@@ -227,7 +228,6 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
         android:layout_height="0dp" />
-
 
     <Button
         android:id="@+id/buttonCheckout"
