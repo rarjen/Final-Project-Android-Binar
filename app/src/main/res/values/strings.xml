@@ -26,7 +26,7 @@
     <string name="promosi">Promosi</string>
     <string name="todo">TODO</string>
     <string name="bayar_dan_ikuti_kelas_selamanya">Bayar dan Ikuti Kelas Selamanya</string>
-  
+
     <string-array name="splash_desk">
         <item>dari Pengalaman terbaik</item>
         <item>dari Praktisi Terbaik</item>
@@ -44,7 +44,7 @@
     <string name="premium">Premium</string>
     <string name="gratis">Gratis</string>
 
-<!--Hanya Data Dummy Hapus Jika Tidak Digunakan-->
+    <!--Hanya Data Dummy Hapus Jika Tidak Digunakan-->
     <string-array name="nama">
         <item>Belajar Membuat UI/UX dengan Figma</item>
         <item>Pengenalan Android Development</item>
@@ -177,5 +177,6 @@
     <string name="masuk_tanpa_login">Masuk Tanpa Login</string>
     <string name="lupa_kata_sandi">Lupa Kata Sandi</string>
     <string name="buat_password">Buat Password</string>
+    <string name="menampilkan">Menampilkan</string>
 
 </resources>

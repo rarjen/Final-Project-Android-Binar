@@ -12,7 +12,7 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
-import com.example.finalprojectbinar.view.model.SplashScreen
+import com.example.finalprojectbinar.model.SplashScreen
 import com.example.finalprojectbinar.view.adapters.SplashScreenAdapter
 import com.example.finalprojectbinar.view.ui.login.LoginActivity
 

@@ -1,4 +1,4 @@
-package com.example.finalprojectbinar.view.model
+package com.example.finalprojectbinar.view.model_dummy
 //WARNING!!!!!!
 //Tempat Menyimpan Data Dummy Ganti Pada saat apinya sudah di mapping
 data class DataKelas(

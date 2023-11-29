@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragments.KursusFragment"
-    android:layout_weight="0">
+    tools:context=".view.fragments.HasilFilterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_searchbox"
@@ -73,62 +72,38 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <RadioGroup
-        android:id="@+id/radio_kelas"
-        android:layout_width="wrap_content"
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="12dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_kursus">
 
-        <RadioButton
-            android:id="@+id/rbAll"
-            android:layout_width="60dp"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/menampilkan"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHasilFilter"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="@drawable/button_selector"
-            android:button="@android:color/transparent"
-            android:padding="15dp"
-            android:text="@string/all"
-            android:textAlignment="center"
-            android:textColor="@drawable/text_selector" />
+            android:text="Hasil Filter"
+            android:textColor="@color/purple"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/textView4"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/rbPremium"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/button_selector"
-            android:button="@android:color/transparent"
-            android:padding="15dp"
-            android:text="@string/premium"
-            android:textAlignment="center"
-            android:textColor="@drawable/text_selector" />
-
-        <RadioButton
-            android:id="@+id/rbGratis"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/button_selector"
-            android:button="@android:color/transparent"
-            android:padding="15dp"
-            android:text="@string/gratis"
-            android:textAlignment="center"
-            android:textColor="@drawable/text_selector" />
-    </RadioGroup>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_kelas"
-        android:layout_marginTop="8dp"
-        android:layout_width="320dp"
-        android:layout_height="500dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/radio_kelas"
-        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

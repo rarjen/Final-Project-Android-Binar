@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.R
+import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
-import com.example.finalprojectbinar.view.model.DataKelas
+import com.example.finalprojectbinar.view.model_dummy.DataKelas
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +33,9 @@ class KursusFragment : Fragment() {
     private lateinit var _binding: FragmentKursusBinding
     private val binding get() = _binding
     private val list =  ArrayList<DataKelas>()
-    private var status = 3
+    private var status: String? = "3"
+    private val sharedPrefKey = "statusKursus"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +52,33 @@ class KursusFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentKursusBinding.inflate(inflater, container, false)
-        binding.rbAll.isChecked = true
-        list.addAll(getAllCourses())
-        setUPRecycleView(status)
+        SharedPreferenceHelper.init(requireContext().applicationContext)
+        status = SharedPreferenceHelper.read(sharedPrefKey, status)
+        Log.d("Status", "onCreateView: ${status}")
+        if (status == "3"){
+            binding.rbAll.isChecked = true
+            binding.rbPremium.isChecked = false
+            binding.rbGratis.isChecked = false
+            list.addAll(getAllCourses())
+        }else if (status == "2"){
+            binding.rbAll.isChecked = false
+            binding.rbPremium.isChecked = true
+            binding.rbGratis.isChecked = false
+            list.addAll(getAllPremiumCourses())
+        }else{
+            binding.rbAll.isChecked = false
+            binding.rbPremium.isChecked = false
+            binding.rbGratis.isChecked = true
+            list.addAll(getAllFreeCourses())
+        }
+
+        setUPRecycleView()
         changeStatus()
+
         return binding.root
     }
 
-    private fun setUPRecycleView(status: Int) {
+    private fun setUPRecycleView() {
         val rvCourses: RecyclerView = binding.rvKelas
         rvCourses.layoutManager = LinearLayoutManager(context)
         val kursusAdapter= KursusAdapter(list)
@@ -64,22 +88,25 @@ class KursusFragment : Fragment() {
 
     private fun changeStatus(){
         binding.rbPremium.setOnClickListener {
-            status = 2
+            status = "2"
             list.clear()
-            setUPRecycleView(status)
+            setUPRecycleView()
             list.addAll(getAllPremiumCourses())
+            SharedPreferenceHelper.write(sharedPrefKey, status!!)
         }
         binding.rbAll.setOnClickListener {
-            status = 3
+            status = "3"
             list.clear()
-            setUPRecycleView(status)
+            setUPRecycleView()
             list.addAll(getAllCourses())
+            SharedPreferenceHelper.write(sharedPrefKey, status!!)
         }
         binding.rbGratis.setOnClickListener {
-            status = 1
+            status = "1"
             list.clear()
-            setUPRecycleView(status)
+            setUPRecycleView()
             list.addAll(getAllFreeCourses())
+            SharedPreferenceHelper.write(sharedPrefKey, status!!)
         }
     }
 
@@ -108,7 +135,7 @@ class KursusFragment : Fragment() {
         }
         return listKelas
     }
-    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil
+    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil Courses Premium
     private fun getAllPremiumCourses(): ArrayList<DataKelas>{
         val nama = resources.getStringArray(R.array.nama)
         val author = resources.getStringArray(R.array.author)
@@ -130,6 +157,8 @@ class KursusFragment : Fragment() {
         }
         return listKelas
     }
+
+    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil Courses Gratis
     private fun getAllFreeCourses(): ArrayList<DataKelas>{
         val nama = resources.getStringArray(R.array.nama)
         val author = resources.getStringArray(R.array.author)
@@ -155,7 +184,12 @@ class KursusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("Nama Fragment", "Fragment Kursus")
+        binding.tvFilter.setOnClickListener {
+            val modal = FilterCoursesBottomSheetDialog()
+            childFragmentManager.let { modal.show(it, FilterCoursesBottomSheetDialog.TAG) }
+        }
     }
+
 
 
     companion object {

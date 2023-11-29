@@ -1,8 +1,5 @@
 package com.example.finalprojectbinar.view.adapters
 
-import android.content.res.Resources
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.RvCardCoursesBinding
-import com.example.finalprojectbinar.view.model.DataKelas
-import kotlin.coroutines.coroutineContext
+import com.example.finalprojectbinar.view.model_dummy.DataKelas
 
 class KursusAdapter(val dataKelas: ArrayList<DataKelas>):  RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
