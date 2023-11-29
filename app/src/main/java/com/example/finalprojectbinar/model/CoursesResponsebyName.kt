@@ -2,7 +2,7 @@ package com.example.finalprojectbinar.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CoursesResponse(
+data class CoursesResponsebyName(
     @SerializedName("link")
     val code: Int,
     @SerializedName("data")
