@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/berandaFragment"
+        android:enabled="true"
+        android:icon="@drawable/home_fill0_wght400_grad0_opsz24"
+        android:title="@string/beranda" />
+    <item
+        android:id="@+id/notificationFragment3"
+        android:enabled="true"
+        android:icon="@drawable/notifications_fill0_wght400_grad0_opsz24"
+        android:title="@string/notifikasi" />
+    <item
+        android:id="@+id/kelasFragment"
+        android:enabled="true"
+        android:icon="@drawable/play_circle_fill0_wght400_grad0_opsz24"
+        android:title="@string/kelas" />
+    <item
+        android:id="@+id/kursusFragment"
+        android:enabled="true"
+        android:icon="@drawable/list_fill0_wght400_grad0_opsz24"
+        android:title="@string/kursus" />
+    <item
+        android:id="@+id/settingFragment"
+        android:enabled="true"
+        android:icon="@drawable/person_fill0_wght400_grad0_opsz24"
+        android:title="@string/akun" />
+
+</menu>

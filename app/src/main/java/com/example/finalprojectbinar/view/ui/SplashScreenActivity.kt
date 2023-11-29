@@ -45,6 +45,10 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.loginButton.setOnClickListener {
+            startActivity(Intent(this, PaymentActivity::class.java))
+        }
     }
 
     private fun setCurrentIndicator(index: Int) {
