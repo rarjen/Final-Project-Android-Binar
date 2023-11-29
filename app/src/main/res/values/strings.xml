@@ -108,5 +108,9 @@
     <string name="rp_38_390">Rp 38,390</string>
     <string name="rp_349_000">Rp 349,000</string>
     <string name="harga">Harga</string>
+    <string name="belum_punya_akun">Belum Punya Akun?</string>
+    <string name="daftar_disini">Daftar disini</string>
+    <string name="masuk_tanpa_login">Masuk Tanpa Login</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi</string>
 
 </resources>

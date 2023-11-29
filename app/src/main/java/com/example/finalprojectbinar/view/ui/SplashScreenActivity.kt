@@ -14,6 +14,7 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
 import com.example.finalprojectbinar.view.model.SplashScreen
 import com.example.finalprojectbinar.view.adapter.SplashScreenAdapter
+import com.example.finalprojectbinar.view.ui.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     private val list =  ArrayList<SplashScreen>()
@@ -47,7 +48,7 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         binding.loginButton.setOnClickListener {
-            startActivity(Intent(this, PaymentActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 

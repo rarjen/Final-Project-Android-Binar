@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Lupa Kata Sandi"
+        android:text="@string/lupa_kata_sandi"
         android:textColor="@color/purple"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,6 +84,7 @@
         android:layout_marginTop="20dp"
         android:shadowColor="@android:color/transparent"
         android:text="Masuk"
+        android:backgroundTint="#6148FF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
         tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
@@ -95,17 +96,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
         android:layout_marginTop="116dp"
-        android:text="Belum Punya Akun?"
+        android:text="@string/belum_punya_akun"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView4"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="116dp"
-        android:text="daftar disini"
+        android:text="@string/daftar_disini"
         android:textColor="@color/purple"
         app:layout_constraintStart_toEndOf="@+id/materialTextView3"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
@@ -114,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Masuk Tanpa Login"
+        android:text="@string/masuk_tanpa_login"
         android:textColor="#489CFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
