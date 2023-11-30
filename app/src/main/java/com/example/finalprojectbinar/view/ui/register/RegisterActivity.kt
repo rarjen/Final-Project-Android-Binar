@@ -25,5 +25,10 @@ class RegisterActivity : AppCompatActivity() {
         binding.buttonRegister.setOnClickListener {
             startActivity(Intent(this, VerifyPhoneActivity::class.java))
         }
+
+        binding.tvLoginHere.setOnClickListener{
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
     }
 }
