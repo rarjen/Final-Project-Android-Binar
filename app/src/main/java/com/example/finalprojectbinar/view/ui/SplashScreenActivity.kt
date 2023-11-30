@@ -41,7 +41,7 @@ class SplashScreenActivity : AppCompatActivity() {
             if(splashScreenSlider.currentItem + 1 < splashScreenAdapter.itemCount){
                 splashScreenSlider.currentItem += 1
             }else{
-                Intent(applicationContext, BerandaActivity::class.java).also {
+                Intent(applicationContext, MainActivity::class.java).also {
                     startActivity(it)
                     finish()
                 }

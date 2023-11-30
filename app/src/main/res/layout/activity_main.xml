@@ -30,4 +30,6 @@
         style="@style/Widget.Material3.BottomNavigationView"
         app:menu="@menu/menu_bottom_nav"/>
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

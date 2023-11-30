@@ -3,12 +3,14 @@ package com.example.finalprojectbinar.view.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityMainBinding
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
@@ -17,15 +18,17 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/courseCover"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile"
                 android:contentDescription="@string/course_cover"
                 />
 
         <LinearLayout
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -80,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="14sp"
+                    android:height="35dp"
                     android:text="Belajar Web Designer dengan Figma" />
 
                 <TextView
@@ -100,7 +104,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
@@ -109,7 +112,6 @@
                         android:id="@+id/layoutLevel"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_width="wrap_content"
                         android:orientation="horizontal"
                         android:layout_height="wrap_content" >
@@ -217,18 +219,18 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             </LinearLayout>
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beli    Rp 150.000"
-            />
-
-
+            <Button
+                android:id="@+id/buttonPrice"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:backgroundTint="#489CFF"
+                android:textSize="12sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="5dp"
+                android:text="Beli Rp 249.000" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
