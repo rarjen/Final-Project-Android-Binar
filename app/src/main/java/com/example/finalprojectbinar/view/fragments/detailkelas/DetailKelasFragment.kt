@@ -55,9 +55,6 @@ class DetailKelasFragment : Fragment() {
             }
         })
 
-
-
-
         return binding.root
     }
 }

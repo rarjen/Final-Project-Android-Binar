@@ -50,6 +50,13 @@ class CourseAdapter (
 
     inner class ViewHolder(private var binding: CardRectangleCourseBinding): RecyclerView.ViewHolder(binding.root) {
 
+        init {
+            binding.button.setOnClickListener {
+                val courseId = differ.currentList[adapterPosition].id
+                onButtonClick(courseId)
+            }
+        }
+
         @SuppressLint("SetTextI18n")
         fun bind(data: DataAllCourses) {
             binding.apply {

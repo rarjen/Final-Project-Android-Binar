@@ -10,5 +10,5 @@ class MyRepository {
 
     suspend fun getCourses() = apiService.getListCourses()
 
-    suspend fun getCourseById(courseId: String) = apiService.getCourseById(courseId)
+    suspend fun getDetailById(courseId: String) = apiService.getCourseById(courseId)
 }

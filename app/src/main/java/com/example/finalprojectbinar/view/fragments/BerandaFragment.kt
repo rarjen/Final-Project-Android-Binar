@@ -1,5 +1,6 @@
 package com.example.finalprojectbinar.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
+import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
 import kotlin.math.log
@@ -87,7 +89,12 @@ class BerandaFragment : Fragment() {
     }
 
     private fun showCourses(data: CoursesResponses?){
-        val adapter = CourseAdapter(null)
+        val adapter = CourseAdapter(null, onButtonClick = { courseId ->
+            val intent = Intent(requireContext(), PaymentActivity::class.java)
+            intent.putExtra("courseId", courseId)
+            startActivity(intent)
+
+        })
         adapter.submitCoursesResponse(data?.data ?: emptyList())
         binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCourses.adapter = adapter
