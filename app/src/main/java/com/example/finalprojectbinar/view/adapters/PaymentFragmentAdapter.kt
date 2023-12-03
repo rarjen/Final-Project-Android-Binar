@@ -1,28 +1,32 @@
-package com.example.finalprojectbinar.view.adapter
+package com.example.finalprojectbinar.view.adapters
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.finalprojectbinar.databinding.FragmentPaymentBinding
 
-class PaymentFragmentAdapter: RecyclerView.Adapter<PaymentFragmentAdapter.ViewHolder>() {
+import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
+import com.example.finalprojectbinar.model.DataCourses
+
+class PaymentFragmentAdapter(): RecyclerView.Adapter<PaymentFragmentAdapter.ViewHolder>() {
+
+    private var courseData: DataCourses? = null
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): PaymentFragmentAdapter.ViewHolder {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override fun onBindViewHolder(holder: PaymentFragmentAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        TODO()
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        TODO()
     }
 
-    inner class ViewHolder(binding: FragmentPaymentBinding): RecyclerView.ViewHolder(binding.root){
-
+    inner class ViewHolder(private var binding: ActivityPaymentBinding): RecyclerView.ViewHolder(binding.root){
     }
 
 }

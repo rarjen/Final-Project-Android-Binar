@@ -21,7 +21,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        countDown()
+//        countDown()
 
     }
 

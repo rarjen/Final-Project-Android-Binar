@@ -73,22 +73,6 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <GridView-->
-<!--        android:id="@+id/gridview_kategori"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/cl_kategori"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:paddingStart="30dp"-->
-<!--        android:paddingEnd="30dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:numColumns="2"-->
-<!--        android:scrollbars="none"-->
-<!--        android:verticalSpacing="10dp"-->
-<!--        android:horizontalSpacing="10dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        tools:listitem="@layout/kategori" />-->
-
     <ProgressBar
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -194,6 +178,18 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="29dp"
         tools:listitem="@layout/card_rectangle_course" />
+
+    <ProgressBar
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer"
+        android:layout_marginTop="70dp"
+        android:id="@+id/progressBarCourse"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

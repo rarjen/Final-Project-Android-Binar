@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentPaymentBinding
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 @Suppress("DEPRECATION")
 class PaymentFragment : Fragment() {
@@ -26,7 +27,6 @@ class PaymentFragment : Fragment() {
         val fragmentList = arrayListOf(BankFragment(), CreditCardFragment())
 
         binding.viewPager.adapter = PaymentFragmentPageAdapter(fragmentList, this@PaymentFragment.requireFragmentManager(), lifecycle)
-
 
         return binding.root
     }

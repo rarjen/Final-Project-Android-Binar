@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object APIClient {
-    private const val BASE_URL = "https://binar-finalproject-backend.et.r.appspot.com/v1/"
+    private const val BASE_URL = "https://final-project-online-course.et.r.appspot.com/v1/"
 
     private val logging: HttpLoggingInterceptor
         get() {

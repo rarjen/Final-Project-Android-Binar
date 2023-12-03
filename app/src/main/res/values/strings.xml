@@ -180,7 +180,6 @@
     <string name="menampilkan">Menampilkan</string>
 
 
-
     <string name="back">Back</string>
     <string name="masukkan_otp">Masukkan OTP</string>
     <string name="desc_otp">Ketik 6 digit kode yang dikirimkan</string>
@@ -194,7 +193,33 @@
     <string name="masuk_disini"> Masuk disini </string>
     <string name="regis_berhasil"> Registrasi \n Berhasil!  </string>
     <string name="succes"> Succes </string>
+    <string name="kelas_lainnya">Kelas Lainnya</string>
+    <string name="intro_to_basic_of_user_interaction_design">Intro to Basic of User Interaction Design</string>
+    <string name="beginner_level">Beginner Level</string>
+    <string name="_45_menit">45 Menit</string>
+    <string name="join_grup_telegram">Join Grup Telegram</string>
+    <string name="tentang_kelas">Tentang Kelas</string>
+    <string name="kelas_ini_ditunjukan_untuk">Kelas Ini Ditunjukan Untuk</string>
 
+    <string name="list_requirement">
+        1. Anda yang ingin memahami poin penting design system\n
+        2. Anda yang ingin membantu perusahaan lebih optimal dalam membuat design produk\n
+        3. Anda yang ingin latihan membangun design system\n
+        4. Anda yang ingin latihan membangun design system
+    </string>
 
+    <string name="description">
+        Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang dapat digunakan sebagai
+        panduan utama yang memunginkan designer serta developer memiliki lebih banyak kontrol atas berbagai platform.
+        Dengan hadirnya design system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user experience
+        menjadi lebih baik. Disisi bisnis, design system sangat berguna dalam menghemat waktu dan biaya ketika mengembangkan
+        suatu produk.\n
+        Bersama mentor XXX, kita akan mempelajari design system dari mulai manfaat, alur kerja pembuatannya,
+        tools yang digunakan, hingga pada akhirnya, kita akan membuat MVP dari design system. Selain itu, mentor juga
+        akan menjelaskan berbagai resource yang dibutuhkan untuk mencari inspirasi mengenai design system.\n
+        Kelas ini sesuai untuk Anda yang ingin memahami apa itu design system. Tidak hanya ditujukan untuk UI/UX Designer
+        ataupun Developer, kelas ini sangat sesuai untuk stakeholder lain agar dapat memudahkan tim dalam bekerja sama.
+        Yuk segera daftar dan kami tunggu di kelas ya!
+    </string>
 
 </resources>

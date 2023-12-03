@@ -4,8 +4,10 @@ package com.example.finalprojectbinar.view.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityMainBinding
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
@@ -28,8 +30,20 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.bottomNavigation
         navView.setupWithNavController(navController)
 
-//        navController.addOnDestinationChangedListener { controller, destination, _ ->
-//            handleDestinationChange(destination)
+
+//        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            when (destination.id) {
+//                R.id.detailKelasFragment -> {
+//                    navView.visibility = View.GONE
+//                }
+//                else -> {
+//                    navView.visibility = View.VISIBLE
+//                }
+//            }
 //        }
+    }
+
+    fun getBottomNavigationView(): BottomNavigationView {
+        return binding.bottomNavigation
     }
 }   

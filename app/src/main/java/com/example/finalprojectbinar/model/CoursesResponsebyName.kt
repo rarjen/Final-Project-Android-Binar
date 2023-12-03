@@ -3,10 +3,10 @@ package com.example.finalprojectbinar.model
 import com.google.gson.annotations.SerializedName
 
 data class CoursesResponsebyName(
-    @SerializedName("link")
+    @SerializedName("code")
     val code: Int,
     @SerializedName("data")
-    val `data`: List<DataCourses>,
+    val `data`: DataCourses?,
     @SerializedName("message")
     val message: String,
     @SerializedName("status")

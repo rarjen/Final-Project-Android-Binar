@@ -13,7 +13,8 @@ import com.example.finalprojectbinar.databinding.KategoriBinding
 import com.example.finalprojectbinar.model.DataAllCourses
 
 class CourseAdapter (
-    private val onItemClick: OnItemClickListener? = null
+    private val onItemClick: OnItemClickListener? = null,
+    private val onButtonClick: (String) -> Unit
 ) : RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
 
     private val diffCallBack = object : DiffUtil.ItemCallback<DataAllCourses>() {
@@ -48,17 +49,25 @@ class CourseAdapter (
     }
 
     inner class ViewHolder(private var binding: CardRectangleCourseBinding): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.button.setOnClickListener {
+                val courseId = differ.currentList[adapterPosition].id
+                onButtonClick(courseId)
+            }
+        }
+
         @SuppressLint("SetTextI18n")
         fun bind(data: DataAllCourses) {
             binding.apply {
                 tvCardCategory.text = data.category
                 tvCardTitleCourse.text = data.name
                 tvCardAuthorCourse.text = data.author
-                tvCardLevel.text = "Level ${data.level}"
+                tvCardLevel.text = "${data.level} Level"
                 tvCardRate.text = data.rating.toString()
                 tvCardTotalModul.text = data.totalModule.toString()
                 tvCardTotalTime.text = data.totalMinute.toString()
-                buttonPrice.text = "Beli Rp. ${data.price}"
+                button.text = "Beli Rp. ${data.price}"
                 Glide.with(this.courseCover)
                     .load(data.image)
                     .fitCenter()
