@@ -13,7 +13,7 @@
         android:icon="@drawable/notifications_fill0_wght400_grad0_opsz24"
         android:title="@string/notifikasi" />
     <item
-        android:id="@+id/kelasFragment"
+        android:id="@+id/detailKelasFragment"
         android:enabled="true"
         android:icon="@drawable/play_circle_fill0_wght400_grad0_opsz24"
         android:title="@string/kelas" />

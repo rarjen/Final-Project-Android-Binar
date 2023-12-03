@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityLoginBinding
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
+import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.view.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -20,6 +21,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.tvMasukTanpaLogin.setOnClickListener{
+            startActivity(Intent(this, PaymentActivity::class.java))
         }
     }
 }

@@ -70,5 +70,10 @@
         android:name="com.example.finalprojectbinar.view.fragments.HasilFilterFragment"
         android:label="fragment_hasil_filter"
         tools:layout="@layout/fragment_hasil_filter" />
+    <fragment
+        android:id="@+id/detailKelasFragment"
+        android:name="com.example.finalprojectbinar.view.fragments.detailkelas.DetailKelasFragment"
+        android:label="fragment_detail_kelas"
+        tools:layout="@layout/fragment_detail_kelas" />
 
 </navigation>

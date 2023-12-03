@@ -63,9 +63,9 @@ class BerandaFragment : Fragment() {
         viewModel.getAllCourses().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    showCourses(it.data!!)
                     Log.d("DATATEST", it.data.toString())
-//                    binding.progressBarCategory.visibility = View.GONE
+                    showCourses(it.data!!)
+                    binding.progressBarCourse.visibility = View.GONE
                 }
 
                 Status.ERROR -> {
@@ -73,7 +73,7 @@ class BerandaFragment : Fragment() {
                 }
 
                 Status.LOADING -> {
-//                    binding.progressBarCategory.visibility = View.VISIBLE
+                    binding.progressBarCourse.visibility = View.VISIBLE
                 }
             }
         }
