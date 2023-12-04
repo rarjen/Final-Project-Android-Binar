@@ -17,9 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <ImageView
+            android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_arrow_back_white_24" />
+            android:src="@drawable/baseline_arrow_back_white_24"
+            android:contentDescription="TODO" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,10 +65,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         android:layout_marginTop="240dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -172,6 +174,7 @@
                             android:layout_height="wrap_content"
                             android:src="@drawable/book_4_fill0_wght400_grad0_opsz24" />
                         <TextView
+                            android:id="@+id/tvDetailModul"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
@@ -196,6 +199,7 @@
                             android:layout_height="wrap_content"
                             android:src="@drawable/schedule_fill0_wght400_grad0_opsz24" />
                         <TextView
+                            android:id="@+id/tvDetailTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="12sp"

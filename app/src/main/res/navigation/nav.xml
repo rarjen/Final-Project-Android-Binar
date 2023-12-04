@@ -17,7 +17,11 @@
         android:id="@+id/berandaFragment"
         android:name="com.example.finalprojectbinar.view.fragments.BerandaFragment"
         android:label="fragment_beranda"
-        tools:layout="@layout/fragment_beranda" />
+        tools:layout="@layout/fragment_beranda" >
+        <action
+            android:id="@+id/action_berandaFragment_to_detailKelasFragment"
+            app:destination="@id/detailKelasFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment3"
         android:name="com.example.finalprojectbinar.view.fragments.NotificationFragment"
@@ -74,6 +78,10 @@
         android:id="@+id/detailKelasFragment"
         android:name="com.example.finalprojectbinar.view.fragments.detailkelas.DetailKelasFragment"
         android:label="fragment_detail_kelas"
-        tools:layout="@layout/fragment_detail_kelas" />
+        tools:layout="@layout/fragment_detail_kelas" >
+        <action
+            android:id="@+id/action_detailKelasFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+    </fragment>
 
 </navigation>

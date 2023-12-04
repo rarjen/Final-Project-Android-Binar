@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
@@ -38,7 +36,6 @@ class PaymentActivity : AppCompatActivity() {
 
         val courseId = intent.getStringExtra("courseId")
 
-//        Log.d("TESTGETDATA", courseId.toString())
 
         showDetailCoroutines(courseId.toString())
 
@@ -56,6 +53,7 @@ class PaymentActivity : AppCompatActivity() {
             buttonCheckout.setOnClickListener{
                 showButtomSheetSuccessPayment()
             }
+
         }
 
 
