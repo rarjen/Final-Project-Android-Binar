@@ -10,7 +10,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityMainBinding
+import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
+import com.example.finalprojectbinar.view.fragments.detailkelas.DetailKelasFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.log
 
@@ -31,10 +33,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
 
+
 //        navController.addOnDestinationChangedListener { _, destination, _ ->
 //            when (destination.id) {
 //                R.id.detailKelasFragment -> {
-//                    navView.visibility = View.GONE
+//                    viewPager.currentItem = 0
 //                }
 //                else -> {
 //                    navView.visibility = View.VISIBLE
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-    fun getBottomNavigationView(): BottomNavigationView {
-        return binding.bottomNavigation
-    }
+//    fun getBottomNavigationView(): BottomNavigationView {
+//        return binding.bottomNavigation
+//    }
 }   

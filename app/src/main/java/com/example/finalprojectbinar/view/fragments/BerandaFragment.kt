@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
@@ -16,7 +18,9 @@ import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
+import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.view.ui.PaymentActivity
+import com.example.finalprojectbinar.view.ui.SplashScreenActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
 import kotlin.math.log
@@ -33,7 +37,6 @@ class BerandaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentBerandaBinding.inflate(inflater, container, false)
-
 
         fetchCategoryCoroutines()
         fetchCourseCouroutines()
@@ -65,7 +68,6 @@ class BerandaFragment : Fragment() {
         viewModel.getAllCourses().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("DATATEST", it.data.toString())
                     showCourses(it.data!!)
                     binding.progressBarCourse.visibility = View.GONE
                 }
@@ -89,14 +91,34 @@ class BerandaFragment : Fragment() {
     }
 
     private fun showCourses(data: CoursesResponses?){
-        val adapter = CourseAdapter(null, onButtonClick = { courseId ->
-            val intent = Intent(requireContext(), PaymentActivity::class.java)
-            intent.putExtra("courseId", courseId)
-            startActivity(intent)
-
+        val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
+            if (isPremium) {
+                val intent = Intent(requireContext(), PaymentActivity::class.java)
+                intent.putExtra("courseId", courseId)
+                startActivity(intent)
+            } else {
+                val bundle = Bundle().apply {
+                    putString("courseId", courseId)
+                }
+                findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
+            }
         })
         adapter.submitCoursesResponse(data?.data ?: emptyList())
         binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCourses.adapter = adapter
+    }
+
+//    override fun onHiddenChanged(hidden: Boolean) {
+//        super.onHiddenChanged(hidden)
+//        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
+//        if (!hidden) {
+//            // Fragment is visible, show bottomNavigationView
+//            bottomNavigationView.visibility = View.VISIBLE
+//        }
+//    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -14,7 +14,7 @@ import com.example.finalprojectbinar.model.DataAllCourses
 
 class CourseAdapter (
     private val onItemClick: OnItemClickListener? = null,
-    private val onButtonClick: (String) -> Unit
+    private val onButtonClick: (String, Boolean) -> Unit
 ) : RecyclerView.Adapter<CourseAdapter.ViewHolder>() {
 
     private val diffCallBack = object : DiffUtil.ItemCallback<DataAllCourses>() {
@@ -53,7 +53,8 @@ class CourseAdapter (
         init {
             binding.button.setOnClickListener {
                 val courseId = differ.currentList[adapterPosition].id
-                onButtonClick(courseId)
+                val isPremium = differ.currentList[adapterPosition].isPremium
+                onButtonClick(courseId, isPremium)
             }
         }
 
