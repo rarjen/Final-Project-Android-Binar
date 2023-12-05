@@ -17,9 +17,9 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun getAllCourses() = liveData(Dispatchers.IO){
+    fun getAllCourses(categoryId: String?, level: String?, premium: String?, search: String?) = liveData(Dispatchers.IO){
         try {
-            emit(Resource.success(data = repository.getCourses()))
+            emit(Resource.success(data = repository.getCourses(categoryId, level, premium, search)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }

@@ -92,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/cl_Kursus_populer"
         android:layout_width="match_parent"
-        android:layout_height="250dp" />
+        android:layout_height="240dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:paddingTop="10dp"
@@ -125,47 +125,23 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_Kursus_populer_list_btn"
-        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/all_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="30dp"
-            android:backgroundTint="@color/light_blue"
-            android:text="@string/all"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/second_populer_course_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/all_btn"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@color/dark_blue"
-            android:text="@string/data_science"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/third_populer_course_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/second_populer_course_btn"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@color/light_blue"
-            android:text="@string/ui_ux_design"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="#EBF3FC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#6148FF"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCourses"
@@ -174,7 +150,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer_list_btn"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="29dp"
         tools:listitem="@layout/card_rectangle_course" />

@@ -13,14 +13,14 @@ interface APIService {
     suspend fun getListCategories(): ListCategoriesResponse
 
     @GET("courses")
-    suspend fun getListCourses(): CoursesResponses
+    suspend fun getListCourses(
+        @Query("categoryId") categoryId: String?,
+        @Query("level") level: String?,
+        @Query("premium") premium: String?,
+        @Query("search") search: String?,
+    ): CoursesResponses
 
     @GET("course/{courseId}")
     suspend fun getCourseById(@Path("courseId") courseId: String): CoursesResponsebyName
 
-    @GET("courses/filter")
-    suspend fun getCoursesByCategory(
-        @Query("categoryId") categoryId: String,
-        @Query("level") level: String
-    ): ListCategoriesResponse
 }

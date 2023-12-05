@@ -8,7 +8,7 @@ class MyRepository {
     // Categories
     suspend fun getCategories() = apiService.getListCategories()
 
-    suspend fun getCourses() = apiService.getListCourses()
+    suspend fun getCourses(categoryId: String?, level: String?, premium: String?, search: String?) = apiService.getListCourses(categoryId, level, premium, search)
 
     suspend fun getDetailById(courseId: String) = apiService.getCourseById(courseId)
 }
