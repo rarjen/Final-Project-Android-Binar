@@ -41,7 +41,7 @@ class DetailKelasFragment : Fragment() {
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
         val fragmentList = arrayListOf(TentangKelasFragment(), BankFragment())
-//        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
+        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         binding.apply {
             viewPagerDetailClass.adapter = PaymentFragmentPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
@@ -53,21 +53,21 @@ class DetailKelasFragment : Fragment() {
             }.attach()
         }
 //
-//        binding.viewPagerDetailClass.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                when (position) {
-//                    0 -> {
-//                        bottomNavigationView.visibility = View.GONE
-//                    }
-//                    1 -> {
-//                        bottomNavigationView.visibility = View.VISIBLE
-//                    }
-//                    else -> {
-//                        bottomNavigationView.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//        })
+        binding.viewPagerDetailClass.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        bottomNavigationView.visibility = View.GONE
+                    }
+                    1 -> {
+                        bottomNavigationView.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        bottomNavigationView.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
 
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_detailKelasFragment_to_berandaFragment)
@@ -123,6 +123,8 @@ class DetailKelasFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
+        bottomNavigationView.visibility = View.VISIBLE
     }
 
 

@@ -61,8 +61,8 @@ class KelasSayaFragment : Fragment() {
         val tabLayout = binding.tabLayout
 
         tabLayout.addTab(tabLayout.newTab().setText("All"))
-        tabLayout.addTab(tabLayout.newTab().setText("Premium"))
-        tabLayout.addTab(tabLayout.newTab().setText("Kelas Gratis"))
+        tabLayout.addTab(tabLayout.newTab().setText("In Progress"))
+        tabLayout.addTab(tabLayout.newTab().setText("Selesai"))
 
 //        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 //            override fun onTabSelected(tab: TabLayout.Tab?) {
