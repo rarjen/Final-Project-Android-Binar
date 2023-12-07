@@ -9,4 +9,15 @@
     <color name="grey">#D9D9D9</color>
     <color name="DarkBlue100">#6148FF</color>
     <color name="red">#FF0000</color>
+    
+    <color name="darkBlue">#14A7A0</color>
+    <color name="grey1">#808080</color>
+    <color name="cyan">#51DACF</color>
+    <color name="alice_blue">#EBF3FC</color>
+    <color name="pink">#FF8696</color>
+    <color name="green">#73CA5C</color>
+    <color name="blackText">#212529</color>
+    <color name="dark_grey">#6C757D</color>
+
+
 </resources>

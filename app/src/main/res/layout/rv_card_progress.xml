@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/courseCover"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile"
+                android:contentDescription="@string/course_cover"
+                />
+
+            <LinearLayout
+                android:paddingHorizontal="10dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tvCardCategory"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UI/UX Design"
+                        android:gravity="center"
+                        android:height="24dp"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="#6148FF" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toStartOf="@id/tvCardRate"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:src="@drawable/baseline_star_rate_24"/>
+
+                    <TextView
+                        android:id="@+id/tvCardRate"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="4.7"
+                        android:gravity="center"
+                        android:height="24dp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCardTitleCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="14sp"
+                    android:height="35dp"
+                    android:text="Belajar Web Designer dengan Figma" />
+
+                <TextView
+                    android:id="@+id/tvCardAuthorCourse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:text="Angela Doe" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <LinearLayout
+                        android:id="@+id/layoutLevel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:id="@+id/iconLevel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/local_police_fill0_wght400_grad0_opsz24" />
+                        <TextView
+                            android:id="@+id/tvCardLevel"
+                            app:layout_constraintStart_toEndOf="@id/iconLevel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:height="18dp"
+                            android:gravity="center"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:layout_marginStart="5dp"
+                            android:textColor="#6148FF"
+                            android:text="@string/intermediate_level"/>
+
+                        <ImageView
+                            android:id="@+id/iconModul"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/book_4_fill0_wght400_grad0_opsz24" />
+
+                        <TextView
+                            android:id="@+id/tvCardTotalModul"
+                            app:layout_constraintStart_toEndOf="@id/iconLevel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:height="18dp"
+                            android:gravity="center"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:layout_marginStart="5dp"
+                            android:text="10"/>
+
+                        <TextView
+                            app:layout_constraintStart_toEndOf="@id/iconLevel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:height="18dp"
+                            android:gravity="center"
+                            android:textSize="11sp"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="@string/modul"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutMenit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/layoutLevel">
+                        <ImageView
+                            android:id="@+id/iconTime"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/schedule_fill1_wght400_grad0_opsz24" />
+                        <TextView
+                            android:id="@+id/tvCardTotalTime"
+                            app:layout_constraintStart_toEndOf="@id/iconLevel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:height="24dp"
+                            android:gravity="center"
+                            android:textSize="11sp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:layout_marginStart="5dp"
+                            android:text="60"/>
+
+                        <TextView
+                            app:layout_constraintStart_toEndOf="@id/iconLevel"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:height="18dp"
+                            android:gravity="center"
+                            android:textSize="11sp"
+                            android:layout_marginStart="2dp"
+                            android:fontFamily="@font/montserrat_semi_bold"
+                            android:text="Menit"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutProgress"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layoutMenit"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/check_circle_fill0_wght400_grad0_opsz24" />
+
+                        <FrameLayout
+                            android:layout_gravity="center"
+                            android:layout_width="195dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_height="wrap_content" >
+
+                            <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:progress="60"
+                                app:trackCornerRadius="20dp"
+                                app:trackColor="#D9D9D9"
+                                app:indicatorColor="@color/dark_blue"
+                                app:trackThickness="14dp"
+                                android:background="@drawable/rounded_background" />
+
+                            <TextView
+                                android:id="@+id/tvIndicatorPercentage"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:textSize="9sp"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:layout_gravity="center_vertical"
+                                android:text="60% complete"/>
+                        </FrameLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

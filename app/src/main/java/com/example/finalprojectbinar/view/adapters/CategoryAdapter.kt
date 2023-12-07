@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.KategoriBinding
 import com.example.finalprojectbinar.model.DataCategories
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private val onItemClick: ((Int?) -> Unit)? = null) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     private val diffCallBack = object : DiffUtil.ItemCallback<DataCategories>() {
         override fun areItemsTheSame(

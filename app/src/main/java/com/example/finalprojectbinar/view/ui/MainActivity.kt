@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
-//    fun getBottomNavigationView(): BottomNavigationView {
-//        return binding.bottomNavigation
-//    }
+    fun getBottomNavigationView(): BottomNavigationView {
+        return binding.bottomNavigation
+    }
 }   

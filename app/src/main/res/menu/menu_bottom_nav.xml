@@ -13,14 +13,14 @@
         android:icon="@drawable/notifications_fill0_wght400_grad0_opsz24"
         android:title="@string/notifikasi" />
     <item
-        android:id="@+id/detailKelasFragment"
+        android:id="@+id/kelasSayaFragment"
         android:enabled="true"
         android:icon="@drawable/play_circle_fill0_wght400_grad0_opsz24"
         android:title="@string/kelas" />
     <item
         android:id="@+id/kursusFragment"
         android:enabled="true"
-        android:icon="@drawable/list_fill0_wght400_grad0_opsz24"
+        android:icon="@drawable/format_list_bulleted_fill0_wght400_grad0_opsz24"
         android:title="@string/kursus" />
     <item
         android:id="@+id/settingFragment"
