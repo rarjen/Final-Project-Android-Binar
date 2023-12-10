@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentHasilFilterBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +27,7 @@ class HasilFilterFragment : Fragment() {
     private var param2: String? = null
     private lateinit var _binding: FragmentHasilFilterBinding
     private val binding get() = _binding
+    private var bottomNavigation: BottomNavigationView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,6 +42,8 @@ class HasilFilterFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentHasilFilterBinding.inflate(inflater, container, false)
+        bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigation?.visibility = View.GONE
         return binding.root
     }
 
@@ -60,5 +65,11 @@ class HasilFilterFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bottomNavigation?.visibility = View.VISIBLE
+
     }
 }

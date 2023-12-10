@@ -12,9 +12,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
+import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
+import com.example.finalprojectbinar.util.Status
+import com.example.finalprojectbinar.view.adapters.CourseAdapter
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
 import com.example.finalprojectbinar.view.model_dummy.DataKelas
+import com.example.finalprojectbinar.viewmodel.MyViewModel
+import com.google.android.material.tabs.TabLayout
+import org.koin.android.ext.android.inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +41,7 @@ class KursusFragment : Fragment() {
     private val list =  ArrayList<DataKelas>()
     private var status: String? = "3"
     private val sharedPrefKey = "statusKursus"
-
+    private val viewModel: MyViewModel by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,130 +61,69 @@ class KursusFragment : Fragment() {
         SharedPreferenceHelper.init(requireContext().applicationContext)
         status = SharedPreferenceHelper.read(sharedPrefKey, status)
         Log.d("Status", "onCreateView: ${status}")
-        if (status == "3"){
-            binding.rbAll.isChecked = true
-            binding.rbPremium.isChecked = false
-            binding.rbGratis.isChecked = false
-            list.addAll(getAllCourses())
-        }else if (status == "2"){
-            binding.rbAll.isChecked = false
-            binding.rbPremium.isChecked = true
-            binding.rbGratis.isChecked = false
-            list.addAll(getAllPremiumCourses())
-        }else{
-            binding.rbAll.isChecked = false
-            binding.rbPremium.isChecked = false
-            binding.rbGratis.isChecked = true
-            list.addAll(getAllFreeCourses())
-        }
+        showTab()
+        fetchCourseCouroutines(null,null,null,null)
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                if(tab.position == 0){
+                    fetchCourseCouroutines(null,null,null,null)
+                }else{
+                    fetchCourseCouroutines(null,null,status,null)
+                }
+            }
 
-        setUPRecycleView()
-        changeStatus()
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
 
         return binding.root
     }
 
-    private fun setUPRecycleView() {
-        val rvCourses: RecyclerView = binding.rvKelas
-        rvCourses.layoutManager = LinearLayoutManager(context)
-        val kursusAdapter= KursusAdapter(list)
-        rvCourses.adapter = kursusAdapter
+    private fun fetchCourseCouroutines(categoryId: String?, level: String?, premium: String?, search: String?) {
+        viewModel.getAllCourses(categoryId,level, premium, search).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    setUPRecycleView(it.data!!)
+                    Log.d("DATATEST", it.data.toString())
+                    binding.progressBarCourses.visibility = View.GONE
+                }
 
-    }
+                Status.ERROR -> {
+                    Log.d("Error", "Error Occured!")
+                }
 
-    private fun changeStatus(){
-        binding.rbPremium.setOnClickListener {
-            status = "2"
-            list.clear()
-            setUPRecycleView()
-            list.addAll(getAllPremiumCourses())
-            SharedPreferenceHelper.write(sharedPrefKey, status!!)
-        }
-        binding.rbAll.setOnClickListener {
-            status = "3"
-            list.clear()
-            setUPRecycleView()
-            list.addAll(getAllCourses())
-            SharedPreferenceHelper.write(sharedPrefKey, status!!)
-        }
-        binding.rbGratis.setOnClickListener {
-            status = "1"
-            list.clear()
-            setUPRecycleView()
-            list.addAll(getAllFreeCourses())
-            SharedPreferenceHelper.write(sharedPrefKey, status!!)
-        }
-    }
-
-    //Fungsi Untuk Mengambil data dummy dari string array
-    private fun getAllCourses(): ArrayList<DataKelas>{
-        val nama = resources.getStringArray(R.array.nama)
-        val author = resources.getStringArray(R.array.author)
-        val image = resources.getStringArray(R.array.image)
-        val level = resources.getStringArray(R.array.level)
-        val rating = resources.getStringArray(R.array.rating)
-        val modul = resources.getStringArray(R.array.totalModul)
-        val menit = resources.getStringArray(R.array.totalMenit)
-        val premium = resources.getStringArray(R.array.premium)
-        val category = resources.getStringArray(R.array.category)
-
-        val listKelas = ArrayList<DataKelas>()
-        for(i in nama.indices){
-            var isPremium = true
-            if(premium[i] == "1"){
-                isPremium = true
-            }else{
-                isPremium = false
-            }
-            val data = DataKelas(nama[i], image[i], author[i], 1000,level[i],rating[i].toDouble(),modul[i].toInt(),menit[i].toInt(), isPremium, "",category[i],"")
-            listKelas.add(data)
-        }
-        return listKelas
-    }
-    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil Courses Premium
-    private fun getAllPremiumCourses(): ArrayList<DataKelas>{
-        val nama = resources.getStringArray(R.array.nama)
-        val author = resources.getStringArray(R.array.author)
-        val image = resources.getStringArray(R.array.image)
-        val level = resources.getStringArray(R.array.level)
-        val rating = resources.getStringArray(R.array.rating)
-        val modul = resources.getStringArray(R.array.totalModul)
-        val menit = resources.getStringArray(R.array.totalMenit)
-        val premium = resources.getStringArray(R.array.premium)
-        val category = resources.getStringArray(R.array.category)
-        val listKelas = ArrayList<DataKelas>()
-        for(i in nama.indices){
-            var isPremium = true
-            if(premium[i] == "1"){
-                isPremium = true
-                val data = DataKelas(nama[i], image[i], author[i], 1000,level[i],rating[i].toDouble(),modul[i].toInt(),menit[i].toInt(), isPremium, "",category[i],"")
-                listKelas.add(data)
+                Status.LOADING -> {
+                    binding.progressBarCourses.visibility = View.VISIBLE
+                }
             }
         }
-        return listKelas
     }
 
-    //Fungsi Untuk Mengambil data dummy dari string array dan hanya mengambil Courses Gratis
-    private fun getAllFreeCourses(): ArrayList<DataKelas>{
-        val nama = resources.getStringArray(R.array.nama)
-        val author = resources.getStringArray(R.array.author)
-        val image = resources.getStringArray(R.array.image)
-        val level = resources.getStringArray(R.array.level)
-        val rating = resources.getStringArray(R.array.rating)
-        val modul = resources.getStringArray(R.array.totalModul)
-        val menit = resources.getStringArray(R.array.totalMenit)
-        val premium = resources.getStringArray(R.array.premium)
-        val category = resources.getStringArray(R.array.category)
-        val listKelas = ArrayList<DataKelas>()
-        for(i in nama.indices){
-            var isPremium = true
-            if(premium[i] == "0"){
-                isPremium = false
-                val data = DataKelas(nama[i], image[i], author[i], 1000,level[i],rating[i].toDouble(),modul[i].toInt(),menit[i].toInt(), isPremium, "",category[i],"")
-                listKelas.add(data)
-            }
-        }
-        return listKelas
+    private fun setUPRecycleView(data : CoursesResponses?) {
+        val adapter = KursusAdapter(null)
+        adapter.submitCoursesResponse(data?.data ?: emptyList())
+        binding.rvKelas.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.rvKelas.adapter = adapter
+
+    }
+    private fun showTab(){
+        val allTab = binding.tabLayout.newTab()
+        allTab.text = "All"
+        binding.tabLayout.addTab(allTab)
+
+        val premiumTab = binding.tabLayout.newTab()
+        premiumTab.text = "Premium"
+        binding.tabLayout.addTab(premiumTab)
+
+        val freeTab = binding.tabLayout.newTab()
+        freeTab.text = "Free"
+        binding.tabLayout.addTab(freeTab)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -189,8 +134,6 @@ class KursusFragment : Fragment() {
             childFragmentManager.let { modal.show(it, FilterCoursesBottomSheetDialog.TAG) }
         }
     }
-
-
 
     companion object {
         @JvmStatic
