@@ -222,5 +222,9 @@
         Yuk segera daftar dan kami tunggu di kelas ya!
     </string>
     <string name="kelas_berjalan">Kelas Berjalan</string>
+    <string name="maaf_anda_harus_login_terlebih_dahulu">Maaf, Anda harus login terlebih dahulu</string>
+    <string name="oops">Oops!</string>
+    <string name="beli_sekarang">Beli Sekarang</string>
+    <string name="masuk">Masuk</string>
 
 </resources>

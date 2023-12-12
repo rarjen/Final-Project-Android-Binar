@@ -3,9 +3,10 @@ package com.example.finalprojectbinar.api
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.ListCategoriesResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.example.finalprojectbinar.model.LoginRequest
+import com.example.finalprojectbinar.model.LoginResponse
+import retrofit2.http.*
+
 
 interface APIService {
 
@@ -22,5 +23,8 @@ interface APIService {
 
     @GET("course/{courseId}")
     suspend fun getCourseById(@Path("courseId") courseId: String): CoursesResponsebyName
+
+    @POST("login")
+    suspend fun login(@Body request: LoginRequest): LoginResponse
 
 }
