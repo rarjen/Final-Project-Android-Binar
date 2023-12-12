@@ -62,9 +62,6 @@ class DetailKelasFragment : Fragment() {
                     1 -> {
                         bottomNavigationView.visibility = View.VISIBLE
                     }
-                    else -> {
-                        bottomNavigationView.visibility = View.VISIBLE
-                    }
                 }
             }
         })
@@ -84,12 +81,12 @@ class DetailKelasFragment : Fragment() {
         viewModel.getDetailByIdCourse(courseId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("TESTGETDATABYID", it.data.toString())
                     it.data?.let { data -> showData(data) }
+
                 }
 
                 Status.ERROR -> {
-                    Log.d("Error", "Error Occurred!")
+                    Log.d("ErrorTest", it.data?.code.toString())
                 }
 
                 Status.LOADING -> {
@@ -116,9 +113,6 @@ class DetailKelasFragment : Fragment() {
             .into(binding.coverImage)
     }
 
-//    fun getViewPager(): ViewPager2 {
-//        return binding.viewPagerDetailClass
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

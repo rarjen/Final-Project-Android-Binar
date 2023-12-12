@@ -15,10 +15,15 @@ import com.example.finalprojectbinar.databinding.FragmentBerandaBinding
 import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.DataCategories
 import com.example.finalprojectbinar.model.ListCategoriesResponse
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
 import com.example.finalprojectbinar.view.ui.PaymentActivity
+import com.example.finalprojectbinar.view.ui.login.LoginActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.inject
@@ -65,6 +70,12 @@ class BerandaFragment : Fragment() {
 
         binding.lihatSemuaKursus.setOnClickListener {
             findNavController().navigate(R.id.action_berandaFragment_to_kursusFragment)
+        }
+
+        val dataToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+
+        if (dataToken != null) {
+            Log.d("TESTSHARED", dataToken)
         }
 
         return binding.root
@@ -135,17 +146,24 @@ class BerandaFragment : Fragment() {
 
     private fun showCourses(data: CoursesResponses?){
         val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
-            if (isPremium) {
-                val intent = Intent(requireContext(), PaymentActivity::class.java)
-                intent.putExtra("courseId", courseId)
-                startActivity(intent)
-            } else {
-                val bundle = Bundle().apply {
-                    putString("courseId", courseId)
+            val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+            if (isLogin != null) {
+                if (isPremium) {
+                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
+                    bottomSheetFragment.setCourseId(courseId)
+                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                } else {
+                    val bundle = Bundle().apply {
+                        putString("courseId", courseId)
+                    }
+                    findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
                 }
-                findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
+            } else {
+                val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
+                bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
             }
         })
+
         adapter.submitCoursesResponse(data?.data ?: emptyList())
         binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCourses.adapter = adapter
