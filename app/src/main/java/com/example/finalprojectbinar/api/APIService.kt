@@ -25,6 +25,7 @@ interface APIService {
     suspend fun getCourseById(@Path("courseId") courseId: String): CoursesResponsebyName
 
     @POST("login")
-    suspend fun login(@Body request: LoginRequest): LoginResponse
+    suspend fun login(@Body request: LoginRequest
+    ): LoginResponse
 
 }
