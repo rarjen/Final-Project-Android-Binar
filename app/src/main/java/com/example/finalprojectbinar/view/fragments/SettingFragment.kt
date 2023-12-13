@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.finalprojectbinar.R
+import com.example.finalprojectbinar.api.APIClient
 import com.example.finalprojectbinar.databinding.FragmentSettingBinding
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 
 class SettingFragment : Fragment() {
     private var _binding : FragmentSettingBinding? = null
@@ -30,6 +33,10 @@ class SettingFragment : Fragment() {
 
         binding.riwayatPembayaran.setOnClickListener {
             findNavController().navigate(R.id.action_settingFragment_to_paymentHistoryFragment)
+        }
+
+        binding.logout.setOnClickListener {
+            SharedPreferenceHelper.write(Enum.PREF_NAME.value, null)
         }
 
 
