@@ -108,7 +108,7 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
                 }
             }
         })
-
+        Log.d("Data Yang Mau Dikirim", filter.toString())
     }
     fun setDataListener(listener: DataListener){
         this.dataListener = listener
