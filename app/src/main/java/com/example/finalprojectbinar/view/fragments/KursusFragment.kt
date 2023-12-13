@@ -187,6 +187,10 @@ class KursusFragment : Fragment(), DataListener {
     }
 
     override fun onClearFilter() {
+        categoryId.clear()
+        Level.clear()
+        category = null
+        level = null
         fetchCourseCouroutines(null,null,null,null)
     }
 }
