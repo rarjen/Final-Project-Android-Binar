@@ -15,4 +15,6 @@ class MyRepository() {
 
     // Auth
     suspend fun postLogin(loginRequest: LoginRequest) = apiService.login(loginRequest)
+
+
 }

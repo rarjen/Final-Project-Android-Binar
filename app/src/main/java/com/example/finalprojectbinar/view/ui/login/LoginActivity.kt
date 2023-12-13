@@ -1,10 +1,12 @@
 package com.example.finalprojectbinar.view.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.finalprojectbinar.api.APIClient
+import android.util.Patterns
+import android.view.View
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.example.finalprojectbinar.databinding.ActivityLoginBinding
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.util.Enum
@@ -13,54 +15,123 @@ import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.view.ui.register.RegisterActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
+import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
 
 class LoginActivity : AppCompatActivity() {
 
-    private var _binding : ActivityLoginBinding? = null
+    private var _binding: ActivityLoginBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MyViewModel by inject()
+    private lateinit var pref: SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        pref = SharedPreferenceHelper // Initialize SharedPreferenceHelper
+
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        binding.tvMasukTanpaLogin.setOnClickListener{
+        binding.tvMasukTanpaLogin.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
         binding.btnLogin.setOnClickListener {
-//            Log.d("TESTENUM", Enum.PREF_NAME.value)
-            val email = binding.etEmail.toString()
-            val password = binding.etPassword.toString()
-//            login(email, password)
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            login(email, password)
         }
     }
 
-
     private fun login(email: String, password: String) {
-        val loginRequest = LoginRequest(email, password)
-        viewModel.postLogin(loginRequest).observe(this) {
-            when(it.status) {
-                Status.SUCCESS -> {
-                    val token = it.data?.token.toString()
-                    SharedPreferenceHelper.write(Enum.PREF_NAME.value, token)
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
-                Status.ERROR -> {
-                    Log.d("ErrorTEST", "Error Occured!")
-                }
-                Status.LOADING -> {
-                    Log.d("LoadingTEST", "Loading")
+        if (validateEmail(binding.etEmail, binding.emailLogLay) &&
+            validatePassword(binding.etPassword, binding.passwordLogLay)
+        ) {
+            val loginRequest = LoginRequest(email, password)
+            viewModel.postLogin(loginRequest).observe(this) {
+                binding.progressBar.visibility = View.VISIBLE
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        val token = it.data?.token.toString()
+                        pref.write(Enum.PREF_NAME.value, token)
+                        Log.d("LoginSuccess", "Login berhasil. Token: $token")
+                        binding.progressBar.visibility = View.GONE
+                        navigateToMainActivity()
+                    }
+                    Status.ERROR -> {
+                        val errorMessage = it.message ?: "Error Occurred!"
+                        Log.d("ErrorTEST", errorMessage)
+                        binding.progressBar.visibility = View.GONE
+                        handleLoginError(errorMessage)
+                    }
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        Log.d("LoadingTEST", "Loading")
+                    }
                 }
             }
         }
+    }
+
+    private fun handleLoginError(errorMessage: String) {
+        if (errorMessage.contains("email")) {
+            binding.emailLogLay.error = "Email tidak terdaftar"
+        } else if (errorMessage.contains("password")) {
+            binding.passwordLogLay.error = "Kata sandi salah"
+        } else {
+            binding.emailLogLay.error = null
+            binding.passwordLogLay.error = null
+        }
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    // validasi
+    private fun validateEmail(edEmail: EditText, layEmail: TextInputLayout): Boolean {
+        return when {
+            edEmail.text.toString().trim().isEmpty() -> {
+                layEmail.error = "Email tidak boleh kosong"
+                false
+            }
+            !Patterns.EMAIL_ADDRESS.matcher(edEmail.text.toString().trim()).matches() -> {
+                layEmail.error = "Email harus unik dan valid"
+                false
+            }
+            else -> {
+                layEmail.error = null
+                true
+            }
+        }
+    }
+
+    private fun validatePassword(edPass: EditText, layPass: TextInputLayout): Boolean {
+        return when {
+            edPass.text.toString().trim().isEmpty() -> {
+                layPass.error = "Password tidak boleh kosong"
+                false
+            }
+            edPass.text.toString().trim().length < 8 -> {
+                layPass.error = "Password harus lebih dari 8 karakter"
+                false
+            }
+            else -> {
+                layPass.error = null
+                true
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
