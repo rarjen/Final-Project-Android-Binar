@@ -13,14 +13,18 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.model.CoursesResponses
+import com.example.finalprojectbinar.model.DataFilter
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
+import com.example.finalprojectbinar.view.adapters.FilterAdapter
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
 import com.example.finalprojectbinar.view.model_dummy.DataKelas
+import com.example.finalprojectbinar.view.model_dummy.ListFilter
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.inject
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,16 +36,20 @@ private const val ARG_PARAM2 = "param2"
  * Use the [KursusFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class KursusFragment : Fragment() {
+class KursusFragment : Fragment(), DataListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var _binding: FragmentKursusBinding
     private val binding get() = _binding
-    private val list =  ArrayList<DataKelas>()
+    private var DataFilter =  ArrayList<DataFilter>()
     private var status: String? = "3"
     private val sharedPrefKey = "statusKursus"
     private val viewModel: MyViewModel by inject()
+    private var categoryId: Array<String?> = arrayOfNulls(6)
+    private var Level: Array<String?> = arrayOfNulls(4)
+    var category: String? = null
+    var level: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,26 +70,15 @@ class KursusFragment : Fragment() {
         status = SharedPreferenceHelper.read(sharedPrefKey, status)
         Log.d("Status", "onCreateView: ${status}")
         showTab()
-        fetchCourseCouroutines(null,null,null,null)
-        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                if(tab.position == 0){
-                    fetchCourseCouroutines(null,null,null,null)
-                }else{
-                    fetchCourseCouroutines(null,null,status,null)
-                }
-            }
+        Log.d("DATAAAAA", category + level)
+        Log.d("Nama Fragment", "Fragment Kursus")
+        binding.tvFilter.setOnClickListener {
+            val modal = FilterCoursesBottomSheetDialog.newInstance(DataFilter)
+            Log.d("DATA KIRIMAN", DataFilter.toString())
+            modal.setDataListener(this)
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-
-        })
-
+            childFragmentManager.let { modal.show(it, FilterCoursesBottomSheetDialog.TAG) }
+        }
         return binding.root
     }
 
@@ -128,11 +125,29 @@ class KursusFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Nama Fragment", "Fragment Kursus")
-        binding.tvFilter.setOnClickListener {
-            val modal = FilterCoursesBottomSheetDialog()
-            childFragmentManager.let { modal.show(it, FilterCoursesBottomSheetDialog.TAG) }
-        }
+
+        fetchCourseCouroutines(category,level,null,null)
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                if(tab.position == 0){
+                    fetchCourseCouroutines(category,level,null,null)
+                }else if (tab.position == 1){
+                    fetchCourseCouroutines(category,level,"1",null)
+                }else{
+                    fetchCourseCouroutines(category,level,"0",null)
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+
     }
 
     companion object {
@@ -144,5 +159,28 @@ class KursusFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    override fun oDataReceived(dataFilter:ArrayList<DataFilter>) {
+        var i = 0
+       for (item in dataFilter){
+           when(item){
+               is DataFilter.Category ->{
+                   categoryId[i] = item.categoryId.toString()
+               }
+               is DataFilter.Level ->{
+                   Level[i] = item.level.toString()
+               }
+           }
+           i++
+       }
+        if (categoryId.isNotEmpty()) {
+          category = categoryId.filterNotNull().joinToString(",")
+        }
+        if (Level.isNotEmpty()){
+            level = Level.filterNotNull().joinToString(",")
+        }
+        Log.d("Data On Received", category+level)
+        fetchCourseCouroutines(category,level,null,null)
+        DataFilter = dataFilter
     }
 }

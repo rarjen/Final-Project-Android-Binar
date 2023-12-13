@@ -1,15 +1,25 @@
 package com.example.finalprojectbinar.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentHasilFilterBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
+import com.example.finalprojectbinar.model.CoursesResponses
+import com.example.finalprojectbinar.model.DataFilter
+import com.example.finalprojectbinar.util.Status
+import com.example.finalprojectbinar.view.adapters.KursusAdapter
+import com.example.finalprojectbinar.view.model_dummy.ListFilter
+import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.android.ext.android.inject
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +38,8 @@ class HasilFilterFragment : Fragment() {
     private lateinit var _binding: FragmentHasilFilterBinding
     private val binding get() = _binding
     private var bottomNavigation: BottomNavigationView? = null
+
+    private val viewModel: MyViewModel by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -45,6 +57,40 @@ class HasilFilterFragment : Fragment() {
         bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigation?.visibility = View.GONE
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val bundle = arguments
+
+    }
+
+    private fun fetchCourseCouroutines(categoryId: String?, level: String?, premium: String?, search: String?) {
+        viewModel.getAllCourses(categoryId,level, premium, search).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    setUPRecycleView(it.data!!)
+                    Log.d("DATATEST", it.data.toString())
+                    binding.progressBarCourses.visibility = View.GONE
+                }
+
+                Status.ERROR -> {
+                    Log.d("Error", "Error Occured!")
+                }
+
+                Status.LOADING -> {
+                    binding.progressBarCourses.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun setUPRecycleView(data : CoursesResponses?) {
+        val adapter = KursusAdapter(null)
+        adapter.submitCoursesResponse(data?.data ?: emptyList())
+        binding.rvKelas.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.rvKelas.adapter = adapter
+
     }
 
     companion object {

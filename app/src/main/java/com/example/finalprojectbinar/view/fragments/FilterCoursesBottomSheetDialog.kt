@@ -6,11 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
+import android.widget.CheckBox
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
+import com.example.finalprojectbinar.model.DataFilter
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.FilterAdapter
@@ -21,12 +20,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var _binding: FilterCoursesBottomsheetBinding
     private val binding get() = _binding
     private val viewModel: MyViewModel by inject()
+    private val  mBundle = Bundle()
+    private var dataListener: DataListener? = null
+    private val filter = ArrayList<DataFilter>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FilterCoursesBottomsheetBinding.inflate(inflater, container, false)
         fetchCategoryCoroutines()
@@ -34,7 +35,8 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
         }
         binding.btnFilter.setOnClickListener {
-            findNavController().navigate(R.id.action_kursusFragment_to_hasilFilterFragment)
+            sendDataToFragment(filter)
+            dismiss()
         }
         return binding.root
     }
@@ -71,26 +73,65 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
     fun setupRecycleView(data: ListCategoriesResponse?){
         var id = 1
         val list = mutableListOf<ListFilter>()
-
 // Menambahkan item header
         list.add(ListFilter.HeaderItem("Categories"))
 // Menambahkan item checkbox untuk setiap kategori dalam data
         data?.data?.forEach { category ->
-            list.add(ListFilter.CheckboxItem(id, category.name))
+            list.add(ListFilter.CheckboxItem(id, category.name, null))
             id++
         }
         list.add(ListFilter.HeaderItem("Level"))
-        list.add(ListFilter.CheckboxItem(id, "Semua Level"))
-        list.add(ListFilter.CheckboxItem(id, "Beginner Level"))
-        list.add(ListFilter.CheckboxItem(id, "Intermediate Level"))
-        list.add(ListFilter.CheckboxItem(id, "Advanced Level"))
-        val adapter = FilterAdapter(list)
+        list.add(ListFilter.CheckboxItem(null, "Semua Level",null))
+        list.add(ListFilter.CheckboxItem(null, "Beginner Level", "beginner"))
+        list.add(ListFilter.CheckboxItem(null, "Intermediate Level","intermediate"))
+        list.add(ListFilter.CheckboxItem(null, "Advanced Level", "advanced"))
+        val dataList = arguments?.getParcelableArrayList<DataFilter>(ARG_DATA)
+        val adapter = FilterAdapter(list, dataList)
         binding.rvFilter.adapter = adapter
         binding.rvFilter.layoutManager = LinearLayoutManager(context)
+        adapter.setOnItemClickCallback(object : FilterAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: ListFilter.CheckboxItem, cbFilter: CheckBox) {
+                if (cbFilter.isChecked){
+                    if (data.id.toString().isNotEmpty() && data.id!!.toInt() <= 6) {
+                        filter.add(DataFilter.Category(data.id.toString()))
+                    }else{
+                        filter.add(DataFilter.Level(data.tag.toString()))
+                    }
+                    Log.d("Ditambah", data.id.toString()+data.tag.toString())
+                }else{
+                    if (data.id.toString().isNotEmpty() && data.id!!.toInt() <= 6) {
+                        filter.remove(DataFilter.Category(data.id.toString()))
+                    }else{
+                        filter.remove(DataFilter.Level(data.tag.toString()))
+                    }
+                    Log.d("Dihapus", data.id.toString()+data.tag.toString())
+                }
+            }
+        })
+
+    }
+    fun setDataListener(listener: DataListener){
+        this.dataListener = listener
+    }
+
+    private fun sendDataToFragment(dataFilter: ArrayList<DataFilter>){
+        dataListener?.oDataReceived(dataFilter)
     }
 
     companion object{
         const val TAG = "CoursesFilterBottomSheetDialog"
+        const val ARG_DATA = "arg_data"
+        fun newInstance(dataFilter: ArrayList<DataFilter>):FilterCoursesBottomSheetDialog{
+            val fragment = FilterCoursesBottomSheetDialog()
+            val args = Bundle()
+            args.putParcelableArrayList(ARG_DATA, dataFilter)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
+}
+
+interface DataListener{
+    fun oDataReceived(dataFilter: ArrayList<DataFilter>)
 }
