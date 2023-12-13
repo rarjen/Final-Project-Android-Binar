@@ -27,7 +27,7 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
     private val viewModel: MyViewModel by inject()
     private val  mBundle = Bundle()
     private var dataListener: DataListener? = null
-    private val filter = ArrayList<DataFilter>()
+    private var filter = ArrayList<DataFilter>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FilterCoursesBottomsheetBinding.inflate(inflater, container, false)
         fetchCategoryCoroutines()
@@ -37,6 +37,12 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
         binding.btnFilter.setOnClickListener {
             sendDataToFragment(filter)
             dismiss()
+        }
+        binding.tvHapusFilter.setOnClickListener {
+            filter.clear()
+            clearFilter()
+            dismiss()
+
         }
         return binding.root
     }
@@ -81,11 +87,11 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
             id++
         }
         list.add(ListFilter.HeaderItem("Level"))
-        list.add(ListFilter.CheckboxItem(null, "Semua Level",null))
         list.add(ListFilter.CheckboxItem(null, "Beginner Level", "beginner"))
         list.add(ListFilter.CheckboxItem(null, "Intermediate Level","intermediate"))
         list.add(ListFilter.CheckboxItem(null, "Advanced Level", "advanced"))
         val dataList = arguments?.getParcelableArrayList<DataFilter>(ARG_DATA)
+        filter = dataList!!
         val adapter = FilterAdapter(list, dataList)
         binding.rvFilter.adapter = adapter
         binding.rvFilter.layoutManager = LinearLayoutManager(context)
@@ -117,6 +123,9 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
     private fun sendDataToFragment(dataFilter: ArrayList<DataFilter>){
         dataListener?.oDataReceived(dataFilter)
     }
+    private fun clearFilter(){
+        dataListener?.onClearFilter()
+    }
 
     companion object{
         const val TAG = "CoursesFilterBottomSheetDialog"
@@ -134,4 +143,5 @@ class FilterCoursesBottomSheetDialog : BottomSheetDialogFragment() {
 
 interface DataListener{
     fun oDataReceived(dataFilter: ArrayList<DataFilter>)
+    fun onClearFilter()
 }

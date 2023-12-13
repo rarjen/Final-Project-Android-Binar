@@ -46,8 +46,8 @@ class KursusFragment : Fragment(), DataListener {
     private var status: String? = "3"
     private val sharedPrefKey = "statusKursus"
     private val viewModel: MyViewModel by inject()
-    private var categoryId: Array<String?> = arrayOfNulls(6)
-    private var Level: Array<String?> = arrayOfNulls(4)
+    private var categoryId: ArrayList<String?> = ArrayList(6)
+    private var Level: ArrayList<String?> = ArrayList(4)
     var category: String? = null
     var level: String? = null
 
@@ -162,13 +162,15 @@ class KursusFragment : Fragment(), DataListener {
     }
     override fun oDataReceived(dataFilter:ArrayList<DataFilter>) {
         var i = 0
+        categoryId.clear()
+        Level.clear()
        for (item in dataFilter){
            when(item){
                is DataFilter.Category ->{
-                   categoryId[i] = item.categoryId.toString()
+                  categoryId.add(item.categoryId.toString())
                }
                is DataFilter.Level ->{
-                   Level[i] = item.level.toString()
+                   Level.add((item.level.toString()))
                }
            }
            i++
@@ -182,5 +184,9 @@ class KursusFragment : Fragment(), DataListener {
         Log.d("Data On Received", category+level)
         fetchCourseCouroutines(category,level,null,null)
         DataFilter = dataFilter
+    }
+
+    override fun onClearFilter() {
+        fetchCourseCouroutines(null,null,null,null)
     }
 }
