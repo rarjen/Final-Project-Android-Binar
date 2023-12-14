@@ -108,9 +108,6 @@ class DetailKelasFragment : Fragment() {
 
         val youTubePlayerView: YouTubePlayerView = binding.youtubePlayerView
         lifecycle.addObserver(youTubePlayerView)
-
-        Log.d("TESTLINKVIDEO", courseData?.introVideo.toString())
-
         youTubePlayerView.addYouTubePlayerListener(object: AbstractYouTubePlayerListener(){
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
