@@ -3,18 +3,15 @@ package com.example.finalprojectbinar.view.fragments.detailkelas
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
-import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.util.Enum
@@ -22,12 +19,15 @@ import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
-import com.example.finalprojectbinar.view.fragments.payment.CreditCardFragment
 import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
+
 
 class DetailKelasFragment : Fragment() {
 
@@ -106,6 +106,18 @@ class DetailKelasFragment : Fragment() {
     private fun showData(data: CoursesResponsebyName) {
         val courseData: DataCourses? = data.data
 
+        val youTubePlayerView: YouTubePlayerView = binding.youtubePlayerView
+        lifecycle.addObserver(youTubePlayerView)
+        youTubePlayerView.addYouTubePlayerListener(object: AbstractYouTubePlayerListener(){
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                val urlVideo = courseData?.introVideo
+                val videoId = extractYouTubeVideoId(urlVideo!!)
+                Log.d("VIDEOID", videoId.toString())
+                youTubePlayer.loadVideo(videoId!!.toString(), 0F)
+            }
+        })
+
         binding.tvCategoryDetail.text = courseData?.category
         binding.tvTitleDetailCourse.text = courseData?.name
         binding.tvAuthorDetailCourse.text = courseData?.author
@@ -113,10 +125,16 @@ class DetailKelasFragment : Fragment() {
         binding.tvLevelDetailCourse.text = "${courseData?.level} Level"
         binding.tvDetailTime.text = "${courseData?.totalMinute} Menit"
         binding.tvDetailModul.text = "${courseData?.totalModule} Modul"
-        Glide.with(this)
-            .load(courseData?.image)
-            .fitCenter()
-            .into(binding.coverImage)
+    }
+
+    private fun extractYouTubeVideoId(youtubeUrl: String): String? {
+        var vId: String? = null
+        val pattern = Regex("^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$", RegexOption.IGNORE_CASE)
+        val matcher = pattern.find(youtubeUrl)
+        if (matcher != null && matcher.groupValues.size > 1) {
+            vId = matcher.groupValues[1]
+        }
+        return vId
     }
 
 

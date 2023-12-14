@@ -23,8 +23,8 @@ data class DataCourses(
     val totalMinute: Int,
     @SerializedName("isPremium")
     val isPremium: Boolean,
-    @SerializedName("classCode")
-    val classCode: String,
+    @SerializedName("courseCode")
+    val courseCode: String,
     @SerializedName("category")
     val category: String,
     @SerializedName("description")
@@ -33,6 +33,8 @@ data class DataCourses(
     val classTarget: List<String>,
     @SerializedName("telegram")
     val telegram: String,
+    @SerializedName("introVideo")
+    val introVideo: String,
     @SerializedName("onboarding")
     val onboarding: String,
     @SerializedName("classModule")
