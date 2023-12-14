@@ -5,6 +5,7 @@ import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
+import com.example.finalprojectbinar.model.ProfileResponse
 import retrofit2.http.*
 
 
@@ -22,10 +23,18 @@ interface APIService {
     ): CoursesResponses
 
     @GET("course/{courseId}")
-    suspend fun getCourseById(@Path("courseId") courseId: String): CoursesResponsebyName
+    suspend fun getCourseById(
+        @Header("Authorization") token: String?,
+        @Path("courseId") courseId: String
+    ): CoursesResponsebyName
 
     @POST("login")
     suspend fun login(@Body request: LoginRequest
     ): LoginResponse
+
+    @GET("profile")
+    suspend fun getProfileUser(
+        @Header("Authorization") token: String
+    ): ProfileResponse
 
 }
