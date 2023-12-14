@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetConfirmOrderBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -33,6 +35,7 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetConfirmOrderBinding.inflate(inflater, container, false)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         binding.imageClose.setOnClickListener {
             dismiss()
@@ -44,12 +47,12 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
             startActivity(intent)
         }
 
-        showDetailCoroutines(courseId.toString())
+        showDetailCoroutines(savedToken.toString(), courseId.toString())
         return binding.root
     }
 
-    private fun showDetailCoroutines(courseId: String){
-        viewModel.getDetailByIdCourse(courseId).observe(viewLifecycleOwner) {
+    private fun showDetailCoroutines(token: String?, courseId: String){
+        viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data -> showData(data) }

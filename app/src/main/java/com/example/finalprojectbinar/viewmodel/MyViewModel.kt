@@ -28,9 +28,9 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun getDetailByIdCourse(coursesId: String) = liveData(Dispatchers.IO){
+    fun getDetailByIdCourse(token: String?, coursesId: String) = liveData(Dispatchers.IO){
         try {
-            emit(Resource.success(data = repository.getDetailById(coursesId)))
+            emit(Resource.success(data = repository.getDetailById(token, coursesId)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
@@ -40,6 +40,14 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         try {
             val response = repository.postLogin(loginRequest)
             emit(Resource.success(data = response))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun getProfileUser(token: String) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.getProfile(token)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }

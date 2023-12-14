@@ -227,4 +227,6 @@
     <string name="beli_sekarang">Beli Sekarang</string>
     <string name="masuk">Masuk</string>
 
+    <string name="wrongMessage">Uh oh, something went wrong!</string>
+
 </resources>

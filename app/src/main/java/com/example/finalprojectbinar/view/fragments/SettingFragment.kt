@@ -1,5 +1,6 @@
 package com.example.finalprojectbinar.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.finalprojectbinar.R
-import com.example.finalprojectbinar.api.APIClient
 import com.example.finalprojectbinar.databinding.FragmentSettingBinding
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
+import com.example.finalprojectbinar.view.ui.SplashScreenActivity
 
 class SettingFragment : Fragment() {
     private var _binding : FragmentSettingBinding? = null
@@ -37,6 +38,8 @@ class SettingFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             SharedPreferenceHelper.write(Enum.PREF_NAME.value, null)
+            val intent = Intent(requireActivity(), SplashScreenActivity::class.java)
+            startActivity(intent)
         }
 
 

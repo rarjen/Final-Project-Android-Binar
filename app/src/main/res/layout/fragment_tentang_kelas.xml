@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
         <Button
             android:id="@+id/buttomJoinTelegram"
             android:layout_width="269dp"
@@ -42,7 +43,8 @@
             android:textAlignment="inherit"
             android:textColor="@color/black"
             android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SmallSp" />
 
         <TextView
             android:id="@+id/tvKelasDitujukan"
@@ -60,7 +62,8 @@
             android:text="@string/list_requirement"
             android:textSize="10sp"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/montserrat_regular" />
+            android:fontFamily="@font/montserrat_regular"
+            tools:ignore="SmallSp" />
     </LinearLayout>
 
 </LinearLayout>

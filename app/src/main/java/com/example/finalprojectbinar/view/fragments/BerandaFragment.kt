@@ -1,6 +1,5 @@
 package com.example.finalprojectbinar.view.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,8 +21,6 @@ import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
-import com.example.finalprojectbinar.view.ui.PaymentActivity
-import com.example.finalprojectbinar.view.ui.login.LoginActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.inject
@@ -49,20 +46,15 @@ class BerandaFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 if (tab.position == 0) {
-//                     Panggil fungsi untuk menampilkan semua data
                     fetchCourseCouroutines(null, null, null, null)
                 } else {
-                    // Panggil fungsi filter dengan ID kategori yang sesuai
                     val categoryId = categories[tab.position - 1].id
                     fetchCourseCouroutines(categoryId, null, null, null)
                 }
             }
-
-            // Implementasikan fungsi onTabUnselected dan onTabReselected sesuai kebutuhan
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 // ...
             }
-
             override fun onTabReselected(tab: TabLayout.Tab) {
                 // ...
             }
