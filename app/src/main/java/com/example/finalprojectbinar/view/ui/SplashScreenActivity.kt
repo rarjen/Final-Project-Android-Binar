@@ -13,6 +13,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivitySplashScreenBinding
 import com.example.finalprojectbinar.model.SplashScreen
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.view.adapters.SplashScreenAdapter
 import com.example.finalprojectbinar.view.ui.login.LoginActivity
 
@@ -26,31 +28,41 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val splashScreenSlider = binding.splashScreenSlider
-        splashScreenSlider.adapter = splashScreenAdapter
-        list.addAll(getAllSplashData())
-        setupIndicator()
-        setCurrentIndicator(1)
-        splashScreenSlider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                setCurrentIndicator(position)
+        SharedPreferenceHelper.init(this)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        if (savedToken != null) {
+            Intent(applicationContext, MainActivity::class.java).also {
+                startActivity(it)
+                finish()
             }
-        })
-        binding.imageButton.setOnClickListener {
-            if(splashScreenSlider.currentItem + 1 < splashScreenAdapter.itemCount){
-                splashScreenSlider.currentItem += 1
-            }else{
-                Intent(applicationContext, MainActivity::class.java).also {
-                    startActivity(it)
-                    finish()
+        } else {
+            val splashScreenSlider = binding.splashScreenSlider
+            splashScreenSlider.adapter = splashScreenAdapter
+            list.addAll(getAllSplashData())
+            setupIndicator()
+            setCurrentIndicator(1)
+            splashScreenSlider.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    setCurrentIndicator(position)
                 }
+            })
+            binding.imageButton.setOnClickListener {
+                if(splashScreenSlider.currentItem + 1 < splashScreenAdapter.itemCount){
+                    splashScreenSlider.currentItem += 1
+                }else{
+                    Intent(applicationContext, MainActivity::class.java).also {
+                        startActivity(it)
+                        finish()
+                    }
+                }
+            }
+
+            binding.loginButton.setOnClickListener {
+                startActivity(Intent(this, LoginActivity::class.java))
             }
         }
 
-        binding.loginButton.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
     }
 
     private fun setCurrentIndicator(index: Int) {
@@ -75,6 +87,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             }
         }
+
     }
 
     private fun setupIndicator() {

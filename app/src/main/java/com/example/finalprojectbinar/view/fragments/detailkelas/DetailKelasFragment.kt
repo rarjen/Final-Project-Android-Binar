@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
@@ -16,6 +17,8 @@ import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
@@ -40,8 +43,10 @@ class DetailKelasFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
-        val fragmentList = arrayListOf(TentangKelasFragment(), BankFragment())
+        val fragmentList = arrayListOf(TentangKelasFragment(null), BankFragment())
         val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
+
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         binding.apply {
             viewPagerDetailClass.adapter = PaymentFragmentPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
@@ -72,21 +77,22 @@ class DetailKelasFragment : Fragment() {
 
         val courseId = arguments?.getString("courseId")
 
-        showDetailCoroutines(courseId.toString())
+        showDetailCoroutines(savedToken.toString(), courseId.toString())
 
         return binding.root
     }
 
-    private fun showDetailCoroutines(courseId: String){
-        viewModel.getDetailByIdCourse(courseId).observe(viewLifecycleOwner) {
+    private fun showDetailCoroutines(token: String?, courseId: String){
+        viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    it.data?.let { data -> showData(data) }
-
+                    it.data?.let { data ->
+                        showData(data)
+                    }
                 }
 
                 Status.ERROR -> {
-                    Log.d("ErrorTest", it.data?.code.toString())
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
                 }
 
                 Status.LOADING -> {
