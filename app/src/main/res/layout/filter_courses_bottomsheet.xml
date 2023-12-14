@@ -59,12 +59,14 @@
         android:text="Terapkan Filter"
         android:fontFamily="@font/montserrat_bold"
         android:textStyle="bold"/>
-    <TextView
+    <Button
         android:id="@+id/tvHapusFilter"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="match_parent"
         android:textAlignment="center"
-        android:layout_marginTop="12dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
