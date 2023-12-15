@@ -16,6 +16,10 @@ import com.example.finalprojectbinar.view.model_dummy.DataKelas
 
 class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null):  RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
     private val diffCallback = object: DiffUtil.ItemCallback<DataAllCourses>(){
         override fun areItemsTheSame(oldItem: DataAllCourses, newItem: DataAllCourses): Boolean =
             oldItem.id == newItem.id
@@ -35,7 +39,12 @@ class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val linearHolder = holder as CoursesHolder
         val data = differ.currentList[position]
-        data.let { linearHolder.onBind(data) }
+        data.let {
+            linearHolder.onBind(data)
+            holder.itemView.setOnClickListener {
+                onItemClickCallback.onItemClicked(data)
+            }
+        }
 
     }
 
@@ -60,4 +69,7 @@ class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null
             }
         }
     }
+}
+interface OnItemClickCallback {
+    fun onItemClicked(data: DataAllCourses)
 }
