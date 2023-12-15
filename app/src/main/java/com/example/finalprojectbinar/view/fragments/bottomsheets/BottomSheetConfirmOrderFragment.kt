@@ -76,8 +76,8 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         binding.tvCardAuthorCourse.text = courseData?.author
         binding.tvCardRate.text = courseData?.rating.toString()
         binding.tvCardLevel.text = "${courseData?.level} Level"
-        binding.tvCardTotalTime.text = "${courseData?.totalMinute} Menit"
-        binding.tvCardTotalModul.text = "${courseData?.totalModule} Modul"
+        binding.tvCardTotalTime.text = "${courseData?.totalMinute}"
+        binding.tvCardTotalModul.text = "${courseData?.totalModule}"
         Glide.with(this)
             .load(courseData?.image)
             .fitCenter()
