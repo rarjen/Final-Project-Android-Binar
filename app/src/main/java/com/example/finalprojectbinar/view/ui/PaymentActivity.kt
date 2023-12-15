@@ -65,7 +65,6 @@ class PaymentActivity : AppCompatActivity() {
 
         }
 
-
     }
 
     @SuppressLint("InflateParams")
