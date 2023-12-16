@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_kursusFragment_to_hasilFilterFragment"
             app:destination="@id/hasilFilterFragment" />
+        <action
+            android:id="@+id/action_kursusFragment_to_detailKelasFragment"
+            app:destination="@id/detailKelasFragment" />
     </fragment>
     <fragment
         android:id="@+id/berandaFragment"

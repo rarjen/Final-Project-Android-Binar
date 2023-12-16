@@ -13,12 +13,17 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.model.CoursesResponses
+import com.example.finalprojectbinar.model.DataAllCourses
 import com.example.finalprojectbinar.model.DataFilter
+import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CourseAdapter
 import com.example.finalprojectbinar.view.adapters.FilterAdapter
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
+import com.example.finalprojectbinar.view.adapters.OnItemClickCallback
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
 import com.example.finalprojectbinar.view.model_dummy.DataKelas
 import com.example.finalprojectbinar.view.model_dummy.ListFilter
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -107,6 +112,28 @@ class KursusFragment : Fragment(), DataListener {
         adapter.submitCoursesResponse(data?.data ?: emptyList())
         binding.rvKelas.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvKelas.adapter = adapter
+        adapter.setOnItemClickCallback(object : OnItemClickCallback{
+            override fun onItemClicked(data: DataAllCourses) {
+                val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+                if(isLogin != null){
+                    if (data.isPremium){
+                        val bottomSheetFragment = BottomSheetConfirmOrderFragment()
+                        bottomSheetFragment.setCourseId(data.id)
+                        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    }else{
+                        val bundle = Bundle().apply {
+                            putString("courseId", data.id)
+                        }
+                        findNavController().navigate(R.id.action_kursusFragment_to_detailKelasFragment, bundle)
+                    }
+                }else {
+                    val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
+                    bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
+                }
+
+            }
+
+        })
 
     }
     private fun showTab(){
