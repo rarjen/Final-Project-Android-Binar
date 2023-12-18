@@ -6,6 +6,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finalprojectbinar.databinding.ActivityLoginBinding
 import com.example.finalprojectbinar.model.LoginRequest
@@ -14,6 +15,7 @@ import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.view.ui.register.RegisterActivity
+import com.example.finalprojectbinar.view.ui.register.VerifyPhoneActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
@@ -46,6 +48,12 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
             login(email, password)
         }
+
+        binding.materialTextView3.setOnClickListener {
+            val intent = Intent(this, VerifyPhoneActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun login(email: String, password: String) {
@@ -57,17 +65,17 @@ class LoginActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
                 when (it.status) {
                     Status.SUCCESS -> {
-                        val token = it.data?.token.toString()
+                        val token = it.data?.data?.token.toString()
                         pref.write(Enum.PREF_NAME.value, token)
                         Log.d("LoginSuccess", "Login berhasil. Token: $token")
                         binding.progressBar.visibility = View.GONE
                         navigateToMainActivity()
                     }
                     Status.ERROR -> {
-                        val errorMessage = it.message ?: "Error Occurred!"
-                        Log.d("ErrorTEST", errorMessage)
+                        val errorMessage = it.message ?: "Error Occured"
                         binding.progressBar.visibility = View.GONE
                         handleLoginError(errorMessage)
+                        Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT).show()
                     }
                     Status.LOADING -> {
                         binding.progressBar.visibility = View.VISIBLE
