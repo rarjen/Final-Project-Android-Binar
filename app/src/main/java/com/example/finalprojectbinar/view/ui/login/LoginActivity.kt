@@ -15,6 +15,7 @@ import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.view.ui.register.RegisterActivity
+import com.example.finalprojectbinar.view.ui.register.VerifyPhoneActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
@@ -46,6 +47,12 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             login(email, password)
+        }
+
+        binding.materialTextView3.setOnClickListener {
+            val intent = Intent(this, VerifyPhoneActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

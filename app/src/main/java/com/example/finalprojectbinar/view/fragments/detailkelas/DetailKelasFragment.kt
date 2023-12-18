@@ -43,7 +43,8 @@ class DetailKelasFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
-        val fragmentList = arrayListOf(TentangKelasFragment(null), BankFragment())
+
+        val fragmentList = arrayListOf(TentangKelasFragment(), BankFragment())
         val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
@@ -145,5 +146,9 @@ class DetailKelasFragment : Fragment() {
         bottomNavigationView.visibility = View.VISIBLE
     }
 
+    companion object {
+        val DETAIL_KELAS = "detailKelas"
+        val KELAS_TARGET = "kelasTarget"
+    }
 
 }

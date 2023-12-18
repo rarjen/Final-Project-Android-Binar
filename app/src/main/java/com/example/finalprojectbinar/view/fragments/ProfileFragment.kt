@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val token = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
+    private lateinit var pref: SharedPreferenceHelper
 
     private val viewModel: MyViewModel by inject()
 
@@ -33,11 +33,19 @@ class ProfileFragment : Fragment() {
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+        pref = SharedPreferenceHelper
+        val savedToken = pref.read(Enum.PREF_NAME.value)
+
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_settingFragment)
         }
 
-        fetchUserProfile(token)
+        if (savedToken != null) {
+            fetchUserProfile(savedToken.toString())
+            Log.d("TESTDATAINSIDE", fetchUserProfile(savedToken).toString())
+        }
+
+        Log.d("TESTDATAOUTSIDE", savedToken.toString())
 
         return binding.root
     }
@@ -66,8 +74,8 @@ class ProfileFragment : Fragment() {
     private fun showProfiles(data: ProfileResponse){
         val name = data.data?.name
         val phoneNumber = data.data?.phone
-        val city = data.data?.city
-        val country = data.data?.country
+        val city = data.data?.city ?: ""
+        val country = data.data?.country ?: ""
         val email = data.data?.email
 
         val nameEditable = Editable.Factory.getInstance().newEditable(name)

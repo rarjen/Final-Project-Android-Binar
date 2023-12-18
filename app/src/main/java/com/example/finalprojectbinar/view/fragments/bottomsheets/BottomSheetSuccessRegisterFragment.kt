@@ -30,6 +30,10 @@ class BottomSheetSuccessRegisterFragment : BottomSheetDialogFragment()  {
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
         }
+
+        binding.imageClose.setOnClickListener {
+            dismiss()
+        }
         return binding.root
     }
 

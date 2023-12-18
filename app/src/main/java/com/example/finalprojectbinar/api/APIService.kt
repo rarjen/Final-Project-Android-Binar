@@ -5,6 +5,7 @@ import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
+import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.ProfileResponse
 import com.example.finalprojectbinar.model.RegisterRequest
 import com.example.finalprojectbinar.model.RegisterResponse
@@ -42,11 +43,10 @@ interface APIService {
         @Body request: RegisterRequest
     ): RegisterResponse
 
-    @FormUrlEncoded
     @POST("validate-register")
     suspend fun validateRegister(
         @Header("Authorization") tokenRegister: String?,
-        @Field("otp") otp: String
+        @Body request: OTPRequest
     ): ValidationRegisterResponse
 
     @GET("validate-jwt")

@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.example.finalprojectbinar.databinding.ActivityVerifyPhoneBinding
+import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
@@ -43,7 +44,15 @@ class VerifyPhoneActivity : AppCompatActivity() {
         }
 
         validateJWT(tokenRegister)
-        setupPinViewListener(tokenRegister)
+
+        binding.btnOTPVerification.setOnClickListener {
+            val otp = binding.otpTextView.text.toString()
+            Toast.makeText(this@VerifyPhoneActivity, otp, Toast.LENGTH_SHORT).show()
+            validateRegister(tokenRegister, otp)
+            val bottomSheetSuccessRegister = BottomSheetSuccessRegisterFragment()
+            bottomSheetSuccessRegister.show(supportFragmentManager, bottomSheetSuccessRegister.tag)
+        }
+
     }
 
     private fun validateJWT(tokenRegister: String?) {
@@ -75,12 +84,10 @@ class VerifyPhoneActivity : AppCompatActivity() {
     }
 
     private fun validateRegister(tokenRegister: String?, otp: String){
-        viewModel.validateRegister("Bearer $tokenRegister", otp).observe(this){
+        val otpRequest = OTPRequest(otp)
+        viewModel.validateRegister("Bearer $tokenRegister", otpRequest).observe(this){
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("TESTREGISTERVALID", otp)
-                    Log.d("TESTREGISTERVALID", tokenRegister.toString())
-                    Log.d("TESTREGISTERVALID", it.toString())
                     val message = it.message
                     Toast.makeText(this@VerifyPhoneActivity, message, Toast.LENGTH_SHORT).show()
                     val bottomSheetSuccessRegister = BottomSheetSuccessRegisterFragment()
@@ -101,24 +108,24 @@ class VerifyPhoneActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupPinViewListener(tokenRegister: String?) {
-        binding.otpTextView.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s != null) {
-                    val enteredCharacter = s.subSequence(start, start + count)
-                    println("Karakter yang dimasukkan: $enteredCharacter")
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s?.length == binding.otpTextView.itemCount) {
-                    val otp = s.toString()
-                    validateRegister(tokenRegister, otp)
-                }
-            }
-        })
-    }
+//    private fun setupPinViewListener(tokenRegister: String?) {
+//        binding.otpTextView.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                if (s != null) {
+//                    val enteredCharacter = s.subSequence(start, start + count)
+//                    println("Karakter yang dimasukkan: $enteredCharacter")
+//                }
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                if (s?.length == binding.otpTextView.itemCount) {
+//                    val otp = s.toString()
+//                    validateRegister(tokenRegister, otp)
+//                }
+//            }
+//        })
+//    }
 
 }
