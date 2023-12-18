@@ -6,6 +6,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finalprojectbinar.databinding.ActivityLoginBinding
 import com.example.finalprojectbinar.model.LoginRequest
@@ -57,17 +58,17 @@ class LoginActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
                 when (it.status) {
                     Status.SUCCESS -> {
-                        val token = it.data?.token.toString()
+                        val token = it.data?.data?.token.toString()
                         pref.write(Enum.PREF_NAME.value, token)
                         Log.d("LoginSuccess", "Login berhasil. Token: $token")
                         binding.progressBar.visibility = View.GONE
                         navigateToMainActivity()
                     }
                     Status.ERROR -> {
-                        val errorMessage = it.message ?: "Error Occurred!"
-                        Log.d("ErrorTEST", errorMessage)
+                        val errorMessage = it.message ?: "Error Occured"
                         binding.progressBar.visibility = View.GONE
                         handleLoginError(errorMessage)
+                        Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT).show()
                     }
                     Status.LOADING -> {
                         binding.progressBar.visibility = View.VISIBLE
