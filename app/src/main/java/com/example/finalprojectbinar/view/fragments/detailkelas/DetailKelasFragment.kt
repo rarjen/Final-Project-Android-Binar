@@ -44,7 +44,7 @@ class DetailKelasFragment : Fragment() {
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
 
-        val fragmentList = arrayListOf(TentangKelasFragment(), BankFragment())
+        val fragmentList = arrayListOf(TentangKelasFragment(), MateriKelasFragment())
         val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
@@ -126,6 +126,9 @@ class DetailKelasFragment : Fragment() {
         binding.tvLevelDetailCourse.text = "${courseData?.level} Level"
         binding.tvDetailTime.text = "${courseData?.totalMinute} Menit"
         binding.tvDetailModul.text = "${courseData?.totalModule} Modul"
+
+        //keep current class modules data on viewmodel
+        viewModel.setClassModules(courseData?.classModule)
     }
 
     private fun extractYouTubeVideoId(youtubeUrl: String): String? {
