@@ -7,6 +7,7 @@ import com.example.finalprojectbinar.api.APIService
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
+import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.model.ProfileResponse
 import com.example.finalprojectbinar.model.RegisterRequest
 
@@ -31,5 +32,8 @@ class MyRepository() {
 
     //Enrollment
     suspend fun postEnrollment(token: String?, course_uuid: EnrollmentRequest) = apiService.postEnrollment(token, course_uuid)
+
+    //Payment
+    suspend fun putPayment(token: String?, paymentUuid: String, payment_method: PaymentRequest) = apiService.putPayment(token, paymentUuid, payment_method)
 
 }
