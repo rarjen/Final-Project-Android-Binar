@@ -29,7 +29,7 @@
             app:boxCornerRadiusTopEnd="18dp"
             app:boxStrokeWidth="0dp"
             app:boxBackgroundColor="@color/white"
-            android:elevation="120dp"
+            android:elevation="20dp"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/baseline_search_24"
             >
