@@ -229,5 +229,10 @@
 
     <string name="wrongMessage">Uh oh, something went wrong!</string>
     <string name="harap_validasi_sebelum_12_30_30">Harap validasi sebelum 12:30:30</string>
+    <string name="chapter_1_pendahuluan">Chapter 1 - Pendahuluan</string>
+    <string name="_60_menit">60 Menit</string>
+    <string name="_1">1</string>
+    <string name="tujuan_mengikuti_kelas_design_system">Tujuan Mengikuti Kelas Design System</string>
+    <string name="materi_belajar">Materi Belajar</string>
 
 </resources>
