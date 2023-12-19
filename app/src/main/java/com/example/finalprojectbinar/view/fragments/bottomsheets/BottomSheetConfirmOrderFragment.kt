@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetConfirmOrderBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
@@ -42,13 +44,34 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         }
 
         binding.buttonBuy.setOnClickListener {
-            val intent = Intent(requireContext(), PaymentActivity::class.java)
-            intent.putExtra("courseId", courseId)
-            startActivity(intent)
+            postEnrollment(savedToken, courseId.toString())
+//            val intent = Intent(requireContext(), PaymentActivity::class.java)
+//            intent.putExtra("courseId", courseId)
+//            startActivity(intent)
         }
 
         showDetailCoroutines(savedToken.toString(), courseId.toString())
         return binding.root
+    }
+
+    private fun postEnrollment(token: String?, course_uuid: String){
+        val enrollmentRequest = EnrollmentRequest(course_uuid)
+        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    val intent = Intent(requireContext(), PaymentActivity::class.java)
+                    intent.putExtra(ENROLLMENT_DATA, it.data?.data)
+                    intent.putExtra(COURSE_ID, courseId)
+                    startActivity(intent)
+                }
+                Status.ERROR -> {
+                    val message = it.message.toString()
+                }
+                Status.LOADING -> {
+                    Log.d("LoadingTEST", "Loading")
+                }
+            }
+        }
     }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
@@ -82,6 +105,11 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
             .load(courseData?.image)
             .fitCenter()
             .into(binding.ivCardImage)
+    }
+
+    companion object {
+        const val ENROLLMENT_DATA = "enrollmentData"
+        const val COURSE_ID = "courseId"
     }
 
     override fun onDestroyView() {

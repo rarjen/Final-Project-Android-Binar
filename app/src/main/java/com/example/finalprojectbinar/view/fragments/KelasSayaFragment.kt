@@ -55,11 +55,9 @@ class KelasSayaFragment : Fragment() {
                     showCategories(it.data!!)
                     binding.progressBarCategory.visibility = View.GONE
                 }
-
                 Status.ERROR -> {
                     Log.d("Error", "Error Occured!")
                 }
-
                 Status.LOADING -> {
                     binding.progressBarCategory.visibility = View.VISIBLE
                 }

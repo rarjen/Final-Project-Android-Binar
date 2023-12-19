@@ -2,6 +2,8 @@ package com.example.finalprojectbinar.api
 
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.CoursesResponses
+import com.example.finalprojectbinar.model.EnrollmentRequest
+import com.example.finalprojectbinar.model.EnrollmentResponse
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
@@ -58,5 +60,12 @@ interface APIService {
     suspend fun getProfileUser(
         @Header("Authorization") token: String
     ): ProfileResponse
+
+    @POST("courses/enrollment")
+    suspend fun postEnrollment(
+        @Header("Authorization") token: String?,
+        @Body enrollmentRequest: EnrollmentRequest
+    ): EnrollmentResponse
+
 
 }
