@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.finalprojectbinar.api.APIClient
 import com.example.finalprojectbinar.api.APIService
+import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.ProfileResponse
@@ -27,5 +28,8 @@ class MyRepository() {
 
     // User Profile
     suspend fun getProfile(token: String) = apiService.getProfileUser(token)
+
+    //Enrollment
+    suspend fun postEnrollment(token: String?, course_uuid: EnrollmentRequest) = apiService.postEnrollment(token, course_uuid)
 
 }

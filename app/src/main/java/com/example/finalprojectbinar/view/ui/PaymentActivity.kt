@@ -13,10 +13,12 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.model.DataEnrollment
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
 import com.example.finalprojectbinar.view.fragments.payment.CreditCardFragment
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -24,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 
+@Suppress("DEPRECATION")
 class PaymentActivity : AppCompatActivity() {
     private var _binding: ActivityPaymentBinding? = null
     private val binding get() = _binding!!
@@ -36,12 +39,11 @@ class PaymentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fragmentList = arrayListOf(CreditCardFragment(), BankFragment())
-        val courseId = intent.getStringExtra("courseId")
+        val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
-
         showDetailCoroutines(savedToken.toString(), courseId.toString())
-
+        showDetailPayment()
 
         binding.apply {
             viewPager.adapter = PaymentFragmentPageAdapter(fragmentList, this@PaymentActivity.supportFragmentManager, lifecycle)
@@ -62,9 +64,7 @@ class PaymentActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-
         }
-
     }
 
     @SuppressLint("InflateParams")
@@ -76,7 +76,7 @@ class PaymentActivity : AppCompatActivity() {
         val btnMulaiKelas = view.findViewById<Button>(R.id.buttonMulaiBelajar)
         btnMulaiKelas.setOnClickListener {
             dialog.dismiss()
-            showButtomSheetOnboarding()
+            showButtonSheetOnboarding()
         }
         btnClose.setOnClickListener {
             dialog.dismiss()
@@ -88,7 +88,7 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     @SuppressLint("InflateParams")
-    private fun showButtomSheetOnboarding() {
+    private fun showButtonSheetOnboarding() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_onboarding, null)
         val btnClose = view.findViewById<ImageView>(R.id.imageClose)
@@ -98,6 +98,15 @@ class PaymentActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.setContentView(view)
         dialog.show()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showDetailPayment(){
+        val enrollmentData = this.intent.getParcelableExtra<DataEnrollment>(BottomSheetConfirmOrderFragment.ENROLLMENT_DATA)
+        binding.tvCoursePrice.text = "Rp ${enrollmentData?.price}"
+        binding.tvTaxPrice.text = "Rp ${enrollmentData?.tax}"
+        binding.tvTotalPrice.text = "Rp ${enrollmentData?.total}"
+
     }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
@@ -126,9 +135,6 @@ class PaymentActivity : AppCompatActivity() {
         binding.tvCardCategory.text = courseData?.category
         binding.tvCardTitleCourse.text = courseData?.name
         binding.tvCardAuthorCourse.text = courseData?.author
-        binding.tvCoursePrice.text = "Rp ${courseData?.price}"
-        binding.tvTaxPrice.text = "Rp ${courseData?.price?.times(0.11)}"
-        binding.tvTotalPrice.text = "Rp ${courseData?.price?.plus(courseData.price?.times(0.11) ?: 0.0)}"
         Glide.with(this@PaymentActivity)
             .load(courseData?.image)
             .fitCenter()
