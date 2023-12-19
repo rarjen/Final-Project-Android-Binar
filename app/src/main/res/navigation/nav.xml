@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_kursusFragment_to_hasilFilterFragment"
             app:destination="@id/hasilFilterFragment" />
+        <action
+            android:id="@+id/action_kursusFragment_to_detailKelasFragment"
+            app:destination="@id/detailKelasFragment" />
     </fragment>
     <fragment
         android:id="@+id/berandaFragment"
@@ -21,6 +24,9 @@
         <action
             android:id="@+id/action_berandaFragment_to_detailKelasFragment"
             app:destination="@id/detailKelasFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_kursusFragment"
+            app:destination="@id/kursusFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment3"
@@ -73,7 +79,9 @@
         android:id="@+id/hasilFilterFragment"
         android:name="com.example.finalprojectbinar.view.fragments.HasilFilterFragment"
         android:label="fragment_hasil_filter"
-        tools:layout="@layout/fragment_hasil_filter" />
+        tools:layout="@layout/fragment_hasil_filter" >
+
+    </fragment>
     <fragment
         android:id="@+id/detailKelasFragment"
         android:name="com.example.finalprojectbinar.view.fragments.detailkelas.DetailKelasFragment"
@@ -83,5 +91,9 @@
             android:id="@+id/action_detailKelasFragment_to_berandaFragment"
             app:destination="@id/berandaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/kelasSayaFragment"
+        android:name="com.example.finalprojectbinar.view.fragments.KelasSayaFragment"
+        android:label="KelasSayaFragment" />
 
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.finalprojectbinar.view.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,8 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
@@ -33,11 +36,11 @@ class PaymentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fragmentList = arrayListOf(CreditCardFragment(), BankFragment())
-
         val courseId = intent.getStringExtra("courseId")
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
 
-        showDetailCoroutines(courseId.toString())
+        showDetailCoroutines(savedToken.toString(), courseId.toString())
 
 
         binding.apply {
@@ -54,8 +57,13 @@ class PaymentActivity : AppCompatActivity() {
                 showButtomSheetSuccessPayment()
             }
 
-        }
+            ivBack.setOnClickListener {
+                val intent = Intent(this@PaymentActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
 
+        }
 
     }
 
@@ -92,8 +100,8 @@ class PaymentActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun showDetailCoroutines(courseId: String){
-      viewModel.getDetailByIdCourse(courseId).observe(this, Observer {
+    private fun showDetailCoroutines(token: String?, courseId: String){
+      viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(this, Observer {
           when (it.status) {
               Status.SUCCESS -> {
                   Log.d("TESTGETDATABYID", it.data.toString())

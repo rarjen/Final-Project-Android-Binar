@@ -6,15 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:layout_marginEnd="18dp"
         android:id="@+id/shapeableimageview_kategori"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="180dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ui_ux"
+        android:layout_height="90dp"
         android:scaleType="fitXY"
-        app:shapeAppearanceOverlay="@style/roundedimageview"
-        />
+        android:src="@drawable/ui_ux"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedimageview" />
 
     <TextView
         android:id="@+id/tvCategoryName"

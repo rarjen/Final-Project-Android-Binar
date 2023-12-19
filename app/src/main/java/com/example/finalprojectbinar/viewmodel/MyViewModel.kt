@@ -1,13 +1,27 @@
 package com.example.finalprojectbinar.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import com.example.finalprojectbinar.model.LoginRequest
+import com.example.finalprojectbinar.model.OTPRequest
+import com.example.finalprojectbinar.model.RegisterRequest
 import com.example.finalprojectbinar.repository.MyRepository
 import com.example.finalprojectbinar.util.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MyViewModel(private val repository: MyRepository) : ViewModel() {
+
+    private val _desc = MutableLiveData<String>()
+    val desc: LiveData<String> get() = _desc
+
+    fun setDesc(desc: String) {
+        _desc.value = desc
+    }
 
     fun getCourseCategories() = liveData(Dispatchers.IO){
         try {
@@ -17,17 +31,60 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun getAllCourses() = liveData(Dispatchers.IO){
+    fun getAllCourses(categoryId: String?, level: String?, premium: String?, search: String?) = liveData(Dispatchers.IO){
         try {
-            emit(Resource.success(data = repository.getCourses()))
+            emit(Resource.success(data = repository.getCourses(categoryId, level, premium, search)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
     }
 
-    fun getDetailByIdCourse(coursesId: String) = liveData(Dispatchers.IO){
+    fun getDetailByIdCourse(token: String?, coursesId: String) = liveData(Dispatchers.IO){
         try {
-            emit(Resource.success(data = repository.getDetailById(coursesId)))
+            emit(Resource.success(data = repository.getDetailById(token, coursesId)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun postLogin(loginRequest: LoginRequest) = liveData(Dispatchers.IO) {
+        try {
+            val response = repository.postLogin(loginRequest)
+            emit(Resource.success(data = response))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun postRegister(registerRequest: RegisterRequest) = liveData(Dispatchers.IO) {
+        try {
+            val response = repository.postRegister(registerRequest)
+            emit(Resource.success(data = response))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun validateJWT(tokenRegister: String?) = liveData(Dispatchers.IO) {
+        try {
+            emit(Resource.success(data = repository.validateJWT(tokenRegister)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+    fun validateRegister(tokenRegister: String?, otp: OTPRequest) = liveData(Dispatchers.IO){
+        try {
+            val response = repository.validateRegister(tokenRegister, otp)
+            emit(Resource.success(data = response))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+
+    }
+
+    fun getProfileUser(token: String) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.getProfile(token)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
