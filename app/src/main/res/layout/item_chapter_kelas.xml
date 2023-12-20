@@ -30,15 +30,27 @@
         android:textStyle="bold"
         android:textColor="@color/light_blue1"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_materi_chapter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_listSilabusCourse"
         app:layout_constraintTop_toBottomOf="@id/tv_chapter_title"
-        android:layout_marginTop="10dp"
-        tools:listitem="@layout/item_materi_kelas"
-        tools:itemCount="3"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/item_materi_kelas"/>
+        <include layout="@layout/item_materi_kelas"/>
+        <include layout="@layout/item_materi_kelas"/>
+    </LinearLayout>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_materi_chapter"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_chapter_title"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        tools:listitem="@layout/item_materi_kelas"-->
+<!--        tools:itemCount="3"-->
+<!--        />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

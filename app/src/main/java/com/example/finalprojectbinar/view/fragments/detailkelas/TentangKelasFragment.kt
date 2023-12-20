@@ -33,6 +33,7 @@ class TentangKelasFragment : Fragment() {
             binding.textDescription.text = it.toString()
         }
 
+
         return binding.root
     }
 

@@ -26,6 +26,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import org.json.JSONObject
 import org.koin.android.ext.android.inject
 
 
@@ -128,7 +129,9 @@ class DetailKelasFragment : Fragment() {
         binding.tvDetailModul.text = "${courseData?.totalModule} Modul"
 
         //keep current class modules data on viewmodel
+        Log.d("DATASILABUS","Data From courseData = ${courseData?.classModule.toString()}")
         viewModel.setClassModules(courseData?.classModule)
+        Log.d("DATASILABUS","Data from viewmodel after setClassModules Fun = ${viewModel.classModules.value.toString()}")
     }
 
     private fun extractYouTubeVideoId(youtubeUrl: String): String? {
