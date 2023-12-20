@@ -8,6 +8,8 @@ import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
 import com.example.finalprojectbinar.model.OTPRequest
+import com.example.finalprojectbinar.model.PaymentRequest
+import com.example.finalprojectbinar.model.PaymentResponse
 import com.example.finalprojectbinar.model.ProfileResponse
 import com.example.finalprojectbinar.model.RegisterRequest
 import com.example.finalprojectbinar.model.RegisterResponse
@@ -66,6 +68,13 @@ interface APIService {
         @Header("Authorization") token: String?,
         @Body enrollmentRequest: EnrollmentRequest
     ): EnrollmentResponse
+
+    @PUT("courses/payment/{paymentUuid}")
+    suspend fun putPayment(
+        @Header("Authorization") token: String?,
+        @Path("paymentUuid") paymentUuid: String,
+        @Body paymentRequest: PaymentRequest
+    ): PaymentResponse
 
 
 }

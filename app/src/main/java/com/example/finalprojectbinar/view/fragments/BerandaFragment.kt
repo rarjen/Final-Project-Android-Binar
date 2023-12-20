@@ -1,6 +1,8 @@
 package com.example.finalprojectbinar.view.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,6 +44,7 @@ class BerandaFragment : Fragment() {
 
         fetchCategoryCoroutines()
 
+        search()
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -159,6 +162,100 @@ class BerandaFragment : Fragment() {
         adapter.submitCoursesResponse(data?.data ?: emptyList())
         binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCourses.adapter = adapter
+    }
+
+
+    private fun search() {
+        val searchEditText = binding.searchEditText
+
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrEmpty()) {
+                    // If the text is empty, make views visible
+                    binding.rvCourses.visibility = View.VISIBLE
+                    binding.gridviewKategori.visibility = View.VISIBLE
+                    binding.clKategori.visibility = View.VISIBLE
+                    binding.clKursusPopuler.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.notFoundLayoutCourse.visibility = View.GONE
+                    binding.containerSearchRV.visibility = View.GONE
+                } else if (s.length >= 3) {
+                    // If the text length is 3 or more, hide views
+                    binding.rvCourses.visibility = View.GONE
+                    binding.gridviewKategori.visibility = View.GONE
+                    binding.clKategori.visibility = View.GONE
+                    binding.clKursusPopuler.visibility = View.GONE
+                    binding.tabLayout.visibility = View.GONE
+                    fetchCourseSearch(null, null, null, s.toString())
+                } else {
+                    // If the text length is less than 3, make views visible
+                    binding.rvCourses.visibility = View.VISIBLE
+                    binding.gridviewKategori.visibility = View.VISIBLE
+                    binding.clKategori.visibility = View.VISIBLE
+                    binding.clKursusPopuler.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.notFoundLayoutCourse.visibility = View.GONE
+                    binding.containerSearchRV.visibility = View.GONE
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+    }
+
+    private fun fetchCourseSearch(categoryId: String?, level: String?, premium: String?, search: String?) {
+        viewModel.getAllCourses(categoryId, level, premium, search).observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    val dataLength = it.data?.data?.size
+                    if (dataLength!! < 1) {
+                        binding.notFoundLayoutCourse.visibility = View.VISIBLE
+                        binding.containerSearchRV.visibility = View.GONE
+                    } else {
+                        showCoursesSearch(it.data)
+                        binding.containerSearchRV.visibility = View.VISIBLE
+                        binding.notFoundLayoutCourse.visibility = View.GONE
+                    }
+                }
+
+                Status.ERROR -> {
+                    Log.d("Error", "Error Occured!")
+                }
+
+                Status.LOADING -> {
+                    binding.progressBarCourse.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
+    private fun showCoursesSearch(data: CoursesResponses?) {
+        val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
+            val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+            if (isLogin != null) {
+                if (isPremium) {
+                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
+                    bottomSheetFragment.setCourseId(courseId)
+                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                } else {
+                    val bundle = Bundle().apply {
+                        putString("courseId", courseId)
+                    }
+                    findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
+                }
+            } else {
+                val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
+                bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
+            }
+        })
+
+        adapter.submitCoursesResponse(data?.data ?: emptyList())
+        binding.containerSearchRV.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.containerSearchRV.adapter = adapter
     }
 
     override fun onDestroyView() {

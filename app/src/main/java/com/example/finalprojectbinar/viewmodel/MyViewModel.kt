@@ -9,6 +9,7 @@ import com.example.finalprojectbinar.model.ClassModule
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
+import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.model.RegisterRequest
 import com.example.finalprojectbinar.repository.MyRepository
 import com.example.finalprojectbinar.util.Resource
@@ -103,6 +104,14 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
     fun postEnrollment(token: String?, course_uuid: EnrollmentRequest) = liveData(Dispatchers.IO){
         try {
             emit(Resource.success(data = repository.postEnrollment(token, course_uuid)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun putPayment(token: String?, paymentUuid: String, payment_method: PaymentRequest) = liveData(Dispatchers.IO) {
+        try {
+            emit(Resource.success(data = repository.putPayment(token, paymentUuid, payment_method)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
