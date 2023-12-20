@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:id="@+id/tv_chapter_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chapter_1_pendahuluan"
+
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/purple"
+        />
+
+    <TextView
+        android:id="@+id/tv_durasi_chapter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="@string/_60_menit"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/light_blue1"/>
+
+    <LinearLayout
+        android:id="@+id/ll_listSilabusCourse"
+        app:layout_constraintTop_toBottomOf="@id/tv_chapter_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/item_materi_kelas"/>
+        <include layout="@layout/item_materi_kelas"/>
+        <include layout="@layout/item_materi_kelas"/>
+    </LinearLayout>
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_materi_chapter"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tv_chapter_title"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        tools:listitem="@layout/item_materi_kelas"-->
+<!--        tools:itemCount="3"-->
+<!--        />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

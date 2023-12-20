@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.finalprojectbinar.model.ClassModule
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
@@ -20,9 +21,16 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
 
     private val _desc = MutableLiveData<String>()
     val desc: LiveData<String> get() = _desc
+    private val _classModules = MutableLiveData<List<ClassModule>>()
+    val classModules get() = _classModules
 
     fun setDesc(desc: String) {
         _desc.value = desc
+    }
+
+    fun setClassModules(datas:List<ClassModule>?){
+        _classModules.value=datas!!
+
     }
 
     fun getCourseCategories() = liveData(Dispatchers.IO){
