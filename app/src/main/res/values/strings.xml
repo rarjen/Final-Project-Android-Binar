@@ -52,10 +52,10 @@
         <item>Pengenalan Design Pattern </item>
     </string-array>
     <string-array name="image">
-        <item>https://i.imgur.com/uEdY1r2.jpeg</item>
-        <item>https://i.imgur.com/B8ta5Aa.jpeg</item>
-        <item>https://i.imgur.com/XtntIZE.jpeg</item>
-        <item>https://i.imgur.com/XtntIZE.jpeg</item>
+        <item>@drawable/profile</item>
+        <item>@drawable/profile</item>
+        <item>@drawable/profile</item>
+        <item>@drawable/profile</item>
     </string-array>
     <string-array name="author">
         <item>Napoleon</item>

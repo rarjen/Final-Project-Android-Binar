@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.finalprojectbinar.model.ClassModule
+import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.RegisterRequest
@@ -80,6 +81,7 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
     }
+
     fun validateRegister(tokenRegister: String?, otp: OTPRequest) = liveData(Dispatchers.IO){
         try {
             val response = repository.validateRegister(tokenRegister, otp)
@@ -93,6 +95,14 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
     fun getProfileUser(token: String) = liveData(Dispatchers.IO){
         try {
             emit(Resource.success(data = repository.getProfile(token)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun postEnrollment(token: String?, course_uuid: EnrollmentRequest) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.postEnrollment(token, course_uuid)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
