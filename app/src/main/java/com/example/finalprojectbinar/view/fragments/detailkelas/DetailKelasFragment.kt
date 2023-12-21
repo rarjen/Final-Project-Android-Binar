@@ -52,32 +52,6 @@ class DetailKelasFragment : Fragment() {
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
         val courseId = arguments?.getString("courseId")
 
-        val fragmentList = arrayListOf(TentangKelasFragment.newInstance("courseDescription.toString()", null), MateriKelasFragment())
-        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
-
-        binding.apply {
-            viewPagerDetailClass.adapter = PaymentFragmentPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
-            TabLayoutMediator(tabViewDetailClass, viewPagerDetailClass) { tab, position ->
-                when(position) {
-                    0 -> {tab.text = "Tentang"}
-                    1 -> {tab.text = "Materi Kelas"}
-                }
-            }.attach()
-        }
-//
-        binding.viewPagerDetailClass.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> {
-                        bottomNavigationView.visibility = View.GONE
-                    }
-                    1 -> {
-                        bottomNavigationView.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
-
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_detailKelasFragment_to_berandaFragment)
         }
@@ -93,6 +67,10 @@ class DetailKelasFragment : Fragment() {
                 Status.SUCCESS -> {
                     it.data?.let { data ->
                         showData(data)
+                        binding.progressBar.visibility = View.GONE
+                        binding.layoutVideoPlayer.visibility = View.VISIBLE
+                        binding.cardDetail.visibility = View.VISIBLE
+                        binding.nestedView.visibility = View.VISIBLE
                     }
                 }
 
@@ -102,6 +80,10 @@ class DetailKelasFragment : Fragment() {
 
                 Status.LOADING -> {
                     Log.d("TESTGETDATA", it.data.toString())
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.layoutVideoPlayer.visibility = View.GONE
+                    binding.cardDetail.visibility = View.GONE
+                    binding.nestedView.visibility = View.GONE
                 }
             }
         }
@@ -131,7 +113,10 @@ class DetailKelasFragment : Fragment() {
         binding.tvDetailTime.text = "${courseData?.totalMinute} Menit"
         binding.tvDetailModul.text = "${courseData?.totalModule} Modul"
 
-        viewModel.setDesc(courseData?.description.toString())
+
+        if (courseData != null) {
+            showTabLayout(courseData.description, courseData.classTarget)
+        }
 
         //keep current class modules data on viewmodel
         Log.d("DATASILABUS","Data From courseData = ${courseData?.courseModules.toString()}")
@@ -149,6 +134,34 @@ class DetailKelasFragment : Fragment() {
         return vId
     }
 
+
+    private fun showTabLayout(description: String, classTarget: List<String>) {
+        val fragmentList = arrayListOf(TentangKelasFragment.newInstance(description, classTarget), MateriKelasFragment())
+        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
+
+        binding.apply {
+            viewPagerDetailClass.adapter = PaymentFragmentPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
+            TabLayoutMediator(tabViewDetailClass, viewPagerDetailClass) { tab, position ->
+                when(position) {
+                    0 -> {tab.text = "Tentang"}
+                    1 -> {tab.text = "Materi Kelas"}
+                }
+            }.attach()
+        }
+//
+        binding.viewPagerDetailClass.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        bottomNavigationView.visibility = View.GONE
+                    }
+                    1 -> {
+                        bottomNavigationView.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+    }
 
 
     override fun onDestroyView() {

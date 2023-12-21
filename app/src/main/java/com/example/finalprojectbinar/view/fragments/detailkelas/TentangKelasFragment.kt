@@ -34,8 +34,25 @@ class TentangKelasFragment : Fragment() {
         val description = arguments?.getString(DetailKelasFragment.DETAIL_KELAS)
         binding.textDescription.text = description
 
+        val classTarget = arguments?.getStringArrayList(DetailKelasFragment.KELAS_TARGET)
+        showClassTarget(classTarget)
 
         return binding.root
+    }
+
+    private fun showClassTarget(classTarget: List<String>?){
+        if (classTarget != null && classTarget.isNotEmpty()) {
+            val formattedClassTarget = StringBuilder()
+
+            for ((index, item) in classTarget.withIndex()) {
+                formattedClassTarget.append("${index + 1}. $item\n")
+            }
+
+            binding.classTarget.text = formattedClassTarget.toString().trim()
+        } else {
+            // Handle the case when classTarget is null or empty
+            binding.classTarget.text = "No data available"
+        }
     }
 
     override fun onDestroyView() {
@@ -44,9 +61,10 @@ class TentangKelasFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(description: String, classTarget: String?): Fragment {
+        fun newInstance(description: String, classTarget: List<String> ): Fragment {
             val args = Bundle()
             args.putString(DetailKelasFragment.DETAIL_KELAS, description)
+            args.putStringArrayList(DetailKelasFragment.KELAS_TARGET, ArrayList(classTarget))
 
             val fragment = TentangKelasFragment()
             fragment.arguments = args
