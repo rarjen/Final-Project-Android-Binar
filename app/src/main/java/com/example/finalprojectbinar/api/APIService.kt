@@ -8,6 +8,7 @@ import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
 import com.example.finalprojectbinar.model.OTPRequest
+import com.example.finalprojectbinar.model.PaymentHistoryResponse
 import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.model.PaymentResponse
 import com.example.finalprojectbinar.model.ProfileResponse
@@ -76,5 +77,8 @@ interface APIService {
         @Body paymentRequest: PaymentRequest
     ): PaymentResponse
 
-
+    @GET("courses/payment-history")
+    suspend fun getHistoryPayment(
+        @Header("Authorization") token: String?
+    ): PaymentHistoryResponse
 }

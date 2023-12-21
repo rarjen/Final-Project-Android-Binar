@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.CardRectangleCourseBinding
-import com.example.finalprojectbinar.databinding.KategoriBinding
 import com.example.finalprojectbinar.model.DataAllCourses
 
 class CourseAdapter (

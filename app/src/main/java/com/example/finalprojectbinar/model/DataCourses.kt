@@ -37,6 +37,6 @@ data class DataCourses(
     val introVideo: String,
     @SerializedName("onboarding")
     val onboarding: String,
-    @SerializedName("classModule")
-    val classModule: List<ClassModule>
+    @SerializedName("courseModules")
+    val courseModules: List<ClassModule>
 )

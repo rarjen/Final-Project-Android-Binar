@@ -27,9 +27,10 @@ class MateriKelasFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
 
-            Log.d("DATASILABUS",viewModel.classModules.value.toString())
+        binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
+//
+//            Log.d("DATASILABUS",viewModel.classModules.value.toString())
 //        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext())
 //        binding.rvMateriChapter.adapter = MateriKelasAdapter(viewModel.classModules.value)
 
