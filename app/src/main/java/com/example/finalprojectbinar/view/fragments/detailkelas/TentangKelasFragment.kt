@@ -1,5 +1,6 @@
 package com.example.finalprojectbinar.view.fragments.detailkelas
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,8 +23,6 @@ class TentangKelasFragment : Fragment() {
     private var _binding: FragmentTentangKelasBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MyViewModel by inject()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +39,7 @@ class TentangKelasFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showClassTarget(classTarget: List<String>?){
         if (classTarget != null && classTarget.isNotEmpty()) {
             val formattedClassTarget = StringBuilder()
@@ -61,7 +61,7 @@ class TentangKelasFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(description: String, classTarget: List<String> ): Fragment {
+        fun newInstance(description: String, classTarget: List<String>): Fragment {
             val args = Bundle()
             args.putString(DetailKelasFragment.DETAIL_KELAS, description)
             args.putStringArrayList(DetailKelasFragment.KELAS_TARGET, ArrayList(classTarget))
