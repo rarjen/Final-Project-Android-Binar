@@ -75,10 +75,14 @@ class LoginActivity : AppCompatActivity() {
                         val errorMessage = it.message ?: "Error Occured"
                         binding.progressBar.visibility = View.GONE
                         handleLoginError(errorMessage)
+                        binding.btnLogin.isEnabled = true
+                        binding.btnLogin.isActivated = true
                         Toast.makeText(this@LoginActivity, "Invalid credentials!", Toast.LENGTH_SHORT).show()
                     }
                     Status.LOADING -> {
                         binding.progressBar.visibility = View.VISIBLE
+                        binding.btnLogin.isEnabled = false
+                        binding.btnLogin.isActivated = false
                         Log.d("LoadingTEST", "Loading")
                     }
                 }

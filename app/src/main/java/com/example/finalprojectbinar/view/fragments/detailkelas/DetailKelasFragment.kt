@@ -7,17 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.model.DataFilter
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
+import com.example.finalprojectbinar.view.fragments.DataListener
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
 import com.example.finalprojectbinar.view.ui.MainActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -37,6 +41,7 @@ class DetailKelasFragment : Fragment() {
 
     private val viewModel: MyViewModel by inject()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,11 +49,11 @@ class DetailKelasFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
-
-        val fragmentList = arrayListOf(TentangKelasFragment(), MateriKelasFragment())
-        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
-
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        val courseId = arguments?.getString("courseId")
+
+        val fragmentList = arrayListOf(TentangKelasFragment.newInstance("courseDescription.toString()", null), MateriKelasFragment())
+        val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         binding.apply {
             viewPagerDetailClass.adapter = PaymentFragmentPageAdapter(fragmentList, requireActivity().supportFragmentManager, lifecycle)
@@ -76,8 +81,6 @@ class DetailKelasFragment : Fragment() {
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_detailKelasFragment_to_berandaFragment)
         }
-
-        val courseId = arguments?.getString("courseId")
 
         showDetailCoroutines(savedToken.toString(), courseId.toString())
 
@@ -128,9 +131,11 @@ class DetailKelasFragment : Fragment() {
         binding.tvDetailTime.text = "${courseData?.totalMinute} Menit"
         binding.tvDetailModul.text = "${courseData?.totalModule} Modul"
 
+        viewModel.setDesc(courseData?.description.toString())
+
         //keep current class modules data on viewmodel
-        Log.d("DATASILABUS","Data From courseData = ${courseData?.classModule.toString()}")
-        viewModel.setClassModules(courseData?.classModule)
+        Log.d("DATASILABUS","Data From courseData = ${courseData?.courseModules.toString()}")
+        viewModel.setClassModules(courseData?.courseModules)
         Log.d("DATASILABUS","Data from viewmodel after setClassModules Fun = ${viewModel.classModules.value.toString()}")
     }
 
@@ -145,6 +150,7 @@ class DetailKelasFragment : Fragment() {
     }
 
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -152,9 +158,11 @@ class DetailKelasFragment : Fragment() {
         bottomNavigationView.visibility = View.VISIBLE
     }
 
+
     companion object {
         val DETAIL_KELAS = "detailKelas"
         val KELAS_TARGET = "kelasTarget"
     }
 
 }
+

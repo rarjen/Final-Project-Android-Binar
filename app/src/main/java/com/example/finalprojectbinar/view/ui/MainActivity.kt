@@ -27,9 +27,7 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     private val viewModel: MyViewModel by inject()
-
     private lateinit var pref: SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +39,12 @@ class MainActivity : AppCompatActivity() {
 
         pref = SharedPreferenceHelper
         val savedToken = pref.read(Enum.PREF_NAME.value).toString()
-        validateJWT(savedToken)
+
+
+        if (savedToken != "null") {
+            // Token exists, validate JWT
+            validateJWT(savedToken)
+        }
 
         val navHomeFragment = supportFragmentManager.findFragmentById(R.id.container_fragment) as NavHostFragment
         val navController = navHomeFragment.navController
@@ -62,30 +65,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateJWT(token: String?) {
-        if (token != null) {
-            viewModel.validateJWT("Bearer $token").observe(this){
-                when (it.status) {
-                    Status.ERROR -> {
-                        val intent = Intent(this@MainActivity, SplashScreenActivity::class.java)
-                        pref.write(Enum.PREF_NAME.value, null)
-                        startActivity(intent)
-                        finish()
-                    }
-                    else -> {
-                        //TODO
-                    }
+    private fun validateJWT(token: String) {
+        viewModel.validateJWT("Bearer $token").observe(this) {
+            when (it.status) {
+                Status.ERROR -> {
+                    // Invalid JWT or other error, show login screen
+                    navigateToLoginActivity()
+                }
+                else -> {
+                    // JWT is valid, continue with the app
+                    // TODO: Add any specific logic if needed
                 }
             }
-        } else {
-            Toast.makeText(this@MainActivity, "Anda belum terdaftar!", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, SplashScreenActivity::class.java)
-            startActivity(intent)
-            finish()
         }
+    }
+
+    private fun navigateToLoginActivity() {
+        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun getBottomNavigationView(): BottomNavigationView {
         return binding.bottomNavigation
     }
-}   
+}

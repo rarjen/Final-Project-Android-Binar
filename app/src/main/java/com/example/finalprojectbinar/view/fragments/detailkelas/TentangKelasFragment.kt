@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
 import com.example.finalprojectbinar.databinding.FragmentTentangKelasBinding
@@ -28,10 +30,9 @@ class TentangKelasFragment : Fragment() {
     ): View {
         _binding = FragmentTentangKelasBinding.inflate(inflater, container, false)
 
-        viewModel.desc.observe(viewLifecycleOwner) {
-            Log.d("OBSERVE_DESC", "Deskripsi yang diobserve: $it")
-            binding.textDescription.text = it.toString()
-        }
+
+        val description = arguments?.getString(DetailKelasFragment.DETAIL_KELAS)
+        binding.textDescription.text = description
 
 
         return binding.root
@@ -40,5 +41,16 @@ class TentangKelasFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(description: String, classTarget: String?): Fragment {
+            val args = Bundle()
+            args.putString(DetailKelasFragment.DETAIL_KELAS, description)
+
+            val fragment = TentangKelasFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
