@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetConfirmOrderBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
@@ -65,7 +66,7 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
                     startActivity(intent)
                 }
                 Status.ERROR -> {
-                    val message = it.message.toString()
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
                 }
                 Status.LOADING -> {
                     Log.d("LoadingTEST", "Loading")
@@ -79,12 +80,24 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data -> showData(data) }
+                    binding.buttonBuy.visibility = View.VISIBLE
+                    binding.ivCardImage.visibility = View.VISIBLE
+                    binding.layoutDetail.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
                 }
                 Status.ERROR -> {
-                    Log.d("ErrorTest", it.data?.code.toString())
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                    binding.buttonBuy.visibility = View.GONE
+                    binding.ivCardImage.visibility = View.GONE
+                    binding.layoutDetail.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                    dismiss()
                 }
                 Status.LOADING -> {
-                    Log.d("TESTGETDATA", it.data.toString())
+                    binding.buttonBuy.visibility = View.GONE
+                    binding.ivCardImage.visibility = View.GONE
+                    binding.layoutDetail.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }

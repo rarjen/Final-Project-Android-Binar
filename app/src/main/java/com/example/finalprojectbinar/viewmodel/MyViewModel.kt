@@ -116,4 +116,12 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
     }
+
+    fun getHistoryPayment(token: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(Resource.success(data = repository.getHistoryPayment(token)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
 }

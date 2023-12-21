@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_paymentHistoryFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_paymentHistoryFragment_to_detailKelasFragment"
+            app:destination="@id/detailKelasFragment" />
     </fragment>
     <fragment
         android:id="@+id/hasilFilterFragment"
