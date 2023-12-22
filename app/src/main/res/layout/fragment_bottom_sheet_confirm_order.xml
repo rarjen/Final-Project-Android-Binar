@@ -17,6 +17,16 @@
             android:layout_width="match_parent"
             android:padding="18dp"
             android:layout_height="wrap_content" >
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content" />
             <ImageView
                 android:id="@+id/imageClose"
                 android:layout_width="wrap_content"
@@ -75,6 +85,7 @@
                         android:contentDescription="@string/course_cover"
                         />
                     <LinearLayout
+                        android:id="@+id/layoutDetail"
                         android:paddingHorizontal="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
