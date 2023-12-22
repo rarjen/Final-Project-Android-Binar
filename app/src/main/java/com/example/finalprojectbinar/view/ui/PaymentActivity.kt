@@ -43,7 +43,7 @@ class PaymentActivity : AppCompatActivity() {
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         showDetailCoroutines(savedToken.toString(), courseId.toString())
-        showDetailPayment()
+//        showDetailPayment()
 
         binding.apply {
             viewPager.adapter = PaymentFragmentPageAdapter(fragmentList, this@PaymentActivity.supportFragmentManager, lifecycle)
@@ -100,20 +100,27 @@ class PaymentActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun showDetailPayment(){
-        val enrollmentData = this.intent.getParcelableExtra<DataEnrollment>(BottomSheetConfirmOrderFragment.ENROLLMENT_DATA)
-        binding.tvCoursePrice.text = "Rp ${enrollmentData?.price}"
-        binding.tvTaxPrice.text = "Rp ${enrollmentData?.tax}"
-        binding.tvTotalPrice.text = "Rp ${enrollmentData?.total}"
 
-    }
+//    private fun showDetailPayment(){
+//        val enrollmentData = this.intent.getParcelableExtra<DataEnrollment>(BottomSheetConfirmOrderFragment.ENROLLMENT_DATA)
+//        @SuppressLint("SetTextI18n")
+//        if (enrollmentData == null) {
+//            binding.tvCoursePrice.text = "Rp ${enrollmentData?.price}"
+//            binding.tvTaxPrice.text = "Rp ${enrollmentData?.tax}"
+//            binding.tvTotalPrice.text = "Rp ${enrollmentData?.total}"
+//        } else {
+//            binding.tvCoursePrice.text = ""
+//            binding.tvTaxPrice.text = ""
+//            binding.tvTotalPrice.text = ""
+//        }
+//
+//    }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
       viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(this, Observer {
           when (it.status) {
               Status.SUCCESS -> {
-                  Log.d("TESTGETDATABYID", it.data.toString())
+                  Log.d("TESTPAYMENT", it.data.toString())
                   it.data?.let { data -> showData(data) }
               }
 
@@ -131,10 +138,17 @@ class PaymentActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun showData(data: CoursesResponsebyName) {
         val courseData: DataCourses? = data.data
-        // Update UI elements directly with course details
+
+        val price = courseData?.price
+        val ppn = courseData?.price?.times(0.11)
+        val total = ppn?.let { price?.plus(it) }
+
         binding.tvCardCategory.text = courseData?.category
         binding.tvCardTitleCourse.text = courseData?.name
         binding.tvCardAuthorCourse.text = courseData?.author
+        binding.tvCoursePrice.text = "Rp $price"
+        binding.tvTaxPrice.text = "Rp $ppn"
+        binding.tvTotalPrice.text = "Rp $total"
         Glide.with(this@PaymentActivity)
             .load(courseData?.image)
             .fitCenter()

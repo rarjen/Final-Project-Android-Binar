@@ -4,6 +4,12 @@ package com.example.finalprojectbinar.model
 import com.google.gson.annotations.SerializedName
 
 data class DataPaymentHistory(
+    @SerializedName("courseUuid")
+    val courseUuid: String?,
+    @SerializedName("paymentUuid")
+    val paymentUuid: String?,
+    @SerializedName("userCourseId")
+    val userCourseId: String?,
     @SerializedName("courseAuthor")
     val courseAuthor: String?,
     @SerializedName("courseCategory")

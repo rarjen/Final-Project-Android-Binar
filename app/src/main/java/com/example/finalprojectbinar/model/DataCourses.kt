@@ -1,7 +1,10 @@
 package com.example.finalprojectbinar.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DataCourses(
     @SerializedName("id")
     val id: String,
@@ -39,4 +42,4 @@ data class DataCourses(
     val onboarding: String,
     @SerializedName("courseModules")
     val courseModules: List<ClassModule>
-)
+): Parcelable

@@ -69,6 +69,7 @@ class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null
             }
         }
     }
+
 }
 interface OnItemClickCallback {
     fun onItemClicked(data: DataAllCourses)
