@@ -1,11 +1,15 @@
 package com.example.finalprojectbinar.view.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +60,6 @@ class KursusFragment : Fragment(), DataListener {
     var category: String? = null
     var level: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -86,7 +89,37 @@ class KursusFragment : Fragment(), DataListener {
         }
         return binding.root
     }
+    fun search(){
+        val editText: EditText = binding.searchBar
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
+            }
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (s.isNullOrEmpty()) {
+                    // If the text is empty, make views visible
+                    binding.rvKelas.visibility = View.VISIBLE
+
+                } else if (s.length >= 3) {
+                    // If the text length is 3 or more, hide views
+                    binding.rvKelas.visibility = View.GONE
+                    fetchCourseCouroutines(null, null, null, s.toString())
+                } else {
+                    // If the text length is less than 3, make views visible
+                    binding.rvKelas.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.notFoundLayoutCourse.visibility = View.GONE
+
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+    }
     private fun fetchCourseCouroutines(categoryId: String?, level: String?, premium: String?, search: String?) {
         viewModel.getAllCourses(categoryId,level, premium, search).observe(viewLifecycleOwner) {
             when (it.status) {
@@ -164,11 +197,9 @@ class KursusFragment : Fragment(), DataListener {
                     fetchCourseCouroutines(category,level,"0",null)
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
 
             }
-
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }

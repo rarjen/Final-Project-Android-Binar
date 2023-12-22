@@ -29,10 +29,10 @@ class MateriKelasFragment : Fragment() {
     ): View? {
 
         binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
-//
-//            Log.d("DATASILABUS",viewModel.classModules.value.toString())
-//        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext())
-//        binding.rvMateriChapter.adapter = MateriKelasAdapter(viewModel.classModules.value)
+
+        Log.d("DATASILABUS",viewModel.classModules.value.toString())
+        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMateriChapter.adapter = MateriKelasAdapter(viewModel.classModules.value)
 
 
         return binding.root
