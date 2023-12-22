@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_chapter_kelas"/>
+        tools:listitem="@layout/layout_module"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

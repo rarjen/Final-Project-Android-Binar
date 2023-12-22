@@ -87,7 +87,7 @@ class PaymentHistoryFragment : Fragment() {
         })
 
         adapter.submitHistoryPayment(data?.data ?: emptyList())
-        binding.rvContainerPaymentHistory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvContainerPaymentHistory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvContainerPaymentHistory.adapter = adapter
     }
 

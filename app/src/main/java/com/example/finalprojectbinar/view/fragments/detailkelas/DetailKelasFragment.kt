@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
+import com.example.finalprojectbinar.model.ClassModule
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.model.DataFilter
@@ -71,6 +72,7 @@ class DetailKelasFragment : Fragment() {
                         binding.layoutVideoPlayer.visibility = View.VISIBLE
                         binding.cardDetail.visibility = View.VISIBLE
                         binding.nestedView.visibility = View.VISIBLE
+
                     }
                 }
 
@@ -80,7 +82,6 @@ class DetailKelasFragment : Fragment() {
                 }
 
                 Status.LOADING -> {
-                    Log.d("TESTGETDATA", it.data.toString())
                     binding.layoutVideoPlayer.visibility = View.GONE
                     binding.cardDetail.visibility = View.GONE
                     binding.nestedView.visibility = View.GONE
@@ -115,15 +116,9 @@ class DetailKelasFragment : Fragment() {
 
 
         if (courseData != null) {
-            showTabLayout(courseData.description, courseData.classTarget)
+            showTabLayout(courseData.description, courseData.classTarget, courseData.id)
         }
 
-        Log.d("TESTDATAMODULE", courseData?.courseModules.toString())
-
-        //keep current class modules data on viewmodel
-        Log.d("DATASILABUS","Data From courseData = ${courseData?.courseModules.toString()}")
-        viewModel.setClassModules(courseData?.courseModules)
-        Log.d("DATASILABUS","Data from viewmodel after setClassModules Fun = ${viewModel.classModules.value.toString()}")
     }
 
     private fun extractYouTubeVideoId(youtubeUrl: String): String? {
@@ -137,8 +132,8 @@ class DetailKelasFragment : Fragment() {
     }
 
 
-    private fun showTabLayout(description: String, classTarget: List<String>) {
-        val fragmentList = arrayListOf(TentangKelasFragment.newInstance(description, classTarget), MateriKelasFragment())
+    private fun showTabLayout(description: String, classTarget: List<String>, id: String) {
+        val fragmentList = arrayListOf(TentangKelasFragment.newInstance(description, classTarget), MateriKelasFragment.newInstance(id))
         val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         binding.apply {
@@ -177,6 +172,8 @@ class DetailKelasFragment : Fragment() {
     companion object {
         val DETAIL_KELAS = "detailKelas"
         val KELAS_TARGET = "kelasTarget"
+
+        val MATERI_KELAS = "materiKelas"
     }
 
 }
