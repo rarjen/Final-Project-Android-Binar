@@ -55,15 +55,16 @@ class PaymentHistoryFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     showHistory(it.data)
+                    binding.progressBar.visibility = View.GONE
                 }
 
                 Status.ERROR -> {
-                    Log.d("ERRORMSG", "Error Occured!")
-                    Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
                 }
 
                 Status.LOADING -> {
-//                    binding.progressBarCourse.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }

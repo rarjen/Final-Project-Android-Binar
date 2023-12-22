@@ -76,11 +76,11 @@ class DetailKelasFragment : Fragment() {
 
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.VISIBLE
                 }
 
                 Status.LOADING -> {
                     Log.d("TESTGETDATA", it.data.toString())
-                    binding.progressBar.visibility = View.VISIBLE
                     binding.layoutVideoPlayer.visibility = View.GONE
                     binding.cardDetail.visibility = View.GONE
                     binding.nestedView.visibility = View.GONE
@@ -117,6 +117,8 @@ class DetailKelasFragment : Fragment() {
         if (courseData != null) {
             showTabLayout(courseData.description, courseData.classTarget)
         }
+
+        Log.d("TESTDATAMODULE", courseData?.courseModules.toString())
 
         //keep current class modules data on viewmodel
         Log.d("DATASILABUS","Data From courseData = ${courseData?.courseModules.toString()}")

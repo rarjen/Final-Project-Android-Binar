@@ -55,9 +55,11 @@ class BerandaFragment : Fragment() {
                     fetchCourseCouroutines(categoryId, null, null, null)
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab) {
                 // ...
             }
+
             override fun onTabReselected(tab: TabLayout.Tab) {
                 // ...
             }
@@ -97,7 +99,12 @@ class BerandaFragment : Fragment() {
         }
     }
 
-    private fun fetchCourseCouroutines(categoryId: String?, level: String?, premium: String?, search: String?) {
+    private fun fetchCourseCouroutines(
+        categoryId: String?,
+        level: String?,
+        premium: String?,
+        search: String?
+    ) {
         viewModel.getAllCourses(categoryId, level, premium, search).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -116,7 +123,7 @@ class BerandaFragment : Fragment() {
         }
     }
 
-    private fun showCategories(data: ListCategoriesResponse?){
+    private fun showCategories(data: ListCategoriesResponse?) {
         val adapter = CategoryAdapter(null)
 
         categories = data?.data ?: emptyList()
@@ -130,7 +137,7 @@ class BerandaFragment : Fragment() {
         binding.gridviewKategori.adapter = adapter
     }
 
-    private fun showTabLayout(data: ListCategoriesResponse?){
+    private fun showTabLayout(data: ListCategoriesResponse?) {
         val tabLayout = binding.tabLayout
         data?.data?.forEach { category ->
             val tab = tabLayout.newTab()
@@ -139,7 +146,7 @@ class BerandaFragment : Fragment() {
         }
     }
 
-    private fun showCourses(data: CoursesResponses?){
+    private fun showCourses(data: CoursesResponses?) {
         val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
             val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
             if (isLogin != null) {
@@ -151,16 +158,23 @@ class BerandaFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString("courseId", courseId)
                     }
-                    findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
+                    findNavController().navigate(
+                        R.id.action_berandaFragment_to_detailKelasFragment,
+                        bundle
+                    )
                 }
             } else {
                 val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
-                bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
+                bottomSheetFragmentMustLogin.show(
+                    childFragmentManager,
+                    bottomSheetFragmentMustLogin.tag
+                )
             }
         })
 
         adapter.submitCoursesResponse(data?.data ?: emptyList())
-        binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCourses.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvCourses.adapter = adapter
     }
 
@@ -183,7 +197,6 @@ class BerandaFragment : Fragment() {
                     binding.notFoundLayoutCourse.visibility = View.GONE
                     binding.containerSearchRV.visibility = View.GONE
                 } else if (s.length >= 3) {
-                    // If the text length is 3 or more, hide views
                     binding.rvCourses.visibility = View.GONE
                     binding.gridviewKategori.visibility = View.GONE
                     binding.clKategori.visibility = View.GONE
@@ -191,7 +204,6 @@ class BerandaFragment : Fragment() {
                     binding.tabLayout.visibility = View.GONE
                     fetchCourseSearch(null, null, null, s.toString())
                 } else {
-                    // If the text length is less than 3, make views visible
                     binding.rvCourses.visibility = View.VISIBLE
                     binding.gridviewKategori.visibility = View.VISIBLE
                     binding.clKategori.visibility = View.VISIBLE
@@ -207,7 +219,12 @@ class BerandaFragment : Fragment() {
         })
     }
 
-    private fun fetchCourseSearch(categoryId: String?, level: String?, premium: String?, search: String?) {
+    private fun fetchCourseSearch(
+        categoryId: String?,
+        level: String?,
+        premium: String?,
+        search: String?
+    ) {
         viewModel.getAllCourses(categoryId, level, premium, search).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -245,16 +262,23 @@ class BerandaFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString("courseId", courseId)
                     }
-                    findNavController().navigate(R.id.action_berandaFragment_to_detailKelasFragment, bundle)
+                    findNavController().navigate(
+                        R.id.action_berandaFragment_to_detailKelasFragment,
+                        bundle
+                    )
                 }
             } else {
                 val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
-                bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
+                bottomSheetFragmentMustLogin.show(
+                    childFragmentManager,
+                    bottomSheetFragmentMustLogin.tag
+                )
             }
         })
 
         adapter.submitCoursesResponse(data?.data ?: emptyList())
-        binding.containerSearchRV.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.containerSearchRV.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
         binding.containerSearchRV.adapter = adapter
     }
 

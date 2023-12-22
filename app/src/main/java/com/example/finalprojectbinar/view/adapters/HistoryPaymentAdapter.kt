@@ -3,10 +3,12 @@ package com.example.finalprojectbinar.view.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.RvCardCoursesBinding
 import com.example.finalprojectbinar.model.DataPaymentHistory
 
@@ -71,6 +73,11 @@ class HistoryPaymentAdapter (
                     .load(data.image)
                     .fitCenter()
                     .into(binding.ivCardImage)
+
+                if(data.isPaid == false){
+                    binding.statusLayout.background = ContextCompat.getDrawable(binding.root.context, R.drawable.rounded_background_unpaid)
+                    binding.tvStatus.text = "Waiting for Payment"
+                }
             }
         }
     }
