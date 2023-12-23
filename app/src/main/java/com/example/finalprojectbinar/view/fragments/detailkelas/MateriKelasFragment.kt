@@ -35,8 +35,6 @@ class MateriKelasFragment : Fragment() {
     ): View? {
 
 
-        Log.d("DATASILABUS",viewModel.classModules.value.toString())
-        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext())
         _binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
 
 
@@ -48,12 +46,6 @@ class MateriKelasFragment : Fragment() {
         return binding.root
     }
 
-    private fun showMateriKelas(items: List<Any>) {
-        val adapter = ViewTypeAdapterDetail(items, null)
-        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvMateriChapter.adapter = adapter
-    }
-
 
     private fun getModuleByCourseId(token: String, courseId: String){
         viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
@@ -61,17 +53,16 @@ class MateriKelasFragment : Fragment() {
                 Status.SUCCESS -> {
                     val data = it.data?.data
                     showData(data!!)
+                    binding.progressBar.visibility = View.GONE
                 }
 
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-//                    binding.progressBar.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
 
                 Status.LOADING -> {
-//                    binding.layoutVideoPlayer.visibility = View.GONE
-//                    binding.cardDetail.visibility = View.GONE
-//                    binding.nestedView.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }
