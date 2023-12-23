@@ -74,7 +74,7 @@ class CourseAdapter (
                     .into(binding.courseCover)
             }
 
-            if(data.isPremium == false) {
+            if(!data.isPremium) {
                 binding.button.text = "Mulai Kelas"
             } else {
                 binding.button.text = "Beli Rp. ${data.price}"
