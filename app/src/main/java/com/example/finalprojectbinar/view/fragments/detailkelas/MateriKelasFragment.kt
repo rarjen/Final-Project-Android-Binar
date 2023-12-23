@@ -34,7 +34,11 @@ class MateriKelasFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+        Log.d("DATASILABUS",viewModel.classModules.value.toString())
+        binding.rvMateriChapter.layoutManager = LinearLayoutManager(requireContext())
         _binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
+
 
         val id: String? = arguments?.getString(DetailKelasFragment.MATERI_KELAS)
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
