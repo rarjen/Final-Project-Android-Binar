@@ -67,11 +67,17 @@ class CourseAdapter (
                 tvCardRate.text = data.rating.toString()
                 tvCardTotalModul.text = data.totalModule.toString()
                 tvCardTotalTime.text = data.totalMinute.toString()
-                button.text = "Beli Rp. ${data.price}"
+
                 Glide.with(this.courseCover)
                     .load(data.image)
                     .fitCenter()
                     .into(binding.courseCover)
+            }
+
+            if(data.isPremium == false) {
+                binding.button.text = "Mulai Kelas"
+            } else {
+                binding.button.text = "Beli Rp. ${data.price}"
             }
         }
     }
