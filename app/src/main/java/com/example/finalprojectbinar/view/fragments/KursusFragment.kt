@@ -52,8 +52,6 @@ class KursusFragment : Fragment(), DataListener {
     private lateinit var _binding: FragmentKursusBinding
     private val binding get() = _binding
     private var DataFilter =  ArrayList<DataFilter>()
-    private var status: String? = "3"
-    private val sharedPrefKey = "statusKursus"
     private val viewModel: MyViewModel by inject()
     private var categoryId: ArrayList<String?> = ArrayList(6)
     private var Level: ArrayList<String?> = ArrayList(4)
@@ -75,8 +73,6 @@ class KursusFragment : Fragment(), DataListener {
         // Inflate the layout for this fragment
         _binding = FragmentKursusBinding.inflate(inflater, container, false)
         SharedPreferenceHelper.init(requireContext().applicationContext)
-        status = SharedPreferenceHelper.read(sharedPrefKey, status)
-        Log.d("Status", "onCreateView: ${status}")
         showTab()
         Log.d("DATAAAAA", category + level)
         Log.d("Nama Fragment", "Fragment Kursus")
@@ -100,17 +96,24 @@ class KursusFragment : Fragment(), DataListener {
                 if (s.isNullOrEmpty()) {
                     // If the text is empty, make views visible
                     binding.rvKelas.visibility = View.VISIBLE
-
-                } else if (s.length >= 3) {
-                    // If the text length is 3 or more, hide views
-                    binding.rvKelas.visibility = View.GONE
-                    fetchCourseCouroutines(null, null, null, s.toString())
-                } else {
-                    // If the text length is less than 3, make views visible
-                    binding.rvKelas.visibility = View.VISIBLE
+                    binding.clKursus.visibility = View.VISIBLE
                     binding.tabLayout.visibility = View.VISIBLE
                     binding.notFoundLayoutCourse.visibility = View.GONE
 
+                } else if (s.length >= 3) {
+                    // If the text length is 3 or more, hide views
+                    binding.clKursus.visibility = View.GONE
+                    binding.tabLayout.visibility = View.GONE
+                    binding.notFoundLayoutCourse.visibility = View.GONE
+                    fetchCourseCouroutines(null, null, null, s.toString())
+                } else {
+                    // If the text length is less than 3, make views visible
+                    binding.clKursus.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.rvKelas.visibility = View.VISIBLE
+                    binding.tabLayout.visibility = View.VISIBLE
+                    binding.notFoundLayoutCourse.visibility = View.GONE
+                    fetchCourseCouroutines(null, null, null, null)
                 }
             }
 
@@ -124,7 +127,18 @@ class KursusFragment : Fragment(), DataListener {
         viewModel.getAllCourses(categoryId,level, premium, search).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    setUPRecycleView(it.data!!)
+                    val dataLength = it.data?.data?.size
+                    if(dataLength!! < 1) {
+                        binding.notFoundLayoutCourse.visibility = View.VISIBLE
+                        binding.rvKelas.visibility = View.GONE
+                        binding.clKursus.visibility = View.GONE
+                        binding.tabLayout.visibility = View.GONE
+                    }else{
+                        binding.rvKelas.visibility = View.VISIBLE
+                        binding.notFoundLayoutCourse.visibility = View.GONE
+                        setUPRecycleView(it.data)
+                    }
+
                     Log.d("DATATEST", it.data.toString())
                     binding.progressBarCourses.visibility = View.GONE
                 }
@@ -142,9 +156,6 @@ class KursusFragment : Fragment(), DataListener {
 
     private fun setUPRecycleView(data : CoursesResponses?) {
         val adapter = KursusAdapter(null)
-        adapter.submitCoursesResponse(data?.data ?: emptyList())
-        binding.rvKelas.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        binding.rvKelas.adapter = adapter
         adapter.setOnItemClickCallback(object : OnItemClickCallback{
             override fun onItemClicked(data: DataAllCourses) {
                 val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
@@ -167,6 +178,9 @@ class KursusFragment : Fragment(), DataListener {
             }
 
         })
+        adapter.submitCoursesResponse(data?.data ?: emptyList())
+        binding.rvKelas.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        binding.rvKelas.adapter = adapter
 
     }
     private fun showTab(){
@@ -185,7 +199,7 @@ class KursusFragment : Fragment(), DataListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        search()
         fetchCourseCouroutines(category,level,null,null)
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab) {
