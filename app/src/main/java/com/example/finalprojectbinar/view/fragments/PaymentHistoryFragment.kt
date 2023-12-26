@@ -78,10 +78,7 @@ class PaymentHistoryFragment : Fragment() {
                }
                 findNavController().navigate(R.id.action_paymentHistoryFragment_to_detailKelasFragment, bundle)
             } else {
-                val intent = Intent(requireContext(), PaymentActivity::class.java).apply {
-                    putExtra("courseId", courseId)
-                }
-                startActivity(intent)
+                handlePayment(courseId)
             }
 
         })
@@ -89,6 +86,12 @@ class PaymentHistoryFragment : Fragment() {
         adapter.submitHistoryPayment(data?.data ?: emptyList())
         binding.rvContainerPaymentHistory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvContainerPaymentHistory.adapter = adapter
+    }
+    private fun handlePayment(courseId: String) {
+        val intent = Intent(requireContext(), PaymentActivity::class.java).apply {
+            putExtra("courseId", courseId)
+        }
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
