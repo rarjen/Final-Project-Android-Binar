@@ -28,6 +28,7 @@ import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
+import kotlin.math.log
 
 @Suppress("DEPRECATION")
 class PaymentActivity : AppCompatActivity() {
@@ -43,6 +44,7 @@ class PaymentActivity : AppCompatActivity() {
 
         val fragmentList = arrayListOf(CreditCardFragment(), BankFragment())
         val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
+        val paymentId = intent.getStringExtra("paymentId")
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         showDetailCoroutines(savedToken.toString(), courseId.toString())
@@ -60,7 +62,8 @@ class PaymentActivity : AppCompatActivity() {
 
             buttonCheckout.setOnClickListener{
                 showButtomSheetSuccessPayment()
-                performPayment()
+//                performPayment()
+                updatePaymentStatus(savedToken, paymentId.toString())
             }
 
             ivBack.setOnClickListener {
@@ -103,22 +106,6 @@ class PaymentActivity : AppCompatActivity() {
         dialog.setContentView(view)
         dialog.show()
     }
-
-
-//    private fun showDetailPayment(){
-//        val enrollmentData = this.intent.getParcelableExtra<DataEnrollment>(BottomSheetConfirmOrderFragment.ENROLLMENT_DATA)
-//        @SuppressLint("SetTextI18n")
-//        if (enrollmentData == null) {
-//            binding.tvCoursePrice.text = "Rp ${enrollmentData?.price}"
-//            binding.tvTaxPrice.text = "Rp ${enrollmentData?.tax}"
-//            binding.tvTotalPrice.text = "Rp ${enrollmentData?.total}"
-//        } else {
-//            binding.tvCoursePrice.text = ""
-//            binding.tvTaxPrice.text = ""
-//            binding.tvTotalPrice.text = ""
-//        }
-//
-//    }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
       viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(this, Observer {
@@ -173,7 +160,7 @@ class PaymentActivity : AppCompatActivity() {
                         // Setelah pendaftaran berhasil, lakukan pembayaran
                         val paymentUuid = it.data?.data?.paymentUuid
                         if (!paymentUuid.isNullOrBlank()) {
-                            val paymentRequest = PaymentRequest(payment_method = "credit_card")
+                            val paymentRequest = PaymentRequest(payment_method = "credit card")
                             viewModel.putPayment(savedToken, paymentUuid, paymentRequest)
                                 .observe(this, Observer { paymentResponse ->
                                     when (paymentResponse.status) {
@@ -212,11 +199,11 @@ class PaymentActivity : AppCompatActivity() {
             })
         }
     }
-    private fun updatePaymentStatus(token: String?, courseId: String?) {
-        if (token != null && courseId != null) {
+    private fun updatePaymentStatus(token: String?, paymentId: String?) {
+        if (token != null && paymentId != null) {
             // Ubah status pembayaran menjadi "paid" setelah pembayaran berhasil
-            val paymentRequest = PaymentRequest(payment_method = "credit_card")
-            viewModel.putPayment(token, courseId, paymentRequest).observe(this) { resource ->
+            val paymentRequest = PaymentRequest(payment_method = "credit card")
+            viewModel.putPayment("Bearer $token", paymentId, paymentRequest).observe(this) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         Log.d("PaymentStatus", "Pembayaran berhasil diupdate")

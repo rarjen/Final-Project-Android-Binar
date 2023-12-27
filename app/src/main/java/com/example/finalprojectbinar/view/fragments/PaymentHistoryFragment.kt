@@ -71,14 +71,14 @@ class PaymentHistoryFragment : Fragment() {
     }
 
     private fun showHistory(data: PaymentHistoryResponse?){
-        val adapter = HistoryPaymentAdapter(onButtonClick = { courseId, isPaid ->
+        val adapter = HistoryPaymentAdapter(onButtonClick = { courseId, paymentId, isPaid ->
             if (isPaid) {
                val bundle = Bundle().apply {
                    putString("courseId", courseId)
                }
                 findNavController().navigate(R.id.action_paymentHistoryFragment_to_detailKelasFragment, bundle)
             } else {
-                handlePayment(courseId)
+                handlePayment(courseId, paymentId)
             }
 
         })
@@ -87,9 +87,10 @@ class PaymentHistoryFragment : Fragment() {
         binding.rvContainerPaymentHistory.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         binding.rvContainerPaymentHistory.adapter = adapter
     }
-    private fun handlePayment(courseId: String) {
+    private fun handlePayment(courseId: String, paymentId: String) {
         val intent = Intent(requireContext(), PaymentActivity::class.java).apply {
             putExtra("courseId", courseId)
+            putExtra("paymentId", paymentId)
         }
         startActivity(intent)
     }

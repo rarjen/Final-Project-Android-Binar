@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.databinding.LayoutChapterBinding
 import com.example.finalprojectbinar.databinding.LayoutModuleBinding
 import com.example.finalprojectbinar.model.ClassModule
+import com.example.finalprojectbinar.model.CoursesResponsebyName
+import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.model.Module
 
 class ViewTypeAdapterDetail(
@@ -60,8 +62,7 @@ class ViewTypeAdapterDetail(
         }
     }
 
-    inner class ChapterViewHolder(private var binding: LayoutChapterBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ChapterViewHolder(private var binding: LayoutChapterBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(classModule: ClassModule) {
             binding.tvChapter.text = classModule.chapter
@@ -69,8 +70,20 @@ class ViewTypeAdapterDetail(
         }
     }
 
-    inner class ModuleViewHolder(private var binding: LayoutModuleBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ModuleViewHolder(private var binding: LayoutModuleBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.clModule.setOnClickListener {
+                val position = adapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    val clickedItem = items[position]
+                    if (clickedItem is Module) {
+                        clickListener?.invoke(clickedItem.chapterModuleUuid)
+                    }
+                }
+            }
+        }
+
         fun bind(moduleList: Module) {
             binding.moduleName.text = moduleList.title
         }

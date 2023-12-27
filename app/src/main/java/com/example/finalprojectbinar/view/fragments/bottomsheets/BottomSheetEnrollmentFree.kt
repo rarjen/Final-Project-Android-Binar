@@ -1,9 +1,8 @@
 package com.example.finalprojectbinar.view.fragments.bottomsheets
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +10,18 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetConfirmOrderBinding
+import com.example.finalprojectbinar.databinding.FragmentBottomSheetEnrollmentFreeBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
-import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject
 
-class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
-    private var _binding: FragmentBottomSheetConfirmOrderBinding? = null
+class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
+    private var _binding: FragmentBottomSheetEnrollmentFreeBinding? = null
     private val binding get() = _binding!!
 
     private var courseId: String? = null
@@ -37,39 +35,17 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBottomSheetConfirmOrderBinding.inflate(inflater, container, false)
+        // Inflate the layout for this fragment
+        _binding = FragmentBottomSheetEnrollmentFreeBinding.inflate(inflater, container, false)
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         binding.imageClose.setOnClickListener {
             dismiss()
         }
 
-        binding.buttonBuy.setOnClickListener {
-            postEnrollment(savedToken, courseId.toString())
-        }
+//        showDetailCoroutines(savedToken)
 
-        showDetailCoroutines(savedToken.toString(), courseId.toString())
         return binding.root
-    }
-
-    private fun postEnrollment(token: String?, course_uuid: String){
-        val enrollmentRequest = EnrollmentRequest(course_uuid)
-        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
-            when (it.status) {
-                Status.SUCCESS -> {
-                    val intent = Intent(requireContext(), PaymentActivity::class.java)
-                    intent.putExtra(ENROLLMENT_DATA, it.data?.data)
-                    intent.putExtra(COURSE_ID, courseId)
-                    startActivity(intent)
-                }
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-                }
-                Status.LOADING -> {
-                    Log.d("LoadingTEST", "Loading")
-                }
-            }
-        }
     }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
@@ -115,15 +91,5 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
             .load(courseData?.image)
             .fitCenter()
             .into(binding.ivCardImage)
-    }
-
-    companion object {
-        const val ENROLLMENT_DATA = "enrollmentData"
-        const val COURSE_ID = "courseId"
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

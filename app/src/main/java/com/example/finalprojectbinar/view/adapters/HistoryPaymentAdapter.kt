@@ -13,7 +13,7 @@ import com.example.finalprojectbinar.databinding.RvCardCoursesBinding
 import com.example.finalprojectbinar.model.DataPaymentHistory
 
 class HistoryPaymentAdapter (
-    private val onButtonClick: (String, Boolean) -> Unit
+    private val onButtonClick: (String, String, Boolean) -> Unit
 ): RecyclerView.Adapter<HistoryPaymentAdapter.ViewHolder>() {
 
     private val diffCallBack = object : DiffUtil.ItemCallback<DataPaymentHistory>() {
@@ -54,8 +54,9 @@ class HistoryPaymentAdapter (
             binding.statusLayout.setOnClickListener {
                 val courseId = differ.currentList[adapterPosition].courseUuid
                 val isPaid = differ.currentList[adapterPosition].isPaid
+                val paymentId = differ.currentList[adapterPosition].paymentUuid
 
-                onButtonClick(courseId!!, isPaid!!)
+                onButtonClick(courseId!!, paymentId!!, isPaid!!)
             }
         }
 
