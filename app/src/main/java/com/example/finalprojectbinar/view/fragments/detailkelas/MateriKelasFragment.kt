@@ -119,7 +119,7 @@ class MateriKelasFragment : Fragment() {
             }
         }
 
-        adapter = ViewTypeAdapterDetail(data, materiList, clickListener = { chapterModuleUuid ->
+        adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid ->
 //            val bottomSheetFragment = BottomSheetEnrollmentFree()
             Log.d("DATAID", data.id)
             Log.d("UUID", chapterModuleUuid)
