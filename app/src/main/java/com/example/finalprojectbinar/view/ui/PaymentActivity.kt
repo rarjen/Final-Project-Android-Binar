@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
@@ -14,6 +15,8 @@ import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.model.DataEnrollment
+import com.example.finalprojectbinar.model.EnrollmentRequest
+import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
@@ -57,6 +60,7 @@ class PaymentActivity : AppCompatActivity() {
 
             buttonCheckout.setOnClickListener{
                 showButtomSheetSuccessPayment()
+                performPayment()
             }
 
             ivBack.setOnClickListener {
@@ -153,6 +157,87 @@ class PaymentActivity : AppCompatActivity() {
             .load(courseData?.image)
             .fitCenter()
             .into(binding.imgCourseCover)
+    }
+    private fun performPayment() {
+        val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+
+        if (courseId != null) {
+            val enrollmentRequest = EnrollmentRequest(courseId)
+            viewModel.postEnrollment(savedToken, enrollmentRequest).observe(this, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        // Handle success
+                        Toast.makeText(this, "Pendaftaran berhasil", Toast.LENGTH_SHORT).show()
+
+                        // Setelah pendaftaran berhasil, lakukan pembayaran
+                        val paymentUuid = it.data?.data?.paymentUuid
+                        if (!paymentUuid.isNullOrBlank()) {
+                            val paymentRequest = PaymentRequest(payment_method = "credit_card")
+                            viewModel.putPayment(savedToken, paymentUuid, paymentRequest)
+                                .observe(this, Observer { paymentResponse ->
+                                    when (paymentResponse.status) {
+                                        Status.SUCCESS -> {
+                                            Toast.makeText(
+                                                this@PaymentActivity,
+                                                "Pembayaran berhasil",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+
+                                            Log.d("PaymentStatus", "Pembayaran berhasil")
+                                            updatePaymentStatus(savedToken, courseId)
+
+                                            savePaymentMethod("credit_card")
+
+                                            showButtomSheetSuccessPayment()
+                                        }
+                                        Status.ERROR -> {
+                                            val errorMessage = paymentResponse.message
+                                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                                        }
+                                        Status.LOADING -> {
+                                        }
+                                    }
+                                })
+                        }
+                    }
+                    Status.ERROR -> {
+                        // Handle error pendaftaran
+                        val errorMessage = it.message
+                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> {
+                    }
+                }
+            })
+        }
+    }
+    private fun updatePaymentStatus(token: String?, courseId: String?) {
+        if (token != null && courseId != null) {
+            // Ubah status pembayaran menjadi "paid" setelah pembayaran berhasil
+            val paymentRequest = PaymentRequest(payment_method = "credit_card")
+            viewModel.putPayment(token, courseId, paymentRequest).observe(this) { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        Log.d("PaymentStatus", "Pembayaran berhasil diupdate")
+                    }
+                    Status.ERROR -> {
+                        Log.e("PaymentStatus", "Gagal mengupdate pembayaran: ${resource.message}")
+                    }
+                    Status.LOADING -> {
+                        Log.d("PaymentStatus", "Sedang memproses pembayaran...")
+                    }
+                }
+            }
+        } else {
+            Log.e("PaymentStatus", "Token atau courseId null")
+        }
+    }
+
+    private fun savePaymentMethod(paymentMethod: String) {
+        // Simpan metode pembayaran ke SharedPreference
+        val sharedPreferenceKey = Enum.PAYMENT_METHOD.value
+        SharedPreferenceHelper.write(sharedPreferenceKey, paymentMethod)
     }
 
 
