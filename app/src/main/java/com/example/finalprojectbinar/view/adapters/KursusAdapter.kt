@@ -61,11 +61,11 @@ class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null
             binding.tvCardCategory.text = category
             if (ispremium){
                 binding.statusLayout.background = ContextCompat.getDrawable(binding.root.context,  R.drawable.rounded_background)
-                binding.tvStatus.text = "Paid"
+                binding.tvStatus.text = "Premium"
             }else{
                 binding.iconStatus.isVisible = false
                 binding.statusLayout.background = ContextCompat.getDrawable(binding.root.context,  R.drawable.rounded_background_free)
-                binding.tvStatus.text = "Free"
+                binding.tvStatus.text = "Mulai Kelas"
             }
         }
     }

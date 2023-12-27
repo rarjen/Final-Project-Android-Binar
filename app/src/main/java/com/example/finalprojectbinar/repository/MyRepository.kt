@@ -36,4 +36,10 @@ class MyRepository() {
     //Payment
     suspend fun putPayment(token: String?, paymentUuid: String, payment_method: PaymentRequest) = apiService.putPayment(token, paymentUuid, payment_method)
     suspend fun getHistoryPayment(token: String) = apiService.getHistoryPayment(token)
+
+    //Video
+    suspend fun getVideoLink(token: String?, chapterModuleUuid: String) = apiService.getVideoLink(token, chapterModuleUuid)
+
+    //Module
+    suspend fun updateCompletedModule(token: String, userChapterModuleUuid: String) = apiService.updateCompletedModule(token, userChapterModuleUuid)
 }

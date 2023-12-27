@@ -124,4 +124,20 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
         }
     }
+
+    fun getVideoLink(token: String?, chapterModuleUuid: String) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.getVideoLink(token, chapterModuleUuid)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun updateCompletedModule(token: String, userChapterModuleUuid: String) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.updateCompletedModule(token, userChapterModuleUuid)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
 }

@@ -1,9 +1,11 @@
 package com.example.finalprojectbinar.api
 
+import com.example.finalprojectbinar.model.CompletedModuleResponse
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.EnrollmentResponse
+import com.example.finalprojectbinar.model.GetVideoResponse
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
@@ -81,4 +83,16 @@ interface APIService {
     suspend fun getHistoryPayment(
         @Header("Authorization") token: String?
     ): PaymentHistoryResponse
+
+    @GET("courses/video-course/{chapterModuleUuid}")
+    suspend fun getVideoLink(
+        @Header("Authorization") token: String?,
+        @Path("chapterModuleUuid") chapterModuleUuid: String
+    ): GetVideoResponse
+
+    @PUT("course-modules/module-completed/{userChapterModuleUuid}")
+    suspend fun updateCompletedModule(
+        @Header("Authorization") token: String?,
+        @Path("chapterModuleUuid") userChapterModuleUuid: String
+    ): CompletedModuleResponse
 }
