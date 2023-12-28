@@ -3,12 +3,14 @@ package com.example.finalprojectbinar.api
 import com.example.finalprojectbinar.model.CompletedModuleResponse
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.CoursesResponses
+import com.example.finalprojectbinar.model.DataNotification
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.EnrollmentResponse
 import com.example.finalprojectbinar.model.GetVideoResponse
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
+import com.example.finalprojectbinar.model.NotificationResponse
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.PaymentHistoryResponse
 import com.example.finalprojectbinar.model.PaymentRequest
@@ -100,6 +102,7 @@ interface APIService {
         @Path("userChapterModuleUuid") userChapterModuleUuid: String
     ): CompletedModuleResponse
 
+
     @PUT("profile")
     suspend fun updateProfile(
         @Header("Authorization") token: String?,
@@ -111,4 +114,9 @@ interface APIService {
         @Header("Authorization") token: String,
         @Body updatePasswordRequest: UpdatePasswordRequest
     ): UpdatePasswordResponse
+  
+    @GET("notification")
+    suspend fun getNotification(
+        @Header("Authorization") token: String?
+    ): NotificationResponse
 }

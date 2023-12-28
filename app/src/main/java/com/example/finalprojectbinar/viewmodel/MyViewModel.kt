@@ -143,6 +143,12 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             emit(Resource.success(data = repository.updatePassword(token, updatePasswordRequest)))
         } catch (e: HttpException) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+            
+    fun getNotification(token: String?) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.getNotification(token)))
+        }catch (e:Exception){
+            emit(Resource.error(data = null, message = e.message ?: "Error Occured!"))
         }
     }
 }

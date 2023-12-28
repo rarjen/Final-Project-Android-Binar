@@ -48,4 +48,5 @@ class MyRepository() {
     //User Management
     suspend fun updateProfile(token: String, updateProfileRequest: UpdateProfileRequest) = apiService.updateProfile(token, updateProfileRequest)
     suspend fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = apiService.updatePassword(token, updatePasswordRequest)
+    suspend fun getNotification(token: String?) = apiService.getNotification(token)
 }
