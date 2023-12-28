@@ -13,5 +13,5 @@ data class Module(
     @SerializedName("isCompleted")
     val isCompleted: Boolean,
     @SerializedName("userChapterModuleUuid")
-    val userChapterModuleUuid: String
+    val userChapterModuleUuid: String?
 ): Parcelable

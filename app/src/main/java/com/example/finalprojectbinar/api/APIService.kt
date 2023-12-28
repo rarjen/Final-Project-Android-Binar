@@ -93,6 +93,6 @@ interface APIService {
     @PUT("course-modules/module-completed/{userChapterModuleUuid}")
     suspend fun updateCompletedModule(
         @Header("Authorization") token: String?,
-        @Path("chapterModuleUuid") userChapterModuleUuid: String
+        @Path("userChapterModuleUuid") userChapterModuleUuid: String
     ): CompletedModuleResponse
 }

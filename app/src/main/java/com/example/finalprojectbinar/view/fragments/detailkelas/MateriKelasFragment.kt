@@ -15,17 +15,20 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentMateriKelasBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
+import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetEnrollmentFree
+import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.view.ui.VideoPlayerActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.ERROR_MSG
 
 class MateriKelasFragment : Fragment() {
 
@@ -110,30 +113,76 @@ class MateriKelasFragment : Fragment() {
 
 
     private fun showData(data: DataCourses) {
-        data.courseModules.forEach { classModule ->
-            if (classModule != null) {
+        try {
+            data.courseModules.forEach { classModule ->
                 materiList.add(classModule)
                 classModule.module.forEach { module ->
                     materiList.add(module)
                 }
             }
+
+            adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, userChapterModuleUuid ->
+                Log.d("Usertest", chapterModuleUuid)
+                Log.d("Usertest", "$userChapterModuleUuid, token: $savedToken")
+
+                if (userChapterModuleUuid == null) {
+                    val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
+                    bottomSheetEnrollmentFree.setCourseId(data.id)
+                    bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
+                } else {
+                    updateCompleted(savedToken, userChapterModuleUuid)
+                    getVideoLink(savedToken, chapterModuleUuid)
+                }
+
+            })
+            binding.rvMateriChapter.adapter = adapter
+            binding.rvMateriChapter.layoutManager = LinearLayoutManager(
+                requireActivity(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+            Log.d("ERRORTEST", "msg: $e")
         }
+    }
 
-        adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid ->
-//            val bottomSheetFragment = BottomSheetEnrollmentFree()
-            Log.d("DATAID", data.id)
-            Log.d("UUID", chapterModuleUuid)
-            getVideoLink(savedToken, chapterModuleUuid)
-//            bottomSheetFragment.setCourseId(courseId)
-//            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+    private fun updateCompleted(token: String, userChapterModuleUuid: String){
+        viewModel.updateCompletedModule("Bearer $token", userChapterModuleUuid).observe(viewLifecycleOwner){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.message?.let { message -> Log.d("SUCCESS", "Success: $message") }
+                    Log.d("TESTSUCCESS", it.data.toString())
+                }
 
-        })
-        binding.rvMateriChapter.adapter = adapter
-        binding.rvMateriChapter.layoutManager = LinearLayoutManager(
-            requireActivity(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+                Status.ERROR -> {
+                    Log.d("ERROR", ERROR_MSG)
+                    Log.d("TESTERROR", it.message.toString())
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                }
+
+                Status.LOADING -> {
+                    Log.d("LOADING", "Loading...")
+                }
+            }
+        }
+    }
+
+    private fun postEnrollment(token: String?, course_uuid: String){
+        val enrollmentRequest = EnrollmentRequest(course_uuid)
+        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "Success Enroll Course", Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    Log.d("LoadingTEST", "Loading")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
