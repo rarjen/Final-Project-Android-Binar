@@ -166,6 +166,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/updateProfileBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="18dp"

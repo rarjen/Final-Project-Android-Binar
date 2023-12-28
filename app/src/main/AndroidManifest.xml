@@ -24,6 +24,7 @@
             android:exported="false" />
         <activity
             android:name=".view.ui.register.RegisterActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".view.ui.login.LoginActivity"

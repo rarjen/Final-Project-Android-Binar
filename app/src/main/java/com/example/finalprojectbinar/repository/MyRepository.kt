@@ -10,6 +10,8 @@ import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.model.ProfileResponse
 import com.example.finalprojectbinar.model.RegisterRequest
+import com.example.finalprojectbinar.model.UpdatePasswordRequest
+import com.example.finalprojectbinar.model.UpdateProfileRequest
 
 class MyRepository() {
     private val apiService : APIService = APIClient.instance
@@ -42,4 +44,8 @@ class MyRepository() {
 
     //Module
     suspend fun updateCompletedModule(token: String, userChapterModuleUuid: String) = apiService.updateCompletedModule(token, userChapterModuleUuid)
+
+    //User Management
+    suspend fun updateProfile(token: String, updateProfileRequest: UpdateProfileRequest) = apiService.updateProfile(token, updateProfileRequest)
+    suspend fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = apiService.updatePassword(token, updatePasswordRequest)
 }

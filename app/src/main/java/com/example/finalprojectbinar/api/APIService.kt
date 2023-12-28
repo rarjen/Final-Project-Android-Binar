@@ -16,6 +16,10 @@ import com.example.finalprojectbinar.model.PaymentResponse
 import com.example.finalprojectbinar.model.ProfileResponse
 import com.example.finalprojectbinar.model.RegisterRequest
 import com.example.finalprojectbinar.model.RegisterResponse
+import com.example.finalprojectbinar.model.UpdatePasswordRequest
+import com.example.finalprojectbinar.model.UpdatePasswordResponse
+import com.example.finalprojectbinar.model.UpdateProfileRequest
+import com.example.finalprojectbinar.model.UpdateProfileResponse
 import com.example.finalprojectbinar.model.ValidationJWTResponse
 import com.example.finalprojectbinar.model.ValidationRegisterResponse
 import retrofit2.http.*
@@ -95,4 +99,16 @@ interface APIService {
         @Header("Authorization") token: String?,
         @Path("userChapterModuleUuid") userChapterModuleUuid: String
     ): CompletedModuleResponse
+
+    @PUT("profile")
+    suspend fun updateProfile(
+        @Header("Authorization") token: String?,
+        @Body updateProfileRequest: UpdateProfileRequest
+    ): UpdateProfileResponse
+
+    @PUT("update-password")
+    suspend fun updatePassword(
+        @Header("Authorization") token: String,
+        @Body updatePasswordRequest: UpdatePasswordRequest
+    ): UpdatePasswordResponse
 }
