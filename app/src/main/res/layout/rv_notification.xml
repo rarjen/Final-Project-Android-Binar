@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="18dp">
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp"
+    android:paddingTop="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,13 +56,14 @@
 
         <TextView
             android:id="@+id/rvNotificationContent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="@string/syarat_dan_ketentuan_berlaku"
             android:textColor="#8A8A8A"
             android:textSize="10sp"
+            android:layout_marginTop="8dp"
             tools:ignore="SmallSp"
             app:layout_constraintStart_toEndOf="@id/iconNotification"
             app:layout_constraintTop_toBottomOf="@id/rvNotificationSubTitle" />

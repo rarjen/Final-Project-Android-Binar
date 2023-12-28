@@ -42,4 +42,6 @@ class MyRepository() {
 
     //Module
     suspend fun updateCompletedModule(token: String, userChapterModuleUuid: String) = apiService.updateCompletedModule(token, userChapterModuleUuid)
+
+    suspend fun getNotification(token: String?) = apiService.getNotification(token)
 }
