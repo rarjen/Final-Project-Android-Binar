@@ -138,11 +138,13 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = liveData(Dispatchers.IO){
+    fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = liveData(Dispatchers.IO) {
         try {
             emit(Resource.success(data = repository.updatePassword(token, updatePasswordRequest)))
         } catch (e: HttpException) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
             
     fun getNotification(token: String?) = liveData(Dispatchers.IO){
         try {
