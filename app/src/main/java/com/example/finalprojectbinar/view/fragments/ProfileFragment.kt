@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentProfileBinding
 import com.example.finalprojectbinar.model.ProfileResponse
+import com.example.finalprojectbinar.model.UpdateProfileRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
@@ -32,20 +34,27 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         pref = SharedPreferenceHelper
-        val savedToken = pref.read(Enum.PREF_NAME.value)
+        val savedToken = pref.read(Enum.PREF_NAME.value).toString()
 
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_settingFragment)
         }
 
-        if (savedToken != null) {
-            fetchUserProfile(savedToken.toString())
-            Log.d("TESTDATAINSIDE", fetchUserProfile(savedToken).toString())
+        fetchUserProfile(savedToken)
+
+        binding.updateProfileBtn.setOnClickListener {
+            val nama = binding.nameField.editText?.text.toString()
+            val phone = binding.mobileField.editText?.text.toString()
+            val country = binding.countryField.editText?.text.toString()
+            val city = binding.cityField.editText?.text.toString()
+
+            updateProfile(savedToken, nama, phone, "", country, city)
         }
 
-        Log.d("TESTDATAOUTSIDE", savedToken.toString())
+        binding.emailField.isEnabled = false
 
         return binding.root
     }
@@ -54,16 +63,13 @@ class ProfileFragment : Fragment() {
         viewModel.getProfileUser("Bearer $token").observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
-                    Log.d("TESTLOGIN", it.data.toString())
                     it.data?.let { data -> showProfiles(data) }
                     binding.progressBar.visibility = View.GONE
                 }
-
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.GONE
                 }
-
                 Status.LOADING -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
@@ -90,5 +96,28 @@ class ProfileFragment : Fragment() {
         binding.cityField.editText?.text = cityEditable
         binding.countryField.editText?.text = countryEditable
 
+    }
+
+    private fun updateProfile(token: String, name: String?, phone: String?, address: String?, country: String?, city: String?) {
+        val updateProfileRequest = UpdateProfileRequest(name, phone, address, country, city)
+        viewModel.updateProfile("Bearer $token", updateProfileRequest).observe(viewLifecycleOwner){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Toast.makeText(requireContext(), "Berhasil update profile", Toast.LENGTH_SHORT).show()
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    Log.d("LoadingTEST", "Loading")
+                }
+            }
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

@@ -3,6 +3,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.LayoutChapterBinding
 import com.example.finalprojectbinar.databinding.LayoutModuleBinding
 import com.example.finalprojectbinar.model.ClassModule
@@ -12,7 +13,7 @@ import com.example.finalprojectbinar.model.Module
 
 class ViewTypeAdapterDetail(
     private val items: List<Any>,
-    private var clickListener: ((String) -> Unit)? = null
+    private var clickListener: ((String, String?) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -78,7 +79,7 @@ class ViewTypeAdapterDetail(
                 if(position != RecyclerView.NO_POSITION){
                     val clickedItem = items[position]
                     if (clickedItem is Module) {
-                        clickListener?.invoke(clickedItem.chapterModuleUuid)
+                        clickListener?.invoke(clickedItem.chapterModuleUuid, clickedItem.userChapterModuleUuid)
                     }
                 }
             }
@@ -86,6 +87,10 @@ class ViewTypeAdapterDetail(
 
         fun bind(moduleList: Module) {
             binding.moduleName.text = moduleList.title
+
+            if(!moduleList.isCompleted){
+                binding.icPlayContentChapter.setImageResource(R.drawable.fill_blue)
+            }
         }
     }
 

@@ -11,27 +11,16 @@ import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.model.RegisterRequest
+import com.example.finalprojectbinar.model.UpdatePasswordRequest
+import com.example.finalprojectbinar.model.UpdateProfileRequest
 import com.example.finalprojectbinar.repository.MyRepository
 import com.example.finalprojectbinar.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 
 class MyViewModel(private val repository: MyRepository) : ViewModel() {
-
-    private val _desc = MutableLiveData<String>()
-    val desc: LiveData<String> get() = _desc
-    private val _classModules = MutableLiveData<List<ClassModule>>()
-    val classModules get() = _classModules
-
-    fun setDesc(desc: String) {
-        _desc.value = desc
-    }
-
-    fun setClassModules(datas:List<ClassModule>?){
-        _classModules.value=datas!!
-
-    }
 
     fun getCourseCategories() = liveData(Dispatchers.IO){
         try {
@@ -141,6 +130,20 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
+    fun updateProfile(token: String, updateProfileRequest: UpdateProfileRequest) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.updateProfile(token, updateProfileRequest)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.updatePassword(token, updatePasswordRequest)))
+        } catch (e: HttpException) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+            
     fun getNotification(token: String?) = liveData(Dispatchers.IO){
         try {
             emit(Resource.success(data = repository.getNotification(token)))
