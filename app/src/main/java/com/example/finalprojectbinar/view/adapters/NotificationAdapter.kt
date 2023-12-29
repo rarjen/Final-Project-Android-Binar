@@ -2,6 +2,7 @@ package com.example.finalprojectbinar.view.adapters
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.annotation.RequiresApi
@@ -58,13 +59,18 @@ class NotificationAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             val formattedDateTime = localDateTime.format(formatter)
 
             binding.rvNotifcationTitle.text = data.title
-            binding.rvNotificationSubTitle.text = data.title
-            binding.rvNotificationContent.text = data.notification
+            binding.rvNotificationSubTitle.text = data.notification
             binding.rvNotificationTime.text = formattedDateTime
             if (!data.is_read){
                 binding.notificationElips.background = ContextCompat.getDrawable(binding.root.context,  R.drawable.circle_background)
             }else{
                 binding.notificationElips.background = ContextCompat.getDrawable(binding.root.context,  R.drawable.circle_background_2)
+            }
+            if(!data.is_conditional){
+                binding.rvNotificationContent.visibility = View.GONE
+            }else{
+                binding.rvNotificationContent.visibility = View.VISIBLE
+                binding.rvNotificationContent.text = "Syarat dan Ketentuan Berlaku"
             }
         }
     }
