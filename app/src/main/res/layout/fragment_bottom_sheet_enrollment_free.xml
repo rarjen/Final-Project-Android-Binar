@@ -58,8 +58,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:fontFamily="@font/montserrat_bold"
-                android:textColor="#6148FF"
-                android:text="Kelas Premium"/>
+                android:textColor="@color/cyan"
+                android:text="Masa Masa Depan"/>
 
             <com.google.android.material.card.MaterialCardView
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +106,7 @@
                                 android:gravity="center"
                                 android:height="24dp"
                                 android:fontFamily="@font/montserrat_bold"
-                                android:textColor="#6148FF" />
+                                android:textColor="@color/cyan" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -143,6 +143,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_bold"
                             android:textSize="14sp"
+                            android:textColor="@color/pink"
                             android:text="Belajar Web Designer dengan Figma" />
 
                         <TextView
@@ -195,7 +196,7 @@
                                     android:textSize="11sp"
                                     android:fontFamily="@font/montserrat_semi_bold"
                                     android:layout_marginStart="5dp"
-                                    android:textColor="#6148FF"
+                                    android:textColor="@color/blackText"
                                     android:text="Intermediate Level"/>
                             </LinearLayout>
 
@@ -228,6 +229,7 @@
                                     android:textSize="11sp"
                                     android:fontFamily="@font/montserrat_semi_bold"
                                     android:layout_marginStart="5dp"
+                                    android:textColor="@color/blackText"
                                     android:text="10"/>
 
                                 <TextView
@@ -240,6 +242,7 @@
                                     android:gravity="center"
                                     android:textSize="11sp"
                                     android:layout_marginStart="2dp"
+                                    android:textColor="@color/blackText"
                                     android:fontFamily="@font/montserrat_semi_bold"
                                     android:text="Modul"/>
                             </LinearLayout>
@@ -269,6 +272,7 @@
                                     android:layout_height="wrap_content"
                                     android:height="24dp"
                                     android:gravity="center"
+                                    android:textColor="@color/blackText"
                                     android:textSize="11sp"
                                     android:fontFamily="@font/montserrat_semi_bold"
                                     android:layout_marginStart="5dp"
@@ -282,6 +286,7 @@
                                     android:layout_height="wrap_content"
                                     android:height="24dp"
                                     android:gravity="center"
+                                    android:textColor="@color/blackText"
                                     android:textSize="11sp"
                                     android:layout_marginStart="2dp"
                                     android:fontFamily="@font/montserrat_semi_bold"
@@ -296,7 +301,7 @@
                         android:id="@+id/button"
                         android:layout_width="150dp"
                         android:layout_height="40dp"
-                        android:backgroundTint="#489CFF"
+                        android:backgroundTint="@color/darkBlue"
                         android:textSize="12sp"
                         android:layout_marginStart="10dp"
                         android:layout_marginVertical="5dp"
@@ -316,8 +321,9 @@
                 android:paddingVertical="10dp"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#6148FF"
+                android:backgroundTint="@color/pink"
                 android:layout_marginBottom="20dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:drawableEnd="@drawable/arrow_circle_right_fill1_wght400_grad0_opsz24"
                 android:textColor="@color/white"

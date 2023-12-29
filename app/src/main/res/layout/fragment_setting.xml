@@ -13,11 +13,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="26dp"
         android:textStyle="bold"
         android:fontFamily="@font/montserrat_bold"
-        android:textColor="@color/black"
+        android:textColor="@color/darkBlue"
         android:textSize="24sp"
         android:lineHeight="36dp"
         android:text="@string/akun" />
@@ -27,8 +27,9 @@
         app:layout_constraintTop_toBottomOf="@id/tvAkun"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +53,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/montserrat_semi_bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darkBlue"
                     android:text="Profil Saya" />
             </LinearLayout>
 
@@ -81,7 +82,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/montserrat_semi_bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darkBlue"
                     android:text="Ubah Password" />
             </LinearLayout>
 
@@ -110,7 +111,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/montserrat_semi_bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darkBlue"
                     android:text="Riwayat Pembayaran" />
             </LinearLayout>
 
@@ -139,7 +140,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/montserrat_semi_bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/pink"
                     android:text="Keluar" />
             </LinearLayout>
 

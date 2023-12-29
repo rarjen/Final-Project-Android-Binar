@@ -158,6 +158,7 @@
     <string name="onboarding">Onboarding...</string>
     <string name="kembali_ke_beranda">Kembali ke Beranda</string>
     <string name="mulai_belajar">Mulai Belajar</string>
+    <string name="mulai_kelas">Mulai Kelas</string>
     <string name="selamat">Selamat!</string>
     <string name="beranda">Beranda</string>
     <string name="notifikasi">Notifikasi</string>
@@ -235,4 +236,11 @@
     <string name="tujuan_mengikuti_kelas_design_system">Tujuan Mengikuti Kelas Design System</string>
     <string name="materi_belajar">Materi Belajar</string>
     <string name="not_found">Not Found!</string>
+    <string name="login_sekarang">Login Sekarang</string>
+    <string name="berhasil">Berhasil</string>
+    <string name="registrasi">Registrasi</string>
+    <string name="selangkah_lagi_menuju">Selangkah lagi menuju</string>
+    <string name="kelas_premium">Kelas Premium</string>
+    <string name="_4_7">4.7</string>
+    <string name="simpan_profil_saya">Simpan Profil Saya</string>
 </resources>

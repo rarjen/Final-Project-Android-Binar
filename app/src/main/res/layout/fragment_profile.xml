@@ -47,7 +47,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/profile"
-                app:civ_border_color="#6148FF"
+                app:civ_border_color="@color/cyan"
                 app:civ_border_width="3dp" />
 
             <FrameLayout
@@ -174,9 +174,10 @@
         android:paddingVertical="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#6148FF"
+        android:backgroundTint="@color/darkBlue"
         android:layout_marginBottom="35dp"
-        android:text="Simpan Profil Saya" />
+        android:textStyle="bold"
+        android:text="@string/simpan_profil_saya" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

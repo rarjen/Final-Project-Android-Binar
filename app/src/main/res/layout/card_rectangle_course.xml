@@ -48,7 +48,7 @@
                     android:gravity="center"
                     android:height="24dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:textColor="#6148FF" />
+                    android:textColor="@color/pink" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -66,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
                     android:text="4.7"
+                    android:textColor="@color/black"
                     android:gravity="center"
                     android:height="24dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,6 +85,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="14sp"
                     android:height="35dp"
+                    android:textColor="@color/black"
                     android:text="Belajar Web Designer dengan Figma" />
 
                 <TextView
@@ -93,6 +95,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_marginTop="5dp"
                     android:text="Angela Doe" />
 
@@ -136,7 +139,7 @@
                             android:textSize="11sp"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="5dp"
-                            android:textColor="#6148FF"
+                            android:textColor="@color/pink"
                             android:text="@string/intermediate_level"/>
 
                         <ImageView
@@ -159,6 +162,7 @@
                             android:height="24dp"
                             android:gravity="center"
                             android:textSize="11sp"
+                            android:textColor="@color/black"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="5dp"
                             android:text="10"/>
@@ -174,6 +178,7 @@
                             android:textSize="11sp"
                             android:layout_marginStart="2dp"
                             android:fontFamily="@font/montserrat_semi_bold"
+                            android:textColor="@color/black"
                             android:text="@string/modul"/>
 
                     </LinearLayout>
@@ -200,6 +205,7 @@
                             android:height="24dp"
                             android:gravity="center"
                             android:textSize="11sp"
+                            android:textColor="@color/black"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="5dp"
                             android:text="60"/>
@@ -213,6 +219,7 @@
                             android:height="24dp"
                             android:gravity="center"
                             android:textSize="11sp"
+                            android:textColor="@color/black"
                             android:layout_marginStart="2dp"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:text="Menit"/>
@@ -226,7 +233,7 @@
                 android:id="@+id/button"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:backgroundTint="#489CFF"
+                android:backgroundTint="@color/pink"
                 android:textSize="12sp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
