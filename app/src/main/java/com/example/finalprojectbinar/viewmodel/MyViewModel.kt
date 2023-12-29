@@ -149,7 +149,15 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
     fun getNotification(token: String?) = liveData(Dispatchers.IO){
         try {
             emit(Resource.success(data = repository.getNotification(token)))
-        }catch (e:Exception){
+        } catch (e:Exception){
+            emit(Resource.error(data = null, message = e.message ?: "Error Occured!"))
+        }
+    }
+
+    fun getMyClass(token: String, isComplete: String?) = liveData(){
+        try {
+            emit(Resource.success(data = repository.getMyClass(token, isComplete)))
+        } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occured!"))
         }
     }

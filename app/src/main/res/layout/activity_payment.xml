@@ -72,7 +72,7 @@
                             android:height="24dp"
                             android:textSize="12sp"
                             android:fontFamily="@font/montserrat_bold"
-                            android:textColor="#6148FF" />
+                            android:textColor="@color/blackText" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/darkBlue"
                         android:textSize="12sp"
                         android:text="Belajar Web Designer dengan Figma" />
 
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_regular"
-                        android:textColor="@color/black"
+                        android:textColor="@color/pink"
                         android:textSize="10sp"
                         android:textStyle="bold"
                         android:layout_marginTop="5dp"
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
                             android:text="Rp 387,390"
-                            android:textColor="#6148FF"
+                            android:textColor="@color/pink"
                             android:fontFamily="@font/montserrat_bold"/>
 
                     </LinearLayout>
@@ -217,9 +217,9 @@
         app:layout_constraintTop_toBottomOf="@id/cardView"
         app:tabIndicatorGravity="stretch"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorColor="#6148FF"
+        app:tabIndicatorColor="@color/darkBlue"
         android:layout_width="match_parent"
-        app:tabTextColor="@color/black"
+        app:tabTextColor="@color/pink"
         app:tabSelectedTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="10dp"
@@ -246,7 +246,7 @@
         android:paddingVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#FF0000"
+        android:backgroundTint="@color/darkBlue"
         android:layout_marginBottom="18dp"
         android:drawableEnd="@drawable/arrow_circle_right_fill1_wght400_grad0_opsz24"
         android:text="@string/bayar_dan_ikuti_kelas_selamanya" />

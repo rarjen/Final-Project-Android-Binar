@@ -88,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="14sp"
+                    android:textColor="@color/darkBlue"
                     android:text="Belajar Web Designer dengan Figma" />
                 
                 <TextView

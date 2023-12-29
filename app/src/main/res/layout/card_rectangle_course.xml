@@ -85,7 +85,7 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="14sp"
                     android:height="35dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darkBlue"
                     android:text="Belajar Web Designer dengan Figma" />
 
                 <TextView
@@ -139,7 +139,7 @@
                             android:textSize="11sp"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="5dp"
-                            android:textColor="@color/pink"
+                            android:textColor="@color/blackText"
                             android:text="@string/intermediate_level"/>
 
                         <ImageView
@@ -233,7 +233,7 @@
                 android:id="@+id/button"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/pink"
+                android:backgroundTint="@color/darkBlue"
                 android:textSize="12sp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"

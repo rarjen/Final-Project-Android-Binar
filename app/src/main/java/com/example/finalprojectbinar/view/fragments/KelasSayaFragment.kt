@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
@@ -14,9 +15,13 @@ import com.example.finalprojectbinar.databinding.FragmentBerandaBinding
 import com.example.finalprojectbinar.databinding.FragmentKelasSayaBinding
 import com.example.finalprojectbinar.model.DataCategories
 import com.example.finalprojectbinar.model.ListCategoriesResponse
+import com.example.finalprojectbinar.model.MyClassResponse
+import com.example.finalprojectbinar.util.Enum
+import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.KelasSayaAdapter
+import com.example.finalprojectbinar.view.adapters.MyClassAdapter
 import com.example.finalprojectbinar.view.model_dummy.DataMyClass
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
@@ -28,7 +33,7 @@ class KelasSayaFragment : Fragment() {
     private var _binding: FragmentKelasSayaBinding? = null
     private val binding get() = _binding!!
 
-    private val courseList = ArrayList<DataMyClass>()
+    private lateinit var pref: SharedPreferenceHelper
 
     private val viewModel: MyViewModel by inject()
 
@@ -37,13 +42,12 @@ class KelasSayaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentKelasSayaBinding.inflate(inflater, container, false)
-
+        pref = SharedPreferenceHelper
+        val savedToken = pref.read(Enum.PREF_NAME.value).toString()
         fetchCategoryCoroutines()
-        setupLayoutLayout()
+        setupLayoutLayout(savedToken)
+        fetchMyClassCoroutines(savedToken, null)
 
-        binding.rvCourses.setHasFixedSize(true)
-        courseList.addAll(getData())
-        showRecycleClass()
 
         return binding.root
     }
@@ -65,34 +69,6 @@ class KelasSayaFragment : Fragment() {
         }
     }
 
-    private fun setupLayoutLayout() {
-        val tabLayout = binding.tabLayout
-
-        tabLayout.addTab(tabLayout.newTab().setText("All"))
-        tabLayout.addTab(tabLayout.newTab().setText("In Progress"))
-        tabLayout.addTab(tabLayout.newTab().setText("Selesai"))
-
-//        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.let {
-//                    when (it.position) {
-//                        0 -> fetchCourseCouroutines(null) // All
-//                        1 -> fetchCourseCouroutines("premium") // Premium
-//                        2 -> fetchCourseCouroutines("free") // Kelas Gratis
-//                    }
-//                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                // Not needed for this example
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                // Not needed for this example
-//            }
-//        })
-    }
-
     private fun showCategories(data: ListCategoriesResponse?){
         val adapter = CategoryAdapter(null)
 
@@ -101,33 +77,70 @@ class KelasSayaFragment : Fragment() {
         binding.gridviewKategori.adapter = adapter
     }
 
-    @SuppressLint("Recycle")
-    private fun getData(): ArrayList<DataMyClass> {
-        val dataImg = resources.obtainTypedArray(R.array.image)
-        val level = resources.getStringArray(R.array.level)
-        val author = resources.getStringArray(R.array.author)
-        val title = resources.getStringArray(R.array.nama)
-        val category = resources.getStringArray(R.array.category)
-        val rating = resources.getStringArray(R.array.rating)
-        val modul = resources.getStringArray(R.array.totalModul)
-        val menit = resources.getStringArray(R.array.totalMenit)
+    private fun setupLayoutLayout(token: String) {
+        val tabLayout = binding.tabLayout
+
+        tabLayout.addTab(tabLayout.newTab().setText("All"))
+        tabLayout.addTab(tabLayout.newTab().setText("In Progress"))
+        tabLayout.addTab(tabLayout.newTab().setText("Selesai"))
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let {
+                    when (it.position) {
+                        0 -> fetchMyClassCoroutines(token, null) // All
+                        1 -> fetchMyClassCoroutines(token, "0") // Premium
+                        2 -> fetchMyClassCoroutines(token, "1") // Kelas Gratis
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Not needed for this example
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Not needed for this example
+            }
+        })
+    }
 
 
-        val listCourse = ArrayList<DataMyClass>()
+    private fun fetchMyClassCoroutines(token: String, isCompleted: String?){
+        viewModel.getMyClass("Bearer $token", isCompleted).observe(viewLifecycleOwner){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.progressBarClass.visibility = View.GONE
+                    showClass(it.data)
+                }
 
-        for (i in title.indices){
-            val courses = DataMyClass(dataImg.getResourceId(i, -1), level[i], author[i], title[i], category[i], rating[i], modul[i], menit[i])
-            listCourse.add(courses)
+                Status.ERROR -> {
+                    Log.d("Error", "Error Occured!")
+                }
+
+                Status.LOADING -> {
+                    binding.progressBarClass.visibility = View.VISIBLE
+                }
+            }
         }
-
-        return listCourse
     }
 
-    private fun showRecycleClass(){
+    private fun showClass(data: MyClassResponse?){
+        val adapter = MyClassAdapter(onButtonClick = { courseId ->
+            val bundle = Bundle().apply {
+                putString("courseId", courseId)
+            }
+            findNavController().navigate(
+                R.id.action_kelasSayaFragment_to_detailKelasFragment,
+                bundle
+            )
+        })
+
+        adapter.submitMyClass(data?.data ?: emptyList())
         binding.rvCourses.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-        val listCourseAdapter = KelasSayaAdapter(courseList)
-        binding.rvCourses.adapter = listCourseAdapter
+        binding.rvCourses.adapter = adapter
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
