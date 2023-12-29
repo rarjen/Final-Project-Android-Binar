@@ -97,6 +97,10 @@
     <fragment
         android:id="@+id/kelasSayaFragment"
         android:name="com.example.finalprojectbinar.view.fragments.KelasSayaFragment"
-        android:label="KelasSayaFragment" />
+        android:label="KelasSayaFragment" >
+        <action
+            android:id="@+id/action_kelasSayaFragment_to_detailKelasFragment"
+            app:destination="@id/detailKelasFragment" />
+    </fragment>
 
 </navigation>

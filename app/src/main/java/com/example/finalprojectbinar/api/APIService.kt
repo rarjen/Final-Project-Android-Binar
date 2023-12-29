@@ -10,6 +10,7 @@ import com.example.finalprojectbinar.model.GetVideoResponse
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.LoginResponse
+import com.example.finalprojectbinar.model.MyClassResponse
 import com.example.finalprojectbinar.model.NotificationResponse
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.PaymentHistoryResponse
@@ -118,4 +119,10 @@ interface APIService {
     suspend fun getNotification(
         @Header("Authorization") token: String?
     ): NotificationResponse
+
+    @GET("courses/my-courses")
+    suspend fun getMyClass(
+        @Header("Authorization") token: String?,
+        @Query("isComplete") isComplete: String?,
+    ): MyClassResponse
 }

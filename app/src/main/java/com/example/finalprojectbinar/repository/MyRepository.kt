@@ -22,6 +22,7 @@ class MyRepository() {
     // Courses
     suspend fun getCourses(categoryId: String?, level: String?, premium: String?, search: String?) = apiService.getListCourses(categoryId, level, premium, search)
     suspend fun getDetailById(token: String?, courseId: String) = apiService.getCourseById(token ,courseId)
+    suspend fun getMyClass(token: String?, isComplete: String?) = apiService.getMyClass(token, isComplete)
 
     // Auth
     suspend fun postLogin(loginRequest: LoginRequest) = apiService.login(loginRequest)
