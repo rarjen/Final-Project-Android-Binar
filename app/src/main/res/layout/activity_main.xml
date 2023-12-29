@@ -22,12 +22,12 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:labelVisibilityMode="labeled"
-        app:backgroundTint="@color/white"
-        style="@style/Widget.Material3.BottomNavigationView"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:menu="@menu/menu_bottom_nav"/>
 
 

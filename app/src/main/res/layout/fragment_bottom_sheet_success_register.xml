@@ -34,9 +34,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="32sp"
                 android:fontFamily="@font/montserrat_bold"
-                android:textColor="#6148FF"
+                android:textColor="@color/pink"
                 android:layout_marginTop="60dp"
-                android:text="Registrasi"/>
+                android:text="@string/registrasi"/>
 
             <TextView
                 android:id="@+id/tvBerhasil"
@@ -47,8 +47,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="32sp"
                 android:fontFamily="@font/montserrat_bold"
-                android:textColor="#6148FF"
-                android:text="Berhasil"/>
+                android:textColor="@color/cyan"
+                android:text="@string/berhasil"/>
 
             <ImageView
                 android:id="@+id/imageSuccess"
@@ -71,11 +71,12 @@
                 android:paddingVertical="10dp"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#6148FF"
+                android:backgroundTint="@color/darkBlue"
                 android:layout_marginBottom="30dp"
                 android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="Login Sekarang" />
+                android:text="@string/login_sekarang" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

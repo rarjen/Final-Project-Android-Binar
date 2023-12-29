@@ -29,7 +29,8 @@
                 android:contentDescription="@string/course_cover"
                 />
             <LinearLayout
-                android:padding="10dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -47,9 +48,10 @@
                     android:layout_height="wrap_content"
                     android:text="UI/UX Design"
                     android:gravity="center"
+                    android:textSize="18sp"
                     android:height="24dp"
                     android:fontFamily="@font/montserrat_bold"
-                    android:textColor="#6148FF" />
+                    android:textColor="@color/pink" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -138,7 +140,7 @@
                             android:textSize="11sp"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="5dp"
-                            android:textColor="#6148FF"
+                            android:textColor="@color/pink"
                             android:text="Intermediate Level"/>
                     </LinearLayout>
 

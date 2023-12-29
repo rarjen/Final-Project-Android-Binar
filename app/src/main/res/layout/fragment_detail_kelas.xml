@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="10dp"
         android:paddingVertical="8dp"
-        android:background="@color/dark_blue"
+        android:background="@color/darkBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <ImageView
@@ -67,6 +67,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="270dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="@color/light_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,7 +96,7 @@
                         android:text="UI/UX Design"
                         android:fontFamily="@font/montserrat_bold"
                         android:textSize="20sp"
-                        android:textColor="@color/dark_blue" />
+                        android:textColor="@color/black" />
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,7 +124,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:text="@string/intro_to_basic_of_user_interaction_design"
                         android:fontFamily="@font/montserrat_bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/pink"
                         android:textSize="14sp"
                         app:layout_constraintTop_toBottomOf="@id/tvCategoryDetail" />
                     <TextView
@@ -156,7 +158,7 @@
                             android:gravity="center"
                             android:fontFamily="@font/montserrat_semi_bold"
                             android:layout_marginStart="3dp"
-                            android:textColor="@color/dark_blue"
+                            android:textColor="@color/cyan"
                             android:text="@string/beginner_level"/>
                     </LinearLayout>
 
@@ -216,14 +218,14 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabViewDetailClass"
-                android:backgroundTint="#EBF3FC"
+                android:backgroundTint="@color/light_blue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutDetailCourse"
                 app:tabIndicatorGravity="stretch"
                 app:tabIndicatorFullWidth="true"
-                app:tabIndicatorColor="#6148FF"
+                app:tabIndicatorColor="@color/darkBlue"
                 android:layout_width="match_parent"
-                app:tabTextColor="#489CFF"
+                app:tabTextColor="@color/pink"
                 app:tabSelectedTextColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content" />

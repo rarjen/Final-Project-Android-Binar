@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/tabLayout"
         android:layout_marginTop="10dp"
-        app:tabIndicatorColor="#6148FF"
+        app:tabIndicatorColor="@color/darkBlue"
         app:tabIndicatorGravity="stretch"
         app:tabTextColor="@color/black"
         app:tabIndicatorFullWidth="true"

@@ -17,7 +17,7 @@
             android:id="@+id/buttomJoinTelegram"
             android:layout_width="269dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#73CA5C"
+            android:backgroundTint="@color/darkBlue"
             android:layout_gravity="center"
             android:layout_marginTop="18dp"
             android:text="@string/join_grup_telegram"

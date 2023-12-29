@@ -102,7 +102,6 @@ interface APIService {
         @Path("userChapterModuleUuid") userChapterModuleUuid: String
     ): CompletedModuleResponse
 
-
     @PUT("profile")
     suspend fun updateProfile(
         @Header("Authorization") token: String?,

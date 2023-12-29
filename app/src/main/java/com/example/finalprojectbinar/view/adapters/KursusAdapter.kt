@@ -1,5 +1,6 @@
 package com.example.finalprojectbinar.view.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
@@ -49,12 +50,13 @@ class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null
     }
 
     class CoursesHolder(val binding: RvCardCoursesBinding): RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("SetTextI18n")
         fun onBind(data: DataAllCourses){
             val (author, category, classCode, id, gambar, ispremium, level, nama, harga, rating, totalmenit, totalmodul) = data
             Glide.with(binding.ivCardImage).load(gambar).into(binding.ivCardImage)
             binding.tvCardTitleCourse.text = nama
             binding.tvCardAuthorCourse.text = author
-            binding.tvCardLevel.text = level
+            binding.tvCardLevel.text = "$level Level"
             binding.tvCardRate.text = rating.toString()
             binding.tvCardTotalModul.text = totalmodul.toString()
             binding.tvCardTotalTime.text = totalmenit.toString()

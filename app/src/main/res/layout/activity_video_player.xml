@@ -13,7 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingHorizontal="10dp"
         android:paddingVertical="8dp"
-        android:background="@color/dark_blue"
+        android:background="@color/darkBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <ImageView
