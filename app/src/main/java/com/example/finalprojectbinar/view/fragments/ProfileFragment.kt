@@ -1,6 +1,10 @@
 package com.example.finalprojectbinar.view.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,8 +22,11 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.viewmodel.MyViewModel
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import org.koin.android.ext.android.inject
 
+@Suppress("DEPRECATION")
 class ProfileFragment : Fragment() {
 
     private var _binding : FragmentProfileBinding? = null
@@ -29,12 +36,18 @@ class ProfileFragment : Fragment() {
 
     private val viewModel: MyViewModel by inject()
 
+    private val PICK_IMAGE_REQUEST = 1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
+        val storage = FirebaseStorage.getInstance()
+        val storageReference: StorageReference = storage.reference
+
 
         pref = SharedPreferenceHelper
         val savedToken = pref.read(Enum.PREF_NAME.value).toString()
@@ -54,9 +67,33 @@ class ProfileFragment : Fragment() {
             updateProfile(savedToken, nama, phone, "", country, city)
         }
 
+        binding.editProfilePicture.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        }
+
         binding.emailField.isEnabled = false
 
         return binding.root
+    }
+
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "super.onActivityResult(requestCode, resultCode, data)",
+        "androidx.fragment.app.Fragment"
+    )
+    )
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null){
+            val selectedImageUri: Uri = data.data!!
+
+            val timestamp = System.currentTimeMillis()
+            val imageName = "image_$timestamp.jpg"
+
+            val userUuid = ""
+//            val imageRef: StorageReference = storageRef.child("user_profile_images/$userUuid/$imageName")
+        }
     }
 
     private fun fetchUserProfile(token: String) {

@@ -122,8 +122,6 @@ class MateriKelasFragment : Fragment() {
             }
 
             adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, userChapterModuleUuid ->
-                Log.d("Usertest", chapterModuleUuid)
-                Log.d("Usertest", "$userChapterModuleUuid, token: $savedToken")
 
                 if (userChapterModuleUuid == null) {
                     val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()

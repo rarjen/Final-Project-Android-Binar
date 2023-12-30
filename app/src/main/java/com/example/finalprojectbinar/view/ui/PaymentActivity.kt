@@ -83,19 +83,6 @@ class PaymentActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("InflateParams")
-    private fun showButtonSheetOnboarding() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_onboarding, null)
-        val btnClose = view.findViewById<ImageView>(R.id.imageClose)
-        btnClose.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
-    }
-
     private fun showDetailCoroutines(token: String?, courseId: String){
       viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(this, Observer {
           when (it.status) {
@@ -137,7 +124,6 @@ class PaymentActivity : AppCompatActivity() {
     }
     private fun updatePaymentStatus(token: String?, paymentId: String?) {
         if (token != null && paymentId != null) {
-            // Ubah status pembayaran menjadi "paid" setelah pembayaran berhasil
             val paymentRequest = PaymentRequest(payment_method = "credit card")
             viewModel.putPayment("Bearer $token", paymentId, paymentRequest).observe(this) { resource ->
                 when (resource.status) {
@@ -155,12 +141,6 @@ class PaymentActivity : AppCompatActivity() {
         } else {
             Log.e("PaymentStatus", "Token atau courseId null")
         }
-    }
-
-    private fun savePaymentMethod(paymentMethod: String) {
-        // Simpan metode pembayaran ke SharedPreference
-        val sharedPreferenceKey = Enum.PAYMENT_METHOD.value
-        SharedPreferenceHelper.write(sharedPreferenceKey, paymentMethod)
     }
 
     companion object {
