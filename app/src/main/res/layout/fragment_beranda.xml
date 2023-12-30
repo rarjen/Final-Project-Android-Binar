@@ -31,7 +31,7 @@
             app:boxBackgroundColor="@color/white"
             android:elevation="20dp"
             app:endIconMode="custom"
-            app:endIconDrawable="@drawable/baseline_search_24">
+            app:endIconDrawable="@drawable/searchbar_icon_skillhub">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
