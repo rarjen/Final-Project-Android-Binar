@@ -21,7 +21,9 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetCheckoutCourseFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetOnboardingFragment
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
 import com.example.finalprojectbinar.view.fragments.payment.CreditCardFragment
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -37,6 +39,8 @@ class PaymentActivity : AppCompatActivity() {
 
     private val viewModel: MyViewModel by inject()
 
+    private var preparation: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityPaymentBinding.inflate(layoutInflater)
@@ -48,7 +52,6 @@ class PaymentActivity : AppCompatActivity() {
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
         showDetailCoroutines(savedToken.toString(), courseId.toString())
-//        showDetailPayment()
 
         binding.apply {
             viewPager.adapter = PaymentFragmentPageAdapter(fragmentList, this@PaymentActivity.supportFragmentManager, lifecycle)
@@ -62,7 +65,6 @@ class PaymentActivity : AppCompatActivity() {
 
             buttonCheckout.setOnClickListener{
                 showButtomSheetSuccessPayment()
-//                performPayment()
                 updatePaymentStatus(savedToken, paymentId.toString())
             }
 
@@ -76,21 +78,8 @@ class PaymentActivity : AppCompatActivity() {
 
     @SuppressLint("InflateParams")
     private fun showButtomSheetSuccessPayment() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_success_payment, null)
-        val btnClose = view.findViewById<ImageView>(R.id.imageClose)
-
-        val btnMulaiKelas = view.findViewById<Button>(R.id.buttonMulaiBelajar)
-        btnMulaiKelas.setOnClickListener {
-            dialog.dismiss()
-            showButtonSheetOnboarding()
-        }
-        btnClose.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.setCancelable(false)
-        dialog.setContentView(view)
-        dialog.show()
+        val bottomSheetCheckoutCourseFragment = BottomSheetCheckoutCourseFragment.newInstance(preparation!!)
+        bottomSheetCheckoutCourseFragment.show(supportFragmentManager, bottomSheetCheckoutCourseFragment.tag)
 
     }
 
@@ -113,6 +102,7 @@ class PaymentActivity : AppCompatActivity() {
               Status.SUCCESS -> {
                   Log.d("TESTPAYMENT", it.data.toString())
                   it.data?.let { data -> showData(data) }
+                  preparation = it.data?.data?.onboarding.toString()
               }
 
               Status.ERROR -> {
@@ -145,60 +135,6 @@ class PaymentActivity : AppCompatActivity() {
             .fitCenter()
             .into(binding.imgCourseCover)
     }
-    private fun performPayment() {
-        val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
-        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
-
-        if (courseId != null) {
-            val enrollmentRequest = EnrollmentRequest(courseId)
-            viewModel.postEnrollment(savedToken, enrollmentRequest).observe(this, Observer {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        // Handle success
-                        Toast.makeText(this, "Pendaftaran berhasil", Toast.LENGTH_SHORT).show()
-
-                        // Setelah pendaftaran berhasil, lakukan pembayaran
-                        val paymentUuid = it.data?.data?.paymentUuid
-                        if (!paymentUuid.isNullOrBlank()) {
-                            val paymentRequest = PaymentRequest(payment_method = "credit card")
-                            viewModel.putPayment(savedToken, paymentUuid, paymentRequest)
-                                .observe(this, Observer { paymentResponse ->
-                                    when (paymentResponse.status) {
-                                        Status.SUCCESS -> {
-                                            Toast.makeText(
-                                                this@PaymentActivity,
-                                                "Pembayaran berhasil",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-
-                                            Log.d("PaymentStatus", "Pembayaran berhasil")
-                                            updatePaymentStatus(savedToken, courseId)
-
-                                            savePaymentMethod("credit_card")
-
-                                            showButtomSheetSuccessPayment()
-                                        }
-                                        Status.ERROR -> {
-                                            val errorMessage = paymentResponse.message
-                                            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-                                        }
-                                        Status.LOADING -> {
-                                        }
-                                    }
-                                })
-                        }
-                    }
-                    Status.ERROR -> {
-                        // Handle error pendaftaran
-                        val errorMessage = it.message
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            })
-        }
-    }
     private fun updatePaymentStatus(token: String?, paymentId: String?) {
         if (token != null && paymentId != null) {
             // Ubah status pembayaran menjadi "paid" setelah pembayaran berhasil
@@ -227,6 +163,9 @@ class PaymentActivity : AppCompatActivity() {
         SharedPreferenceHelper.write(sharedPreferenceKey, paymentMethod)
     }
 
+    companion object {
+        const val PREPARATION = "preparation"
+    }
 
 
 }
