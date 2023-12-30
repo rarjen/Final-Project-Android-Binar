@@ -130,12 +130,13 @@
         android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="25dp"
         android:backgroundTint="@color/darkBlue"
         android:paddingVertical="15dp"
         android:text="@string/daftar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/repeatPassword"
+        app:layout_constraintEnd_toEndOf="@id/repeatPassword"
         app:layout_constraintTop_toBottomOf="@+id/repeatPassword"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
