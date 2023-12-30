@@ -243,4 +243,7 @@
     <string name="kelas_premium">Kelas Premium</string>
     <string name="_4_7">4.7</string>
     <string name="simpan_profil_saya">Simpan Profil Saya</string>
+    <string name="email">Email</string>
+    <string name="periksa_email_anda_jika_tidak_ada_email_masuk_coba_untuk_periksa_di_folder_spam">Periksa email anda, Jika tidak ada email masuk coba untuk periksa di folder spam</string>
+    <string name="konfirmasi">Konfirmasi</string>
 </resources>
