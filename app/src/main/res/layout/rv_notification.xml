@@ -36,7 +36,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/montserrat_semi_bold"
             android:text="@string/promosi"
-            android:textColor="#6148FF"
+            android:textColor="#51DACF"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/iconNotification"
             app:layout_constraintTop_toTopOf="parent" />

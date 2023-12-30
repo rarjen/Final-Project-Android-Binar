@@ -58,7 +58,8 @@
         app:layout_constraintTop_toBottomOf="@+id/rvFilter"
         android:text="Terapkan Filter"
         android:fontFamily="@font/montserrat_bold"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="#51DACF"/>
     <Button
         android:id="@+id/tvHapusFilter"
         android:layout_width="match_parent"
