@@ -1,18 +1,14 @@
 package com.example.finalprojectbinar.view.fragments.bottomsheets
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
-import com.example.finalprojectbinar.databinding.FragmentBottomSheetConfirmOrderBinding
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetEnrollmentFreeBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
@@ -21,7 +17,6 @@ import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject

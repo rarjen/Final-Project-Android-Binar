@@ -12,13 +12,10 @@ import com.example.finalprojectbinar.model.NotificationResponse
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.adapters.FilterAdapter
 import com.example.finalprojectbinar.view.adapters.NotificationAdapter
 import com.example.finalprojectbinar.view.model_dummy.Notif
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
-import java.time.Instant
-import kotlin.math.log
 
 class NotificationFragment : Fragment() {
 

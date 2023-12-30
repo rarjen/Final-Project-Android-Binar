@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pref = SharedPreferenceHelper // Initialize SharedPreferenceHelper
+        pref = SharedPreferenceHelper // Initialize com.example.finalprojectbinar.util.SharedPreferenceHelper
 
         binding.tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))

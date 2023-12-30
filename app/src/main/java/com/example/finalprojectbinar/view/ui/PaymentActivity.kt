@@ -5,17 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
-import com.example.finalprojectbinar.model.DataEnrollment
-import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
@@ -23,14 +17,11 @@ import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapter.PaymentFragmentPageAdapter
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetCheckoutCourseFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
-import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetOnboardingFragment
 import com.example.finalprojectbinar.view.fragments.payment.BankFragment
 import com.example.finalprojectbinar.view.fragments.payment.CreditCardFragment
 import com.example.finalprojectbinar.viewmodel.MyViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
-import kotlin.math.log
 
 @Suppress("DEPRECATION")
 class PaymentActivity : AppCompatActivity() {

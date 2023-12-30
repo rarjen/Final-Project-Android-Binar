@@ -9,12 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.R
-import com.example.finalprojectbinar.databinding.FilterCoursesBottomsheetBinding
 import com.example.finalprojectbinar.databinding.FragmentKursusBinding
 import com.example.finalprojectbinar.model.CoursesResponses
 import com.example.finalprojectbinar.model.DataAllCourses
@@ -22,18 +19,13 @@ import com.example.finalprojectbinar.model.DataFilter
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.adapters.CourseAdapter
-import com.example.finalprojectbinar.view.adapters.FilterAdapter
 import com.example.finalprojectbinar.view.adapters.KursusAdapter
 import com.example.finalprojectbinar.view.adapters.OnItemClickCallback
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
-import com.example.finalprojectbinar.view.model_dummy.DataKelas
-import com.example.finalprojectbinar.view.model_dummy.ListFilter
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
 import org.koin.android.ext.android.inject
-import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
