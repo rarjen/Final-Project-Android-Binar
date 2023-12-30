@@ -28,7 +28,6 @@ class VideoPlayerActivity : AppCompatActivity() {
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (isFullscreen) {
-                // if the player is in fullscreen, exit fullscreen
                 youTubePlayer.toggleFullscreen()
             } else {
                 finish()
@@ -57,19 +56,15 @@ class VideoPlayerActivity : AppCompatActivity() {
             override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {
                 isFullscreen = true
 
-                // the video will continue playing in fullscreenView
                 youTubePlayerView.visibility = View.GONE
                 fullscreenViewContainer.visibility = View.VISIBLE
                 fullscreenViewContainer.addView(fullscreenView)
 
-                // optionally request landscape orientation
-//                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
 
             override fun onExitFullscreen() {
                 isFullscreen = false
 
-                // the video will continue playing in the player
                 youTubePlayerView.visibility = View.VISIBLE
                 fullscreenViewContainer.visibility = View.GONE
                 fullscreenViewContainer.removeAllViews()
