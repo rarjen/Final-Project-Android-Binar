@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_berandaFragment_to_kursusFragment"
             app:destination="@id/kursusFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_kelasSayaFragment"
+            app:destination="@id/kelasSayaFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment3"

@@ -70,9 +70,9 @@
                             android:text="UI/UX Design"
                             android:gravity="center"
                             android:height="24dp"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:fontFamily="@font/montserrat_bold"
-                            android:textColor="@color/blackText" />
+                            android:textColor="@color/pink" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_bold"
                         android:textColor="@color/darkBlue"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:text="Belajar Web Designer dengan Figma" />
 
                     <TextView
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_regular"
-                        android:textColor="@color/pink"
+                        android:textColor="@color/black"
                         android:textSize="10sp"
                         android:textStyle="bold"
                         android:layout_marginTop="5dp"
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="12sp"
                             android:text="Rp 387,390"
-                            android:textColor="@color/pink"
+                            android:textColor="@color/darkBlue"
                             android:fontFamily="@font/montserrat_bold"/>
 
                     </LinearLayout>

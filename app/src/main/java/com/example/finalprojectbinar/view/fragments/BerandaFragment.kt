@@ -188,7 +188,6 @@ class BerandaFragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
-                    // If the text is empty, make views visible
                     binding.rvCourses.visibility = View.VISIBLE
                     binding.gridviewKategori.visibility = View.VISIBLE
                     binding.clKategori.visibility = View.VISIBLE
