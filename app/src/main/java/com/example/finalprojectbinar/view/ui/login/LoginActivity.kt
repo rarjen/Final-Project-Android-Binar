@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finalprojectbinar.databinding.ActivityLoginBinding
 import com.example.finalprojectbinar.model.LoginRequest
+import com.example.finalprojectbinar.util.AuthVerification
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
@@ -47,7 +48,20 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            login(email, password)
+
+            val emailVerification = AuthVerification.emailVerification(email)
+            val passwordVerification = AuthVerification.passwordVerification(password)
+
+            if (!emailVerification && !passwordVerification) {
+                Toast.makeText(this, "Email & password tidak valid!", Toast.LENGTH_SHORT).show()
+            } else if (!emailVerification) {
+                Toast.makeText(this, "Email tidak valid!", Toast.LENGTH_SHORT).show()
+            } else if (!passwordVerification) {
+                Toast.makeText(this, "Password harus memilki 6 karakter / tidak kosong!", Toast.LENGTH_SHORT).show()
+            } else {
+                login(email, password)
+            }
+
         }
 
         binding.materialTextView3.setOnClickListener {

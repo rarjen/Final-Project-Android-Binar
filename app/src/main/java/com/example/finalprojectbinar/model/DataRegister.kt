@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class DataRegister(
     @SerializedName("city")
     val city: String?,
+    @SerializedName("email")
+    val email: String?,
     @SerializedName("country")
     val country: String?,
     @SerializedName("name")

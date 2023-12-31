@@ -9,5 +9,7 @@ data class RegisterResponse(
     @SerializedName("message")
     val message: String?,
     @SerializedName("status")
-    val status: String?
+    val status: String?,
+    @SerializedName("code")
+    val code: Int?
 )

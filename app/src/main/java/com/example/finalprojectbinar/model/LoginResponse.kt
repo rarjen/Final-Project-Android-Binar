@@ -8,6 +8,8 @@ data class LoginResponse(
     val `data`: LoginData?,
     @SerializedName("message")
     val message: String?,
+    @SerializedName("code")
+    val code: Int?,
     @SerializedName("status")
     val status: String?
 )
