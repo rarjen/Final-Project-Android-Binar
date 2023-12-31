@@ -131,5 +131,5 @@ interface APIService {
     @POST("forget-password")
     suspend fun forgetPassword(
         @Body email : ForgetPasswordRequest
-    ):ForgetPasswordResponse
+    ): ForgetPasswordResponse
 }
