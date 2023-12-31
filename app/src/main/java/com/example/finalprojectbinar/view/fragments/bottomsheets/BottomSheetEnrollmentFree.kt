@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetEnrollmentFreeBinding
@@ -94,13 +95,17 @@ class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
                     val paymentUuid = it.data?.data?.paymentUuid
                     updatePaymentStatus(savedToken, paymentUuid)
                     Toast.makeText(requireContext(), "Berhasil Enroll Course!", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.GONE
                     dismiss()
+                    findNavController().navigate(R.id.nav)
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                    binding.progressBar.visibility = View.VISIBLE
                 }
                 Status.LOADING -> {
-                    Log.d("LoadingTEST", "Loading")
+                    binding.buttonBuy.isEnabled = false
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }

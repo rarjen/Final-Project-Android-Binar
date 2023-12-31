@@ -3,14 +3,12 @@ package com.example.finalprojectbinar.view.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ItemChapterKelasBinding
 import com.example.finalprojectbinar.databinding.ItemMateriKelasBinding
 import com.example.finalprojectbinar.model.ClassModule
 import com.example.finalprojectbinar.model.SilabusCourse
-import com.example.finalprojectbinar.view.model_dummy.ListFilter
 
 class MateriKelasAdapter(private val modules: List<ClassModule>?): RecyclerView.Adapter<MateriKelasAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

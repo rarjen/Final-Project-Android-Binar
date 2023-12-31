@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.RvCardCoursesBinding
 import com.example.finalprojectbinar.model.DataAllCourses
-import com.example.finalprojectbinar.view.model_dummy.DataKelas
 
 class KursusAdapter(private val onItemClickListener: OnItemClickListener? = null):  RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 

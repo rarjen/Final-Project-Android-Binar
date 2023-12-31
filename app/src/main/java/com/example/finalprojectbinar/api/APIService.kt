@@ -3,7 +3,6 @@ package com.example.finalprojectbinar.api
 import com.example.finalprojectbinar.model.CompletedModuleResponse
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.CoursesResponses
-import com.example.finalprojectbinar.model.DataNotification
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.EnrollmentResponse
 import com.example.finalprojectbinar.model.ForgetPasswordRequest

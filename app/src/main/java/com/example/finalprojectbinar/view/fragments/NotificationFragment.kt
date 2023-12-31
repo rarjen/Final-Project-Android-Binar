@@ -13,7 +13,6 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.NotificationAdapter
-import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMyClassNotExistFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetNotificationNotExistFragment
 import com.example.finalprojectbinar.view.model_dummy.Notif
 import com.example.finalprojectbinar.viewmodel.MyViewModel

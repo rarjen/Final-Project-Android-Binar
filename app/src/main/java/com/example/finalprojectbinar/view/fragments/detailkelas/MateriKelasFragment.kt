@@ -40,25 +40,26 @@ class MateriKelasFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         _binding = FragmentMateriKelasBinding.inflate(inflater,container,false)
 
 
         val id: String? = arguments?.getString(DetailKelasFragment.MATERI_KELAS)
+        val author = arguments?.getString(DetailKelasFragment.AUTHOR)
+        val image = arguments?.getString(DetailKelasFragment.IMAGE)
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
 
-        getModuleByCourseId(savedToken!!, id!!)
+        getModuleByCourseId(savedToken!!, id!!, author!!, image!!)
 
         return binding.root
     }
 
 
-    private fun getModuleByCourseId(token: String, courseId: String){
+    private fun getModuleByCourseId(token: String, courseId: String, author: String, image: String){
         viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     val data = it.data?.data
-                    showData(data!!)
+                    showData(data!!, author, image)
                     binding.progressBar.visibility = View.GONE
                 }
 
@@ -73,7 +74,7 @@ class MateriKelasFragment : Fragment() {
             }
         }
     }
-    private fun getVideoLink(token: String, chapterModuleUuid: String){
+    private fun getVideoLink(token: String, title: String, chapterModuleUuid: String, author: String, image: String){
         viewModel.getVideoLink("Bearer $token", chapterModuleUuid).observe(viewLifecycleOwner){
             when (it.status) {
                 Status.SUCCESS -> {
@@ -82,6 +83,9 @@ class MateriKelasFragment : Fragment() {
                     val videoId = extractYouTubeVideoId(link.toString())
                     val intent = Intent(requireContext(), VideoPlayerActivity::class.java)
                     intent.putExtra(VIDEO_ID, videoId)
+                    intent.putExtra(TITLE, title)
+                    intent.putExtra(AUTHOR, author)
+                    intent.putExtra(IMAGE, image)
                     startActivity(intent)
                 }
 
@@ -105,7 +109,7 @@ class MateriKelasFragment : Fragment() {
     }
 
 
-    private fun showData(data: DataCourses) {
+    private fun showData(data: DataCourses, author: String, image: String) {
         try {
             data.courseModules.forEach { classModule ->
                 materiList.add(classModule)
@@ -114,7 +118,7 @@ class MateriKelasFragment : Fragment() {
                 }
             }
 
-            adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, userChapterModuleUuid ->
+            adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, title, userChapterModuleUuid ->
 
                 if (userChapterModuleUuid == null) {
                     val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
@@ -122,7 +126,7 @@ class MateriKelasFragment : Fragment() {
                     bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
                 } else {
                     updateCompleted(savedToken, userChapterModuleUuid)
-                    getVideoLink(savedToken, chapterModuleUuid)
+                    getVideoLink(savedToken, title, chapterModuleUuid, author, image)
                 }
 
             })
@@ -159,38 +163,26 @@ class MateriKelasFragment : Fragment() {
         }
     }
 
-    private fun postEnrollment(token: String?, course_uuid: String){
-        val enrollmentRequest = EnrollmentRequest(course_uuid)
-        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
-            when (it.status) {
-                Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Success Enroll Course", Toast.LENGTH_SHORT).show()
-                }
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-                }
-                Status.LOADING -> {
-                    Log.d("LoadingTEST", "Loading")
-                }
-            }
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object {
-        fun newInstance(id: String): Fragment {
+        fun newInstance(id: String, author: String, image: String): Fragment {
             val args = Bundle()
             args.putString(DetailKelasFragment.MATERI_KELAS, id)
+            args.putString(DetailKelasFragment.AUTHOR, author)
+            args.putString(DetailKelasFragment.IMAGE, image)
 
             val fragment = MateriKelasFragment()
             fragment.arguments = args
             return fragment
         }
 
+        const val AUTHOR = "author"
         const val VIDEO_ID = "videoId"
+        const val TITLE = "title"
+        const val IMAGE = "image"
     }
 }

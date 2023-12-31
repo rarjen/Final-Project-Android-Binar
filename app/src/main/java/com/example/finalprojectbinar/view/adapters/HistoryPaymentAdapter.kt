@@ -77,7 +77,7 @@ class HistoryPaymentAdapter (
 
                 if(data.isPaid == false){
                     binding.statusLayout.background = ContextCompat.getDrawable(binding.root.context, R.drawable.rounded_background_unpaid)
-                    binding.tvStatus.text = "Waiting for Payment"
+                    binding.tvStatus.text = "Menunggu Pembayaran"
                 }
             }
         }

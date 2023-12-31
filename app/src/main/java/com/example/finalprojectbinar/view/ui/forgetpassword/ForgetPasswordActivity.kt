@@ -1,6 +1,5 @@
 package com.example.finalprojectbinar.view.ui.forgetpassword
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +7,9 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityForgetPasswordBinding
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.viewmodel.MyViewModel
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.koin.android.ext.android.inject
 

@@ -1,21 +1,15 @@
 package com.example.finalprojectbinar.view.adapters
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.RvNotificationBinding
-import com.example.finalprojectbinar.model.DataAllCourses
 import com.example.finalprojectbinar.model.DataNotification
-import com.example.finalprojectbinar.view.model_dummy.Notif
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

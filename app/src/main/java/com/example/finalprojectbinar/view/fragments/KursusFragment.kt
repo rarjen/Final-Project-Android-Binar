@@ -177,15 +177,15 @@ class KursusFragment : Fragment(), DataListener {
     }
     private fun showTab(){
         val allTab = binding.tabLayout.newTab()
-        allTab.text = "All"
+        allTab.text = "Semua"
         binding.tabLayout.addTab(allTab)
 
         val premiumTab = binding.tabLayout.newTab()
-        premiumTab.text = "Premium"
+        premiumTab.text = "Berbayar"
         binding.tabLayout.addTab(premiumTab)
 
         val freeTab = binding.tabLayout.newTab()
-        freeTab.text = "Free"
+        freeTab.text = "Gratis"
         binding.tabLayout.addTab(freeTab)
     }
 

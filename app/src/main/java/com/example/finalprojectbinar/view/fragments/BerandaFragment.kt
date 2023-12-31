@@ -130,7 +130,7 @@ class BerandaFragment : Fragment() {
         adapter.submitCategoryMenuResponse(data?.data ?: emptyList())
 
         val allTab = binding.tabLayout.newTab()
-        allTab.text = "All"
+        allTab.text = "Semua"
         binding.tabLayout.addTab(allTab)
 
         binding.gridviewKategori.layoutManager = GridLayoutManager(requireActivity(), 2)

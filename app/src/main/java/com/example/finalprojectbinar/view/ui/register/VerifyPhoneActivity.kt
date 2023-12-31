@@ -3,9 +3,6 @@ package com.example.finalprojectbinar.view.ui.register
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.example.finalprojectbinar.databinding.ActivityVerifyPhoneBinding
@@ -13,12 +10,10 @@ import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetSuccessRegisterFragment
 import com.example.finalprojectbinar.view.ui.login.LoginActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
-import kotlin.math.log
 
 class VerifyPhoneActivity : AppCompatActivity() {
 
@@ -107,25 +102,5 @@ class VerifyPhoneActivity : AppCompatActivity() {
             }
         }
     }
-
-//    private fun setupPinViewListener(tokenRegister: String?) {
-//        binding.otpTextView.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                if (s != null) {
-//                    val enteredCharacter = s.subSequence(start, start + count)
-//                    println("Karakter yang dimasukkan: $enteredCharacter")
-//                }
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//                if (s?.length == binding.otpTextView.itemCount) {
-//                    val otp = s.toString()
-//                    validateRegister(tokenRegister, otp)
-//                }
-//            }
-//        })
-//    }
 
 }

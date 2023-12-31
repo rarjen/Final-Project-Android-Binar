@@ -2,7 +2,6 @@ package com.example.finalprojectbinar.view.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.DataCourses
 
