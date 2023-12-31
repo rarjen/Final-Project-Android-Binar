@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
@@ -18,6 +19,9 @@
         android:theme="@style/Theme.FinalProjectBinar"
         tools:targetApi="31">
         <activity
+            android:name=".view.ui.forgetpassword.ForgetPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ui.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:exported="false" />
@@ -26,8 +30,8 @@
             android:exported="false" />
         <activity
             android:name=".view.ui.register.RegisterActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.ui.login.LoginActivity"
             android:exported="false" />
@@ -44,6 +48,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -149,6 +149,14 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
+    fun postForgetPassword(email:String) = liveData(Dispatchers.IO){
+        try {
+            emit(Resource.success(data = repository.postForgetPassword(email)))
+        } catch (e: HttpException) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occurred!"))
+        }
+    }
+
     fun getMyClass(token: String, isComplete: String?) = liveData(){
         try {
             emit(Resource.success(data = repository.getMyClass(token, isComplete)))

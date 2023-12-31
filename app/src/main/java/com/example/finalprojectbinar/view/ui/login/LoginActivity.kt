@@ -14,6 +14,7 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.ui.MainActivity
+import com.example.finalprojectbinar.view.ui.forgetpassword.ForgetPasswordActivity
 import com.example.finalprojectbinar.view.ui.register.RegisterActivity
 import com.example.finalprojectbinar.view.ui.register.VerifyPhoneActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -53,6 +54,11 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, VerifyPhoneActivity::class.java)
             startActivity(intent)
             finish()
+        }
+        binding.materialTextView2.setOnClickListener {
+            startActivity(
+                Intent(this, ForgetPasswordActivity::class.java)
+            )
         }
     }
 

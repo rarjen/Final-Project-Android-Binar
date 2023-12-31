@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.finalprojectbinar.api.APIClient
 import com.example.finalprojectbinar.api.APIService
 import com.example.finalprojectbinar.model.EnrollmentRequest
+import com.example.finalprojectbinar.model.ForgetPasswordRequest
 import com.example.finalprojectbinar.model.LoginRequest
 import com.example.finalprojectbinar.model.OTPRequest
 import com.example.finalprojectbinar.model.PaymentRequest
@@ -29,6 +30,7 @@ class MyRepository() {
     suspend fun postRegister(registerRequest: RegisterRequest) = apiService.register(registerRequest)
     suspend fun validateJWT(tokenRegister: String?) = apiService.validationJWT(tokenRegister)
     suspend fun validateRegister(tokenRegister: String?, otp: OTPRequest) = apiService.validateRegister(tokenRegister, otp)
+    suspend fun postForgetPassword(email:String)= apiService.forgetPassword(ForgetPasswordRequest(email))
 
     // User Profile
     suspend fun getProfile(token: String) = apiService.getProfileUser(token)
@@ -50,4 +52,5 @@ class MyRepository() {
     suspend fun updateProfile(token: String, updateProfileRequest: UpdateProfileRequest) = apiService.updateProfile(token, updateProfileRequest)
     suspend fun updatePassword(token: String, updatePasswordRequest: UpdatePasswordRequest) = apiService.updatePassword(token, updatePasswordRequest)
     suspend fun getNotification(token: String?) = apiService.getNotification(token)
+
 }
