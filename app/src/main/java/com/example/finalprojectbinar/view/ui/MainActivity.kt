@@ -4,25 +4,18 @@ package com.example.finalprojectbinar.view.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.ActivityMainBinding
-import com.example.finalprojectbinar.databinding.FragmentDetailKelasBinding
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
-import com.example.finalprojectbinar.view.fragments.detailkelas.DetailKelasFragment
 import com.example.finalprojectbinar.view.ui.login.LoginActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.android.ext.android.inject
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
