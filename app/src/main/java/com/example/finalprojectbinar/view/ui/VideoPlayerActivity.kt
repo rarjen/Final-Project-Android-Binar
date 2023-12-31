@@ -1,21 +1,17 @@
 package com.example.finalprojectbinar.view.ui
 
-import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import com.example.finalprojectbinar.R
-import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
+import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.ActivityVideoPlayerBinding
 import com.example.finalprojectbinar.view.fragments.detailkelas.MateriKelasFragment
-import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import org.koin.android.ext.android.inject
 
 class VideoPlayerActivity : AppCompatActivity() {
 
@@ -47,7 +43,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         val iFramePlayerOptions = IFramePlayerOptions.Builder()
             .controls(1)
-            .fullscreen(1) // enable full screen button
+            .fullscreen(1)
             .build()
 
         youTubePlayerView.enableAutomaticInitialization = false
@@ -55,6 +51,9 @@ class VideoPlayerActivity : AppCompatActivity() {
         youTubePlayerView.addFullscreenListener(object : FullscreenListener {
             override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {
                 isFullscreen = true
+
+                binding.cardCredentials.visibility = View.GONE
+                binding.cardKomentar.visibility = View.GONE
 
                 youTubePlayerView.visibility = View.GONE
                 fullscreenViewContainer.visibility = View.VISIBLE
@@ -64,6 +63,9 @@ class VideoPlayerActivity : AppCompatActivity() {
 
             override fun onExitFullscreen() {
                 isFullscreen = false
+
+                binding.cardCredentials.visibility = View.VISIBLE
+                binding.cardKomentar.visibility = View.VISIBLE
 
                 youTubePlayerView.visibility = View.VISIBLE
                 fullscreenViewContainer.visibility = View.GONE
@@ -87,9 +89,23 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         lifecycle.addObserver(youTubePlayerView)
 
+        showCredentials()
+
         binding.ivBack.setOnClickListener {
             navigateBack()
         }
+    }
+
+    private fun showCredentials(){
+        val title = intent.getStringExtra(MateriKelasFragment.TITLE).toString()
+        val author = intent.getStringExtra(MateriKelasFragment.AUTHOR).toString()
+        val image = intent.getStringExtra(MateriKelasFragment.IMAGE).toString()
+//        Log.d("TESTIMAGE", image)
+        binding.authorTv.text = author
+        binding.titleVideo.text = title
+        Glide.with(this)
+            .load(image)
+            .into(binding.thumbnailView)
     }
 
     private fun navigateBack() {

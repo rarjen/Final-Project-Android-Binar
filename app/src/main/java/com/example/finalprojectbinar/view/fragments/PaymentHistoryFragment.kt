@@ -2,7 +2,6 @@ package com.example.finalprojectbinar.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentPaymentHistoryBinding
-import com.example.finalprojectbinar.databinding.FragmentProfileBinding
 import com.example.finalprojectbinar.model.PaymentHistoryResponse
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper

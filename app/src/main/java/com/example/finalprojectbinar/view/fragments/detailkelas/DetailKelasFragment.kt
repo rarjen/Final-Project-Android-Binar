@@ -39,7 +39,7 @@ class DetailKelasFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
+
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
@@ -108,7 +108,7 @@ class DetailKelasFragment : Fragment() {
 
 
         if (courseData != null) {
-            showTabLayout(courseData.description, courseData.classTarget, courseData.id)
+            showTabLayout(courseData.description, courseData.classTarget, courseData.id, courseData.author, courseData.image)
         }
 
     }
@@ -124,8 +124,8 @@ class DetailKelasFragment : Fragment() {
     }
 
 
-    private fun showTabLayout(description: String, classTarget: List<String>, id: String) {
-        val fragmentList = arrayListOf(TentangKelasFragment.newInstance(description, classTarget), MateriKelasFragment.newInstance(id))
+    private fun showTabLayout(description: String, classTarget: List<String>, id: String, author: String, image: String) {
+        val fragmentList = arrayListOf(TentangKelasFragment.newInstance(description, classTarget), MateriKelasFragment.newInstance(id, author, image))
         val bottomNavigationView = (requireActivity() as MainActivity).getBottomNavigationView()
 
         binding.apply {
@@ -164,8 +164,9 @@ class DetailKelasFragment : Fragment() {
     companion object {
         val DETAIL_KELAS = "detailKelas"
         val KELAS_TARGET = "kelasTarget"
-
         val MATERI_KELAS = "materiKelas"
+        val AUTHOR = "author"
+        val IMAGE = "image"
     }
 
 }

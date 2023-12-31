@@ -59,7 +59,7 @@
                 android:textSize="20sp"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/cyan"
-                android:text="Masa Masa Depan"/>
+                android:text="Masa Depan"/>
 
             <com.google.android.material.card.MaterialCardView
                 app:layout_constraintStart_toStartOf="parent"
@@ -301,7 +301,7 @@
                         android:id="@+id/button"
                         android:layout_width="150dp"
                         android:layout_height="40dp"
-                        android:backgroundTint="@color/darkBlue"
+                        android:backgroundTint="@color/pink"
                         android:textSize="12sp"
                         android:layout_marginStart="10dp"
                         android:layout_marginVertical="5dp"
@@ -321,13 +321,23 @@
                 android:paddingVertical="10dp"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/pink"
+                android:backgroundTint="@color/darkBlue"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:drawableEnd="@drawable/arrow_circle_right_fill1_wght400_grad0_opsz24"
                 android:textColor="@color/white"
                 android:text="Mulai Kelas" />
+
+            <ProgressBar
+                android:id="@id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                android:layout_marginBottom="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

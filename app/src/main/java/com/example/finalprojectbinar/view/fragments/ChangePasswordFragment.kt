@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentChangePasswordBinding
-import com.example.finalprojectbinar.databinding.FragmentPaymentHistoryBinding
 import com.example.finalprojectbinar.model.UpdatePasswordRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper

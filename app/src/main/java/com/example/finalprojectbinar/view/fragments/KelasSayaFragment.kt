@@ -1,6 +1,5 @@
 package com.example.finalprojectbinar.view.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,23 +10,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
-import com.example.finalprojectbinar.databinding.FragmentBerandaBinding
 import com.example.finalprojectbinar.databinding.FragmentKelasSayaBinding
-import com.example.finalprojectbinar.model.DataCategories
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.MyClassResponse
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
-import com.example.finalprojectbinar.view.adapters.KelasSayaAdapter
 import com.example.finalprojectbinar.view.adapters.MyClassAdapter
-import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMyClassNotExistFragment
-import com.example.finalprojectbinar.view.model_dummy.DataMyClass
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 
 class KelasSayaFragment : Fragment() {
@@ -81,17 +74,17 @@ class KelasSayaFragment : Fragment() {
     private fun setupLayoutLayout(token: String) {
         val tabLayout = binding.tabLayout
 
-        tabLayout.addTab(tabLayout.newTab().setText("All"))
-        tabLayout.addTab(tabLayout.newTab().setText("In Progress"))
+        tabLayout.addTab(tabLayout.newTab().setText("Semua"))
+        tabLayout.addTab(tabLayout.newTab().setText("Sedang Dipelajari"))
         tabLayout.addTab(tabLayout.newTab().setText("Selesai"))
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
                     when (it.position) {
-                        0 -> fetchMyClassCoroutines(token, null) // All
-                        1 -> fetchMyClassCoroutines(token, "0") // Premium
-                        2 -> fetchMyClassCoroutines(token, "1") // Kelas Gratis
+                        0 -> fetchMyClassCoroutines(token, null)
+                        1 -> fetchMyClassCoroutines(token, "0")
+                        2 -> fetchMyClassCoroutines(token, "1")
                     }
                 }
             }

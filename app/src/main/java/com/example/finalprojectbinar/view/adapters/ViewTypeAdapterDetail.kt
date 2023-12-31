@@ -13,7 +13,7 @@ import com.example.finalprojectbinar.model.Module
 
 class ViewTypeAdapterDetail(
     private val items: List<Any>,
-    private var clickListener: ((String, String?) -> Unit)? = null
+    private var clickListener: ((String, String, String?) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -79,7 +79,7 @@ class ViewTypeAdapterDetail(
                 if(position != RecyclerView.NO_POSITION){
                     val clickedItem = items[position]
                     if (clickedItem is Module) {
-                        clickListener?.invoke(clickedItem.chapterModuleUuid, clickedItem.userChapterModuleUuid)
+                        clickListener?.invoke(clickedItem.chapterModuleUuid, clickedItem.title, clickedItem.userChapterModuleUuid)
                     }
                 }
             }
