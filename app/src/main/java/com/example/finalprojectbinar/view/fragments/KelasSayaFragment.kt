@@ -22,6 +22,8 @@ import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.CategoryAdapter
 import com.example.finalprojectbinar.view.adapters.KelasSayaAdapter
 import com.example.finalprojectbinar.view.adapters.MyClassAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMyClassNotExistFragment
 import com.example.finalprojectbinar.view.model_dummy.DataMyClass
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.tabs.TabLayout
@@ -47,7 +49,6 @@ class KelasSayaFragment : Fragment() {
         fetchCategoryCoroutines()
         setupLayoutLayout(savedToken)
         fetchMyClassCoroutines(savedToken, null)
-
 
         return binding.root
     }
@@ -111,7 +112,13 @@ class KelasSayaFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     binding.progressBarClass.visibility = View.GONE
-                    showClass(it.data)
+                    val length = it.data?.data?.size
+                    if (length!! <= 0) {
+                        val bottomSheetFragment = BottomSheetMyClassNotExistFragment()
+                        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    } else {
+                        showClass(it.data)
+                    }
                 }
 
                 Status.ERROR -> {
