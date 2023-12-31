@@ -13,6 +13,8 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.NotificationAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMyClassNotExistFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetNotificationNotExistFragment
 import com.example.finalprojectbinar.view.model_dummy.Notif
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
@@ -37,8 +39,15 @@ class NotificationFragment : Fragment() {
         viewModel.getNotification("Bearer $token").observe(viewLifecycleOwner){
             when(it.status){
                 Status.SUCCESS -> {
-                    Log.d("DATA NOTIF", it.data.toString())
-                    setupRecycleView(it.data)
+
+                    val length = it.data?.data?.size
+                    if (length!! <= 0) {
+                        val bottomSheetFragment = BottomSheetNotificationNotExistFragment()
+                        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    } else {
+                        setupRecycleView(it.data)
+                    }
+
                 }
                 Status.ERROR -> {
                     Log.d("MESSEGE", it.message.toString())

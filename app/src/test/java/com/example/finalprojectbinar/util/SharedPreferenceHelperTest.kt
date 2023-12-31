@@ -1,4 +1,4 @@
-package com.example.finalprojectbinar
+package com.example.finalprojectbinar.util
 
 import android.content.Context
 import android.content.SharedPreferences

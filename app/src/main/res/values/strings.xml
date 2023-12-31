@@ -246,4 +246,6 @@
     <string name="email">Email</string>
     <string name="periksa_email_anda_jika_tidak_ada_email_masuk_coba_untuk_periksa_di_folder_spam">Periksa email anda, Jika tidak ada email masuk coba untuk periksa di folder spam</string>
     <string name="konfirmasi">Konfirmasi</string>
+    <string name="anda_belum_memiliki_kelas_aktif">Anda belum memiliki kelas aktif</string>
+    <string name="anda_tidak_memilki_notifikasi">Anda tidak memilki notifikasi</string>
 </resources>

@@ -19,7 +19,6 @@ import com.example.finalprojectbinar.view.model_dummy.Notif
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-@RequiresApi(Build.VERSION_CODES.O)
 class NotificationAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private val diffCallback = object: DiffUtil.ItemCallback<DataNotification>(){
