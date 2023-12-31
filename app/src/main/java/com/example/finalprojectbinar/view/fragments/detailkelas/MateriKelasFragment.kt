@@ -9,24 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentMateriKelasBinding
-import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
-import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetEnrollmentFree
-import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.view.ui.VideoPlayerActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.ERROR_MSG
 

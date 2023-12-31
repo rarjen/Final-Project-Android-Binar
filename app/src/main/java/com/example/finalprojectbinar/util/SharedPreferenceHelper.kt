@@ -20,7 +20,8 @@ object SharedPreferenceHelper {
         with(prefsEditor) {
             putString(key, value)
             apply()
-            commit()
+
         }
     }
+
 }
