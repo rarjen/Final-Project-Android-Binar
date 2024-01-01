@@ -5,7 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.databinding.ActivityPaymentBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
@@ -65,6 +67,19 @@ class PaymentActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> {
+                        binding.buttonCheckout.visibility = View.VISIBLE
+                    }
+                    1 -> {
+                        binding.buttonCheckout.visibility = View.GONE
+                    }
+                }
+            }
+        })
     }
 
     @SuppressLint("InflateParams")

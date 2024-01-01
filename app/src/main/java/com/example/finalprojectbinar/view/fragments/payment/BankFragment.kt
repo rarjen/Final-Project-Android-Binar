@@ -1,5 +1,6 @@
 package com.example.finalprojectbinar.view.fragments.payment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentBankBinding
 import com.example.finalprojectbinar.databinding.FragmentKelasSayaBinding
 import com.example.finalprojectbinar.databinding.FragmentPaymentBinding
+import com.example.finalprojectbinar.view.ui.MainActivity
 
 class BankFragment : Fragment() {
 
@@ -23,6 +25,11 @@ class BankFragment : Fragment() {
         _binding = FragmentBankBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
