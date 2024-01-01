@@ -5,7 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.gms.google-services")
 //    id("com.google.gms.google-services")
-//    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -89,11 +89,9 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     //Firebase
-//    implementation("com.google.firebase:firebase-analytics:21.5.0")
-//    implementation("com.google.firebase:firebase-auth-ktx:22.3.0")
-//
-//    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
-//    implementation("com.google.firebase:firebase-firestore:24.9.1")
+    implementation("com.google.firebase:firebase-analytics:21.5.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("com.google.firebase:firebase-crashlytics:18.6.0")
 
     // Koin
     implementation ("io.insert-koin:koin-core:3.5.0")
