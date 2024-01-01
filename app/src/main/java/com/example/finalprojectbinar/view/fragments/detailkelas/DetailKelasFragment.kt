@@ -137,7 +137,7 @@ class DetailKelasFragment : Fragment() {
                 }
             }.attach()
         }
-//
+
         binding.viewPagerDetailClass.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when (position) {
