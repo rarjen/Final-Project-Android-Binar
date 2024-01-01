@@ -85,6 +85,7 @@ class KursusFragment : Fragment(), DataListener {
             }
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                DataFilter.clear()
                 if (s.isNullOrEmpty()) {
                     // If the text is empty, make views visible
                     binding.rvKelas.visibility = View.VISIBLE
@@ -120,12 +121,18 @@ class KursusFragment : Fragment(), DataListener {
             when (it.status) {
                 Status.SUCCESS -> {
                     val dataLength = it.data?.data?.size
-                    if(dataLength!! < 1) {
+                    if(dataLength!! < 1 && search.isNullOrEmpty()) {
+                        binding.notFoundLayoutCourse.visibility = View.VISIBLE
+                        binding.rvKelas.visibility = View.GONE
+                        binding.clKursus.visibility = View.VISIBLE
+                        binding.tabLayout.visibility = View.VISIBLE
+                    }else if(dataLength!! < 1 && search!!.isNotEmpty()){
                         binding.notFoundLayoutCourse.visibility = View.VISIBLE
                         binding.rvKelas.visibility = View.GONE
                         binding.clKursus.visibility = View.GONE
                         binding.tabLayout.visibility = View.GONE
-                    }else{
+                    }
+                    else{
                         binding.rvKelas.visibility = View.VISIBLE
                         binding.notFoundLayoutCourse.visibility = View.GONE
                         setUPRecycleView(it.data)
