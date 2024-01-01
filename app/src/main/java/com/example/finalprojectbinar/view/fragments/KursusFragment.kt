@@ -235,6 +235,8 @@ class KursusFragment : Fragment(), DataListener {
         var i = 0
         categoryId.clear()
         Level.clear()
+        category = null
+        level = null
        for (item in dataFilter){
            when(item){
                is DataFilter.Category ->{
