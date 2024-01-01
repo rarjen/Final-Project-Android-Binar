@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentProfileBinding
 import com.example.finalprojectbinar.model.ProfileResponse
@@ -22,11 +23,15 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.viewmodel.MyViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import org.koin.android.ext.android.inject
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class ProfileFragment : Fragment() {
 
     private var _binding : FragmentProfileBinding? = null
@@ -38,16 +43,18 @@ class ProfileFragment : Fragment() {
 
     private val PICK_IMAGE_REQUEST = 1
 
+    private var userUuid: String? = null
+
+    private fun setUserUuid(userUuid: String){
+        this.userUuid = userUuid
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-
-        val storage = FirebaseStorage.getInstance()
-        val storageReference: StorageReference = storage.reference
-
 
         pref = SharedPreferenceHelper
         val savedToken = pref.read(Enum.PREF_NAME.value).toString()
@@ -86,13 +93,25 @@ class ProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null){
-            val selectedImageUri: Uri = data.data!!
+            val selectedImageUri: Uri? = data.data
+            val imageUrl = selectedImageUri.toString()
 
-            val timestamp = System.currentTimeMillis()
-            val imageName = "image_$timestamp.jpg"
+            val databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userUuid!!)
 
-            val userUuid = ""
-//            val imageRef: StorageReference = storageRef.child("user_profile_images/$userUuid/$imageName")
+            databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                   if (snapshot.exists() && snapshot.hasChild("profileImage")) {
+                       updateProfileImage(imageUrl, userUuid!!)
+                   } else {
+                       uploadFirstProfileImage(imageUrl, userUuid!!)
+                   }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
         }
     }
 
@@ -101,6 +120,11 @@ class ProfileFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data -> showProfiles(data) }
+                    val userUuid = it.data?.data?.userUuid
+                    userUuid?.let { userUuid ->
+                        setUserUuid(userUuid)
+                        getProfileImage(userUuid)
+                    }
                     binding.progressBar.visibility = View.GONE
                 }
                 Status.ERROR -> {
@@ -150,6 +174,51 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun updateProfileImage(imageUrl: String, userUuid: String){
+        val databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userUuid)
+        databaseReference.child("profileImageUrl").setValue(imageUrl)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Foto profil berhasil diperbaharui", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), "Gagal memperbaharaui foto profil: $exception", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun uploadFirstProfileImage(imageUrl: String, userUuid: String){
+        val databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userUuid)
+        databaseReference.child("profileImageUrl").setValue(imageUrl)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Foto profil berhasil diunggah", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(requireContext(), "Gagal mengunggah foto profil: $exception", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun getProfileImage(userUuid: String){
+        val userReference = FirebaseDatabase.getInstance().getReference("users").child(userUuid)
+
+        userReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val imageUrl = snapshot.child("profileImageUrl").value.toString()
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .into(binding.profileImage)
+                } else {
+                    binding.profileImage.setImageResource(R.drawable.profile_default)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Error: $error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
 

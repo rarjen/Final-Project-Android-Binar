@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class ProfileData(
     @SerializedName("city")
     val city: String?,
+    @SerializedName("userUuid")
+    val userUuid: String?,
     @SerializedName("country")
     val country: String?,
     @SerializedName("email")

@@ -42,13 +42,15 @@
         <FrameLayout
             android:layout_width="150dp"
             android:layout_height="150dp">
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/profile"
-                app:civ_border_color="@color/cyan"
-                app:civ_border_width="3dp" />
+                android:focusableInTouchMode="true"
+                android:src="@drawable/profile_default"
+                app:civ_border_color="@color/darkBlue"
+                app:civ_border_width="1dp" />
 
             <FrameLayout
                 android:id="@+id/editProfilePicture"
@@ -61,6 +63,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:elevation="4dp"
                     android:src="@drawable/insert_photo_24" />
             </FrameLayout>
         </FrameLayout>
