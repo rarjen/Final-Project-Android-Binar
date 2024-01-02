@@ -17,6 +17,7 @@ import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetEnrollmentFree
 import com.example.finalprojectbinar.view.ui.VideoPlayerActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
@@ -121,9 +122,15 @@ class MateriKelasFragment : Fragment() {
             adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, title, userChapterModuleUuid ->
 
                 if (userChapterModuleUuid == null) {
-                    val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
-                    bottomSheetEnrollmentFree.setCourseId(data.id)
-                    bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
+                    if (data.isPremium) {
+                        val bottomSheetEnrollmentPremium = BottomSheetConfirmOrderFragment()
+                        bottomSheetEnrollmentPremium.setCourseId(data.id)
+                        bottomSheetEnrollmentPremium.show(childFragmentManager, bottomSheetEnrollmentPremium.tag)
+                    } else {
+                        val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
+                        bottomSheetEnrollmentFree.setCourseId(data.id)
+                        bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
+                    }
                 } else {
                     updateCompleted(savedToken, userChapterModuleUuid)
                     getVideoLink(savedToken, title, chapterModuleUuid, author, image)

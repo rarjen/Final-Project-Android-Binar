@@ -25,6 +25,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.koin.android.ext.android.inject
+import kotlin.math.log
 
 
 class DetailKelasFragment : Fragment() {
@@ -59,6 +60,8 @@ class DetailKelasFragment : Fragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data ->
+
+                        Log.d("DATAVIDEO", data.data!!.introVideo.toString())
                         showData(data)
                         binding.progressBar.visibility = View.GONE
                         binding.layoutVideoPlayer.visibility = View.VISIBLE
@@ -85,7 +88,7 @@ class DetailKelasFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun showData(data: CoursesResponsebyName) {
         val courseData: DataCourses? = data.data
-
+        
         val youTubePlayerView: YouTubePlayerView = binding.youtubePlayerView
         lifecycle.addObserver(youTubePlayerView)
         youTubePlayerView.addYouTubePlayerListener(object: AbstractYouTubePlayerListener(){
@@ -94,7 +97,7 @@ class DetailKelasFragment : Fragment() {
                 val urlVideo = courseData?.introVideo
                 val videoId = extractYouTubeVideoId(urlVideo!!)
                 Log.d("VIDEOID", videoId.toString())
-                youTubePlayer.loadVideo(videoId!!.toString(), 0F)
+                youTubePlayer.loadVideo(videoId.toString(), 0F)
             }
         })
 

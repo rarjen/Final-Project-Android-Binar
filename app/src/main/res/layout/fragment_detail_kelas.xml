@@ -55,11 +55,8 @@
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:videoId="zHAa-m16NGk"
             app:autoPlay="false" />
     </LinearLayout>
-
-
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardDetail"

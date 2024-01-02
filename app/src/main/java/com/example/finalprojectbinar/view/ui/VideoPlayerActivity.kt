@@ -100,7 +100,6 @@ class VideoPlayerActivity : AppCompatActivity() {
         val title = intent.getStringExtra(MateriKelasFragment.TITLE).toString()
         val author = intent.getStringExtra(MateriKelasFragment.AUTHOR).toString()
         val image = intent.getStringExtra(MateriKelasFragment.IMAGE).toString()
-//        Log.d("TESTIMAGE", image)
         binding.authorTv.text = author
         binding.titleVideo.text = title
         Glide.with(this)
