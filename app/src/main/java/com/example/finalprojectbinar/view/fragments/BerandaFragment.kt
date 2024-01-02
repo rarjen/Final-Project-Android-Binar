@@ -150,19 +150,26 @@ class BerandaFragment : Fragment() {
         val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
             val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
             if (isLogin != null) {
-                if (isPremium) {
-                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
-                    bottomSheetFragment.setCourseId(courseId)
-                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-                } else {
-                    val bundle = Bundle().apply {
-                        putString("courseId", courseId)
-                    }
-                    findNavController().navigate(
-                        R.id.action_berandaFragment_to_detailKelasFragment,
-                        bundle
-                    )
+//                if (isPremium) {
+//                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
+//                    bottomSheetFragment.setCourseId(courseId)
+//                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+//                } else {
+//                    val bundle = Bundle().apply {
+//                        putString("courseId", courseId)
+//                    }
+//                    findNavController().navigate(
+//                        R.id.action_berandaFragment_to_detailKelasFragment,
+//                        bundle
+//                    )
+//                }
+                val bundle = Bundle().apply {
+                    putString("courseId", courseId)
                 }
+                findNavController().navigate(
+                    R.id.action_berandaFragment_to_detailKelasFragment,
+                    bundle
+                )
             } else {
                 val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
                 bottomSheetFragmentMustLogin.show(
@@ -170,6 +177,7 @@ class BerandaFragment : Fragment() {
                     bottomSheetFragmentMustLogin.tag
                 )
             }
+
         })
 
         adapter.submitCoursesResponse(data?.data ?: emptyList())
@@ -253,19 +261,27 @@ class BerandaFragment : Fragment() {
         val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
             val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
             if (isLogin != null) {
-                if (isPremium) {
-                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
-                    bottomSheetFragment.setCourseId(courseId)
-                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-                } else {
-                    val bundle = Bundle().apply {
-                        putString("courseId", courseId)
-                    }
-                    findNavController().navigate(
-                        R.id.action_berandaFragment_to_detailKelasFragment,
-                        bundle
-                    )
+//                if (isPremium) {
+//                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
+//                    bottomSheetFragment.setCourseId(courseId)
+//                    bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+//                } else {
+//                    val bundle = Bundle().apply {
+//                        putString("courseId", courseId)
+//                    }
+//                    findNavController().navigate(
+//                        R.id.action_berandaFragment_to_detailKelasFragment,
+//                        bundle
+//                    )
+//                }
+
+                val bundle = Bundle().apply {
+                    putString("courseId", courseId)
                 }
+                findNavController().navigate(
+                    R.id.action_berandaFragment_to_detailKelasFragment,
+                    bundle
+                )
             } else {
                 val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
                 bottomSheetFragmentMustLogin.show(
