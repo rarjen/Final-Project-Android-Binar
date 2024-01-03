@@ -162,6 +162,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_Kursus_populer"
         app:tabGravity="fill"
+        app:tabIndicator="@drawable/tab_indicator"
         app:tabIndicatorColor="@color/darkBlue"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="stretch"

@@ -98,6 +98,7 @@
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="stretch"
         app:tabSelectedTextColor="@color/white"
+        app:tabIndicator="@drawable/tab_indicator"
         app:tabTextColor="@color/black" />
 
     <ProgressBar
