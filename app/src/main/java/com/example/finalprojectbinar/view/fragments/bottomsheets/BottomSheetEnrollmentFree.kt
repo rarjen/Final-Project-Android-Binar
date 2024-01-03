@@ -92,8 +92,6 @@ class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
         viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
             when (it.status) {
                 Status.SUCCESS -> {
-                    val paymentUuid = it.data?.data?.paymentUuid
-                    updatePaymentStatus(savedToken, paymentUuid)
                     Toast.makeText(requireContext(), "Berhasil Enroll Course!", Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.GONE
                     dismiss()
@@ -108,27 +106,6 @@ class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }
-        }
-    }
-
-    private fun updatePaymentStatus(token: String?, paymentId: String?) {
-        if (token != null && paymentId != null) {
-            val paymentRequest = PaymentRequest(payment_method = "credit card")
-            viewModel.putPayment("Bearer $token", paymentId, paymentRequest).observe(this) { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        Log.d("PaymentStatus", "Pembayaran berhasil diupdate")
-                    }
-                    Status.ERROR -> {
-                        Log.e("PaymentStatus", "Gagal mengupdate pembayaran: ${resource.message}")
-                    }
-                    Status.LOADING -> {
-                        Log.d("PaymentStatus", "Sedang memproses pembayaran...")
-                    }
-                }
-            }
-        } else {
-            Log.e("PaymentStatus", "Token atau courseId null")
         }
     }
 
