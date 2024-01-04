@@ -16,6 +16,8 @@ import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.adapters.HistoryPaymentAdapter
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheeetHistoryPaymentNotExistFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetNotificationNotExistFragment
 import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
@@ -52,8 +54,17 @@ class PaymentHistoryFragment : Fragment() {
         viewModel.getHistoryPayment("Bearer $token").observe(viewLifecycleOwner){
             when (it.status) {
                 Status.SUCCESS -> {
-                    showHistory(it.data)
-                    binding.progressBar.visibility = View.GONE
+                    val length = it.data?.data?.size
+
+                    if (length!! <= 0) {
+                        val bottomSheetFragment = BottomSheeetHistoryPaymentNotExistFragment()
+                        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+                    } else {
+                        showHistory(it.data)
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+
                 }
 
                 Status.ERROR -> {

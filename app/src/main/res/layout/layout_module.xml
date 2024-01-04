@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_vertical"
         app:layout_constraintStart_toEndOf="@id/numberText"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ic_playContentChapter"
         android:fontFamily="@font/montserrat_semi_bold"
         android:layout_marginStart="10dp" />
 

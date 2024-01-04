@@ -249,4 +249,5 @@
     <string name="anda_belum_memiliki_kelas_aktif">Anda belum memiliki kelas aktif</string>
     <string name="anda_tidak_memilki_notifikasi">Anda tidak memilki notifikasi</string>
     <string name="lanjutkan_pembayaran">Lanjutkan Pembayaran</string>
+    <string name="anda_tidak_memiliki_riwayat_pembayaran">Anda tidak memiliki riwayat pembayaran</string>
 </resources>
