@@ -42,9 +42,10 @@ class PaymentActivity : AppCompatActivity() {
         val fragmentList = arrayListOf(CreditCardFragment(), BankFragment())
         val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
         val paymentId = intent.getStringExtra("paymentId")
-        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        Log.d("PAYMENTID", paymentId.toString())
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
-        showDetailCoroutines(savedToken.toString(), courseId.toString())
+        showDetailCoroutines(savedToken, courseId.toString())
 
         binding.apply {
             viewPager.adapter = PaymentFragmentPageAdapter(fragmentList, this@PaymentActivity.supportFragmentManager, lifecycle)

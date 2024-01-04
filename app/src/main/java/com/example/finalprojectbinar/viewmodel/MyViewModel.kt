@@ -157,9 +157,17 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
         }
     }
 
-    fun getMyClass(token: String, isComplete: String?) = liveData(){
+    fun getMyClass(token: String, isComplete: String?) = liveData(Dispatchers.IO){
         try {
             emit(Resource.success(data = repository.getMyClass(token, isComplete)))
+        } catch (e: Exception) {
+            emit(Resource.error(data = null, message = e.message ?: "Error Occured!"))
+        }
+    }
+
+    fun getHistoryPaymentByPaymentId(token: String, paymentUuid: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(Resource.success(data = repository.getMyClass(token, paymentUuid)))
         } catch (e: Exception) {
             emit(Resource.error(data = null, message = e.message ?: "Error Occured!"))
         }

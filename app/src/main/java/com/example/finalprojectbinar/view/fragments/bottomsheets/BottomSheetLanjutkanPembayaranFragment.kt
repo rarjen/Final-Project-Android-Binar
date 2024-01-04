@@ -1,57 +1,81 @@
 package com.example.finalprojectbinar.view.fragments.bottomsheets
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentBottomSheetEnrollmentFreeBinding
+import com.example.finalprojectbinar.databinding.FragmentBottomSheetLanjutkanPembayaranBinding
 import com.example.finalprojectbinar.model.CoursesResponsebyName
 import com.example.finalprojectbinar.model.DataCourses
 import com.example.finalprojectbinar.model.EnrollmentRequest
-import com.example.finalprojectbinar.model.PaymentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
+import com.example.finalprojectbinar.view.ui.PaymentActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.android.ext.android.inject
 
-class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
-    private var _binding: FragmentBottomSheetEnrollmentFreeBinding? = null
+
+class BottomSheetLanjutkanPembayaranFragment : BottomSheetDialogFragment() {
+    private var _binding: FragmentBottomSheetLanjutkanPembayaranBinding? = null
     private val binding get() = _binding!!
 
     private var courseId: String? = null
     private val viewModel: MyViewModel by inject()
-    private val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
-    fun setCourseId(courseId: String) {
+     fun setCourseId(courseId: String) {
         this.courseId = courseId
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBottomSheetEnrollmentFreeBinding.inflate(inflater, container, false)
+    ): View? {
+        _binding = FragmentBottomSheetLanjutkanPembayaranBinding.inflate(inflater, container, false)
 
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
         binding.imageClose.setOnClickListener {
             dismiss()
         }
 
-        showDetailCoroutines(savedToken, courseId.toString())
-
         binding.buttonBuy.setOnClickListener {
             postEnrollment(savedToken, courseId.toString())
         }
 
+        showDetailCoroutines(savedToken, courseId.toString())
         return binding.root
+    }
+
+    private fun postEnrollment(token: String?, course_uuid: String){
+        val enrollmentRequest = EnrollmentRequest(course_uuid)
+        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
+            when (it.status) {
+                Status.SUCCESS -> {
+                    Log.d("TESTPAYMENTUUID", it.data?.data?.paymentUuid.toString())
+                    val paymentId = it.data?.data?.paymentUuid.toString()
+                    val intent = Intent(requireContext(), PaymentActivity::class.java)
+                    intent.putExtra("paymentId", paymentId)
+                    intent.putExtra(BottomSheetConfirmOrderFragment.COURSE_ID, courseId)
+                    startActivity(intent)
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    Log.d("LoadingTEST", "Loading")
+                }
+            }
+        }
     }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
@@ -59,12 +83,24 @@ class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data -> showData(data) }
+                    binding.buttonBuy.visibility = View.VISIBLE
+                    binding.ivCardImage.visibility = View.VISIBLE
+                    binding.layoutDetail.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                    binding.buttonBuy.visibility = View.GONE
+                    binding.ivCardImage.visibility = View.GONE
+                    binding.layoutDetail.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                     dismiss()
                 }
                 Status.LOADING -> {
+                    binding.buttonBuy.visibility = View.GONE
+                    binding.ivCardImage.visibility = View.GONE
+                    binding.layoutDetail.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }
@@ -87,30 +123,15 @@ class BottomSheetEnrollmentFree : BottomSheetDialogFragment() {
             .into(binding.ivCardImage)
     }
 
-    private fun postEnrollment(token: String?, course_uuid: String){
-        val enrollmentRequest = EnrollmentRequest(course_uuid)
-        viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
-            when (it.status) {
-                Status.SUCCESS -> {
-                    Toast.makeText(requireContext(), "Berhasil Enroll Course!", Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.GONE
-                    dismiss()
-                    findNavController().navigate(R.id.action_detailKelasFragment_to_kelasSayaFragment)
-                }
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                Status.LOADING -> {
-                    binding.buttonBuy.isEnabled = false
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        }
+    companion object {
+        const val ENROLLMENT_DATA = "enrollmentData"
+        const val COURSE_ID = "courseId"
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+
 }

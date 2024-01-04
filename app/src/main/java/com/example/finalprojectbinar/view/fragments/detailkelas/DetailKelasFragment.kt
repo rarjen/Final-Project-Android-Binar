@@ -43,46 +43,78 @@ class DetailKelasFragment : Fragment() {
 
         _binding = FragmentDetailKelasBinding.inflate(inflater, container, false)
 
-        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString();
         val courseId = arguments?.getString("courseId")
 
         binding.ivBack.setOnClickListener {
             findNavController().navigate(R.id.action_detailKelasFragment_to_berandaFragment)
         }
 
-        showDetailCoroutines(savedToken.toString(), courseId.toString())
+        showDetailCoroutines(savedToken, courseId.toString())
 
         return binding.root
     }
 
-    private fun showDetailCoroutines(token: String?, courseId: String){
-        viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.let { data ->
+    private fun showDetailCoroutines(token: String, courseId: String){
+        if (token != "null") {
+//            Log.d("INIEKSESKUSI", "1")
+            viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data?.let { data ->
 
-                        Log.d("DATAVIDEO", data.data!!.introVideo.toString())
-                        showData(data)
-                        binding.progressBar.visibility = View.GONE
-                        binding.layoutVideoPlayer.visibility = View.VISIBLE
-                        binding.cardDetail.visibility = View.VISIBLE
-                        binding.nestedView.visibility = View.VISIBLE
+                            Log.d("DATAVIDEO", data.data!!.introVideo.toString())
+                            showData(data)
+                            binding.progressBar.visibility = View.GONE
+                            binding.layoutVideoPlayer.visibility = View.VISIBLE
+                            binding.cardDetail.visibility = View.VISIBLE
+                            binding.nestedView.visibility = View.VISIBLE
+                        }
+                    }
 
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    Status.LOADING -> {
+                        binding.layoutVideoPlayer.visibility = View.GONE
+                        binding.cardDetail.visibility = View.GONE
+                        binding.nestedView.visibility = View.GONE
                     }
                 }
+            }
+        } else {
+//            Log.d("INIEKSESKUSI", "2")
+            viewModel.getDetailByIdCourse(null, courseId).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        it.data?.let { data ->
 
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+                            Log.d("DATAVIDEO", data.data!!.introVideo.toString())
+                            showData(data)
+                            binding.progressBar.visibility = View.GONE
+                            binding.layoutVideoPlayer.visibility = View.VISIBLE
+                            binding.cardDetail.visibility = View.VISIBLE
+                            binding.nestedView.visibility = View.VISIBLE
 
-                Status.LOADING -> {
-                    binding.layoutVideoPlayer.visibility = View.GONE
-                    binding.cardDetail.visibility = View.GONE
-                    binding.nestedView.visibility = View.GONE
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    Status.LOADING -> {
+                        binding.layoutVideoPlayer.visibility = View.GONE
+                        binding.cardDetail.visibility = View.GONE
+                        binding.nestedView.visibility = View.GONE
+                    }
                 }
             }
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -165,11 +197,11 @@ class DetailKelasFragment : Fragment() {
 
 
     companion object {
-        val DETAIL_KELAS = "detailKelas"
-        val KELAS_TARGET = "kelasTarget"
-        val MATERI_KELAS = "materiKelas"
-        val AUTHOR = "author"
-        val IMAGE = "image"
+        const val DETAIL_KELAS = "detailKelas"
+        const val KELAS_TARGET = "kelasTarget"
+        const val MATERI_KELAS = "materiKelas"
+        const val AUTHOR = "author"
+        const val IMAGE = "image"
     }
 
 }

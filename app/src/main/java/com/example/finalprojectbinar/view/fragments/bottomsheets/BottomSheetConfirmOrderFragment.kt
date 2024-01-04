@@ -29,6 +29,10 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
     private var courseId: String? = null
     private val viewModel: MyViewModel by inject()
 
+    private var materiList: MutableList<Any> = mutableListOf()
+
+    private var userChapterModuleUuid: String? = null
+
     fun setCourseId(courseId: String) {
         this.courseId = courseId
     }
@@ -38,7 +42,7 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBottomSheetConfirmOrderBinding.inflate(inflater, container, false)
-        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
         binding.imageClose.setOnClickListener {
             dismiss()
@@ -48,7 +52,7 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
             postEnrollment(savedToken, courseId.toString())
         }
 
-        showDetailCoroutines(savedToken.toString(), courseId.toString())
+        showDetailCoroutines(savedToken ,courseId.toString())
         return binding.root
     }
 
@@ -57,8 +61,10 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         viewModel.postEnrollment("Bearer $token", enrollmentRequest).observe(this){
             when (it.status) {
                 Status.SUCCESS -> {
+                    Log.d("TESTPAYMENTUUID", it.data?.data?.paymentUuid.toString())
+                    val paymentId = it.data?.data?.paymentUuid.toString()
                     val intent = Intent(requireContext(), PaymentActivity::class.java)
-                    intent.putExtra(ENROLLMENT_DATA, it.data?.data)
+                    intent.putExtra("paymentId", paymentId)
                     intent.putExtra(COURSE_ID, courseId)
                     startActivity(intent)
                 }
@@ -72,11 +78,22 @@ class BottomSheetConfirmOrderFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun showDetailCoroutines(token: String?, courseId: String){
+    private fun showDetailCoroutines(token: String, courseId: String){
         viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.let { data -> showData(data) }
+                    val classModule = it.data?.data?.courseModules
+
+                    classModule!!.forEach { classModule ->
+                        materiList.add(classModule)
+                        classModule.module.forEach { module ->
+                            userChapterModuleUuid = module.userChapterModuleUuid
+                        }
+                    }
+
+                    Log.d("DATASUCESS", this.userChapterModuleUuid.toString())
+
                     binding.buttonBuy.visibility = View.VISIBLE
                     binding.ivCardImage.visibility = View.VISIBLE
                     binding.layoutDetail.visibility = View.VISIBLE

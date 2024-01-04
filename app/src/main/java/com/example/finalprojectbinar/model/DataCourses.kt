@@ -40,6 +40,8 @@ data class DataCourses(
     val introVideo: String,
     @SerializedName("onboarding")
     val onboarding: String,
+    @SerializedName("isPaid")
+    val isPaid: Boolean,
     @SerializedName("courseModules")
     val courseModules: List<ClassModule>
 ): Parcelable

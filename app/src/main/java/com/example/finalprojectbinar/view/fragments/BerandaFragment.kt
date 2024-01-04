@@ -148,8 +148,8 @@ class BerandaFragment : Fragment() {
 
     private fun showCourses(data: CoursesResponses?) {
         val adapter = CourseAdapter(null, onButtonClick = { courseId, isPremium ->
-            val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
-            if (isLogin != null) {
+//            val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+//            if (isLogin != null) {
 //                if (isPremium) {
 //                    val bottomSheetFragment = BottomSheetConfirmOrderFragment()
 //                    bottomSheetFragment.setCourseId(courseId)
@@ -163,20 +163,28 @@ class BerandaFragment : Fragment() {
 //                        bundle
 //                    )
 //                }
-                val bundle = Bundle().apply {
-                    putString("courseId", courseId)
-                }
-                findNavController().navigate(
-                    R.id.action_berandaFragment_to_detailKelasFragment,
-                    bundle
-                )
-            } else {
-                val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
-                bottomSheetFragmentMustLogin.show(
-                    childFragmentManager,
-                    bottomSheetFragmentMustLogin.tag
-                )
+//                val bundle = Bundle().apply {
+//                    putString("courseId", courseId)
+//                }
+//                findNavController().navigate(
+//                    R.id.action_berandaFragment_to_detailKelasFragment,
+//                    bundle
+//                )
+//            } else {
+//                val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
+//                bottomSheetFragmentMustLogin.show(
+//                    childFragmentManager,
+//                    bottomSheetFragmentMustLogin.tag
+//                )
+//            }
+
+            val bundle = Bundle().apply {
+                putString("courseId", courseId)
             }
+            findNavController().navigate(
+                R.id.action_berandaFragment_to_detailKelasFragment,
+                bundle
+            )
 
         })
 
