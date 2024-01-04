@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectbinar.R
 import com.example.finalprojectbinar.databinding.FragmentMateriKelasBinding
 import com.example.finalprojectbinar.model.DataCourses
-import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.util.Enum
 import com.example.finalprojectbinar.util.SharedPreferenceHelper
 import com.example.finalprojectbinar.util.Status
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetConfirmOrderFragment
 import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetEnrollmentFree
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetLanjutkanPembayaranFragment
+import com.example.finalprojectbinar.view.fragments.bottomsheets.BottomSheetMustLoginFragment
 import com.example.finalprojectbinar.view.ui.VideoPlayerActivity
 import com.example.finalprojectbinar.viewmodel.MyViewModel
 import org.koin.android.ext.android.inject
@@ -34,6 +35,9 @@ class MateriKelasFragment : Fragment() {
     private var materiList: MutableList<Any> = mutableListOf()
     private lateinit var adapter: ViewTypeAdapterDetail
 
+    private var isPremium: Boolean? = null
+    private var isPaid: Boolean? = null
+
     private val viewModel: MyViewModel by inject()
 
     override fun onCreateView(
@@ -47,30 +51,59 @@ class MateriKelasFragment : Fragment() {
         val id: String? = arguments?.getString(DetailKelasFragment.MATERI_KELAS)
         val author = arguments?.getString(DetailKelasFragment.AUTHOR)
         val image = arguments?.getString(DetailKelasFragment.IMAGE)
-        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+        val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
-        getModuleByCourseId(savedToken!!, id!!, author!!, image!!)
+        getModuleByCourseId(savedToken, id!!, author!!, image!!)
 
         return binding.root
     }
 
 
-    private fun getModuleByCourseId(token: String, courseId: String, author: String, image: String){
-        viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    val data = it.data?.data
-                    showData(data!!, author, image)
-                    binding.progressBar.visibility = View.GONE
-                }
+    private fun getModuleByCourseId(token: String?, courseId: String, author: String, image: String){
+        if (token != "null") {
+            viewModel.getDetailByIdCourse("Bearer $token", courseId).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        val data = it.data?.data
+                        this.isPremium = data?.isPremium;
+                        this.isPaid = data?.isPaid;
+                        Log.d("DATAMATERIKELAS", this.isPremium.toString())
+                        Log.d("DATAMATERIKELAS", this.isPaid.toString())
+                        showData(data!!, author, image)
+                        binding.progressBar.visibility = View.GONE
+                    }
 
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
 
-                Status.LOADING -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        } else {
+            viewModel.getDetailByIdCourse(null, courseId).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        val data = it.data?.data
+                        this.isPremium = data?.isPremium;
+                        this.isPaid = data?.isPaid;
+                        Log.d("DATAMATERIKELAS", this.isPremium.toString())
+                        Log.d("DATAMATERIKELAS", this.isPaid.toString())
+                        showData(data!!, author, image)
+                        binding.progressBar.visibility = View.GONE
+                    }
+
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), R.string.wrongMessage, Toast.LENGTH_SHORT).show()
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+
+                    Status.LOADING -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
                 }
             }
         }
@@ -121,20 +154,55 @@ class MateriKelasFragment : Fragment() {
 
             adapter = ViewTypeAdapterDetail(materiList, clickListener = { chapterModuleUuid, title, userChapterModuleUuid ->
 
-                if (userChapterModuleUuid == null) {
-                    if (data.isPremium) {
-                        val bottomSheetEnrollmentPremium = BottomSheetConfirmOrderFragment()
-                        bottomSheetEnrollmentPremium.setCourseId(data.id)
-                        bottomSheetEnrollmentPremium.show(childFragmentManager, bottomSheetEnrollmentPremium.tag)
-                    } else {
-                        val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
-                        bottomSheetEnrollmentFree.setCourseId(data.id)
-                        bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
-                    }
+                Log.d("TESTUSERUUID", userChapterModuleUuid.toString())
+
+                val isLogin = SharedPreferenceHelper.read(Enum.PREF_NAME.value)
+
+                if (isLogin == null) {
+                    val bottomSheetFragmentMustLogin = BottomSheetMustLoginFragment()
+                    bottomSheetFragmentMustLogin.show(childFragmentManager, bottomSheetFragmentMustLogin.tag)
                 } else {
-                    updateCompleted(savedToken, userChapterModuleUuid)
-                    getVideoLink(savedToken, title, chapterModuleUuid, author, image)
+                    if (userChapterModuleUuid == null) {
+                        if (data.isPremium) {
+                            val bottomSheetEnrollmentPremium = BottomSheetConfirmOrderFragment()
+                            bottomSheetEnrollmentPremium.setCourseId(data.id)
+                            bottomSheetEnrollmentPremium.show(childFragmentManager, bottomSheetEnrollmentPremium.tag)
+                        }
+                        else {
+                            val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
+                            bottomSheetEnrollmentFree.setCourseId(data.id)
+                            bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
+                        }
+                    } else {
+                        if (isPremium == true && isPaid == false) {
+                            val bottomSheetEnrollmentPremium = BottomSheetLanjutkanPembayaranFragment()
+                            bottomSheetEnrollmentPremium.setCourseId(data.id)
+                            bottomSheetEnrollmentPremium.show(childFragmentManager, bottomSheetEnrollmentPremium.tag)
+                        } else {
+                            updateCompleted(savedToken, userChapterModuleUuid)
+                            getVideoLink(savedToken, title, chapterModuleUuid, author, image)
+                        }
+
+                    }
+
                 }
+
+//                if (userChapterModuleUuid == null) {
+//                    if (data.isPremium) {
+//                        val bottomSheetEnrollmentPremium = BottomSheetConfirmOrderFragment()
+//                        bottomSheetEnrollmentPremium.setCourseId(data.id)
+//                        bottomSheetEnrollmentPremium.show(childFragmentManager, bottomSheetEnrollmentPremium.tag)
+//                    } else {
+//                        val bottomSheetEnrollmentFree = BottomSheetEnrollmentFree()
+//                        bottomSheetEnrollmentFree.setCourseId(data.id)
+//                        bottomSheetEnrollmentFree.show(childFragmentManager, bottomSheetEnrollmentFree.tag)
+//                    }
+//                } else {
+//                    updateCompleted(savedToken, userChapterModuleUuid)
+//                    getVideoLink(savedToken, title, chapterModuleUuid, author, image)
+//                }
+
+
 
             })
             binding.rvMateriChapter.adapter = adapter

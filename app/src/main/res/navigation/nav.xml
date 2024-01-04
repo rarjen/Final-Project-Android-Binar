@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_detailKelasFragment_to_berandaFragment"
             app:destination="@id/berandaFragment" />
+        <action
+            android:id="@+id/action_detailKelasFragment_to_kelasSayaFragment"
+            app:destination="@id/kelasSayaFragment" />
     </fragment>
     <fragment
         android:id="@+id/kelasSayaFragment"

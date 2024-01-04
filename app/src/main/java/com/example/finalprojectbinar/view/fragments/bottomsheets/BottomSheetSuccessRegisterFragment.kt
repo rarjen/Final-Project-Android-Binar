@@ -27,12 +27,17 @@ class BottomSheetSuccessRegisterFragment : BottomSheetDialogFragment()  {
 
         binding.btnToLoginActivity.setOnClickListener {
             pref.write(Enum.PREF_REGISTER.value, null)
-            val intent = Intent(requireContext(), LoginActivity::class.java)
+            dismiss()
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
+
         }
 
         binding.imageClose.setOnClickListener {
+            pref.write(Enum.PREF_REGISTER.value, null)
             dismiss()
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            startActivity(intent)
         }
         return binding.root
     }

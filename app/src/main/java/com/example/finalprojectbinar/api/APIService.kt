@@ -7,6 +7,7 @@ import com.example.finalprojectbinar.model.EnrollmentRequest
 import com.example.finalprojectbinar.model.EnrollmentResponse
 import com.example.finalprojectbinar.model.ForgetPasswordRequest
 import com.example.finalprojectbinar.model.ForgetPasswordResponse
+import com.example.finalprojectbinar.model.GetHistoryPaymentByPaymentIdResponse
 import com.example.finalprojectbinar.model.GetVideoResponse
 import com.example.finalprojectbinar.model.ListCategoriesResponse
 import com.example.finalprojectbinar.model.LoginRequest
@@ -131,4 +132,10 @@ interface APIService {
     suspend fun forgetPassword(
         @Body email : ForgetPasswordRequest
     ): ForgetPasswordResponse
+
+    @GET("/courses/invoice/paymentUuid")
+    suspend fun getHistoryPaymentById(
+        @Header("Authorization") token : String?,
+        @Path("paymentUuid") paymentUuid: String
+    ): GetHistoryPaymentByPaymentIdResponse
 }
