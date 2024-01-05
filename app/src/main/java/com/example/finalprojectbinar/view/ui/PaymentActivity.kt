@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -42,7 +43,6 @@ class PaymentActivity : AppCompatActivity() {
         val fragmentList = arrayListOf(CreditCardFragment(), BankFragment())
         val courseId = intent.getStringExtra(BottomSheetConfirmOrderFragment.COURSE_ID)
         val paymentId = intent.getStringExtra("paymentId")
-        Log.d("PAYMENTID", paymentId.toString())
         val savedToken = SharedPreferenceHelper.read(Enum.PREF_NAME.value).toString()
 
         showDetailCoroutines(savedToken, courseId.toString())
@@ -58,8 +58,7 @@ class PaymentActivity : AppCompatActivity() {
             }.attach()
 
             buttonCheckout.setOnClickListener{
-                showButtomSheetSuccessPayment()
-                updatePaymentStatus(savedToken, paymentId.toString())
+                performPayment(savedToken, paymentId.toString())
             }
 
             ivBack.setOnClickListener {
@@ -83,11 +82,15 @@ class PaymentActivity : AppCompatActivity() {
         })
     }
 
+    private fun performPayment(savedToken: String, paymentId: String) {
+        showButtomSheetSuccessPayment()
+        updatePaymentStatus(savedToken, paymentId)
+    }
+
     @SuppressLint("InflateParams")
     private fun showButtomSheetSuccessPayment() {
         val bottomSheetCheckoutCourseFragment = BottomSheetCheckoutCourseFragment.newInstance(preparation!!)
         bottomSheetCheckoutCourseFragment.show(supportFragmentManager, bottomSheetCheckoutCourseFragment.tag)
-
     }
 
     private fun showDetailCoroutines(token: String?, courseId: String){
@@ -129,6 +132,7 @@ class PaymentActivity : AppCompatActivity() {
             .fitCenter()
             .into(binding.imgCourseCover)
     }
+
     private fun updatePaymentStatus(token: String?, paymentId: String?) {
         if (token != null && paymentId != null) {
             val paymentRequest = PaymentRequest(payment_method = "credit card")
@@ -153,6 +157,7 @@ class PaymentActivity : AppCompatActivity() {
     companion object {
         const val PREPARATION = "preparation"
     }
+
 
 
 }
