@@ -6,10 +6,13 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:elevation="4dp"
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/logo_belajar"
+        android:src="@drawable/brain_svgrepo_com"
+        android:background="@drawable/background_logo"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
